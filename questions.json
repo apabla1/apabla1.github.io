@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "title": "Email Validator",
+        "prompt": "Write a regex to validate email addresses. There can be any amount of letters, numbers, periods, and underscores before the @ symbol, but there musn't be a period preceding the @ symbol. After the @ symbol, there can be any amount of letters, numbers, and periods. The email must end in a period followed by a 2-4 letter domain.",
+        "valid_examples": [
+            "test@example.com",
+            "user.name@domain.co",
+            "name.lastname@sub.domain.com",
+            "valid_email+alias@example.com"
+        ],
+        "invalid_examples": [
+            "user@domain",
+            "@domain.com",
+            "user@domain.c",
+            "user@.com",
+            "id@terpmail#umd#edu"
+        ],
+        "publicTests": [
+            { "input": "test@example.com", "expected": true },
+            { "input": "user.name@domain.co", "expected": true },
+            { "input": "user@domain", "expected": false },
+            { "input": "@domain.com", "expected": false }
+            { "input": "user@domain.c", "expected": false }
+            { "input": "user@.com", "expected": false }
+            { "input": "name.lastname@sub.domain.com", "expected": true },
+            { "input": "valid_email+alias@example.com", "expected": true },
+            { "input": "id@terpmail#umd#edu", "expected": false },
+        ],
+        "secretTests": [
+            { "input": "user@domain..com", "expected": false },
+            { "input": "user@domain.com.", "expected": false },
+            { "input": "user@-domain.com", "expected": false },
+            { "input": "user@domain-.com", "expected": false },
+            { "input": "user@domain..com", "expected": false },
+        ]
+    }
+]
