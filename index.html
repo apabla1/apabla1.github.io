@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regex Generator</title>
+    <title>Regex Challenge</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Regex Generator</h1>
+        <h1>Regex Challenge</h1>
 
-        <!-- Question Selector -->
-        <label for="question-selector">Choose a question:</label>
-        <select id="question-selector"></select>
+        <!-- Counter -->
+        <p>Solved: <span id="solved-count">0</span> / <span id="total-questions">0</span></p>
 
-        <!-- Problem Description -->
+        <!-- Random Question Button -->
+        <button id="random-question">Random Question</button>
+
+        <!-- Problem Container -->
         <div id="problem-container">
-            <h2>Loading...</h2>
-            <p>Please select a question to see the prompt.</p>
+            <h2>Select a Question</h2>
+            <p>Click "Random Question" to start.</p>
         </div>
 
-        <!-- Regex Input -->
+        <!-- Input -->
         <textarea id="regex-input" placeholder="Enter your regex here"></textarea>
-        
+
         <!-- Run Tests Button -->
         <button id="run-tests">Run Tests</button>
-        
+
         <!-- Results Section -->
         <div id="results"></div>
     </div>
