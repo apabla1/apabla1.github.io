@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Regex Generator</h1>
+
+        <!-- Question Selector -->
+        <label for="question-selector">Choose a question:</label>
+        <select id="question-selector"></select>
+
+        <!-- Problem Description -->
+        <div id="problem-container">
+            <h2>Loading...</h2>
+            <p>Please select a question to see the prompt.</p>
+        </div>
+
+        <!-- Regex Input -->
+        <textarea id="regex-input" placeholder="Enter your regex here"></textarea>
+        
+        <!-- Run Tests Button -->
+        <button id="run-tests">Run Tests</button>
+        
+        <!-- Results Section -->
+        <div id="results"></div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
