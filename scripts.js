@@ -9,6 +9,7 @@ fetch("questions.json")
         questions = data;
         document.getElementById("total-questions").textContent = questions.length;
         populateQuestionDropdown();
+        document.getElementById("sample-answer").style.display = "none";
     })
     .catch(error => {
         console.error(error);
@@ -30,20 +31,24 @@ function populateQuestionDropdown() {
         option.textContent = `Question ${question.id} - ${question.title}`;
         questionDropdown.appendChild(option);
     });
-
-    // change event
-    questionDropdown.addEventListener("change", (event) => {
-        if (event.target.value === "") {
-            currentQuestion = null;
-            document.getElementById("info").textContent = "Click 'Random Question' or choose one from the bank to start";
-            document.getElementById("results").innerHTML = "";
-            document.getElementById("feedback").innerHTML = "";
-            return;
-        }
-        loadQuestion(event.target.value);
-        document.getElementById("feedback").textContent = "";
-    });
 }
+
+// change event
+document.getElementById("question-bank").addEventListener("change", (event) => {
+    if (event.target.value === "") {
+        currentQuestion = null;
+        document.getElementById("info").textContent = "Click 'Random Question' or choose one from the bank to start";
+        document.getElementById("feedback").innerHTML = "";
+        document.getElementById("input").value = "";
+        document.getElementById("public-tests").innerHTML = "";
+        document.getElementById("secret-tests").innerHTML = "";
+        document.getElementById("detailed-output").innerHTML = "";
+        document.getElementById("sample-answer").style.display = "none";
+        return;
+    }
+    loadQuestion(event.target.value);
+    document.getElementById("feedback").textContent = "";
+});
 
 // load a specific question by index
 function loadQuestion(index) {
@@ -52,8 +57,8 @@ function loadQuestion(index) {
     "<i>" + currentQuestion.prompt + "</i><br /><br />" +
     "<strong>Valid Examples:</strong>" + currentQuestion.valid_examples.map(example => `<li style="font-family: Consolas, monospace;">${example}</li>`).join("\n") + "</ul><br />" +
     "<strong>Invalid Examples:</strong>" + currentQuestion.invalid_examples.map(example => `<li style="font-family: Consolas, monospace;">${example}</li>`).join("\n") + "</ul>";
-    document.getElementById("results").innerHTML = "";
     document.getElementById("feedback").textContent = "";
+    document.getElementById("sample-answer").style.display = "inline-block";
 }
 
 // pick a random unsolved question
@@ -67,20 +72,41 @@ document.getElementById("random-question").addEventListener("click", () => {
     const randomIndex = Math.floor(Math.random() * unsolvedQuestions.length);
     const questionIndex = questions.indexOf(unsolvedQuestions[randomIndex]);
     loadQuestion(questionIndex);
+
+    document.getElementById("question-bank").value = questionIndex;
 });
 
 // run tests and check the solution
 document.getElementById("run-tests").addEventListener("click", () => {
     if (!currentQuestion) {
-        document.getElementById("feedback").textContent = "Choose a question to get started!";
+        if (document.getElementById("input").value.trim() === "") {
+            document.getElementById("feedback").textContent = "Choose a question and enter Regex!";
+        } else {
+            document.getElementById("feedback").textContent = "Choose a question!";
+        }
         return;
     }
-    const regexInput = document.getElementById("input").value.trim();
-    const regex = new RegExp(regexInput);
+
+    let rawInput = document.getElementById("input").value.trim();
+    if (rawInput === "") {
+        document.getElementById("feedback").textContent = "Enter Regex!";
+        return;
+    }
+
+    let regexInput = '^' + rawInput + '$';
+
+    let regex;
+    try {
+        regex = new RegExp(regexInput);
+    } catch (e) {
+        document.getElementById("feedback").textContent = "Invalid regex pattern.";
+        return;
+    }
 
     let allTestsPassed = true;
-    let results = `<br /><h3>Results:</h3>`;
-    results += `<h4>Public Tests:</h4>`;
+    let publist = ``;
+    let pubtable = ``;
+    let secretlist = ``;
 
     // table headers
     const table = document.getElementById("detailed-output");
@@ -88,14 +114,18 @@ document.getElementById("run-tests").addEventListener("click", () => {
         <tr>
             <th>Public Test #</th>
             <th>Input</th>
-            <th>Result</th>
+            <th>Accepted?</th>
+            <th>Your Result</th>
+            <th>Passed?</th>
         </tr>
     `;
 
     // public tests
+    const publ = document.getElementById("public-tests");
+    publist += `<h4>Public Tests:</h4>`;
     currentQuestion.publicTests.forEach((test, i) => {
         const passed = regex.test(test.input) === test.expected;
-        results += `<p>Test ${i + 1}: ${passed ? '✅ Passed' : '❌ Failed'}</p>`;
+        publist += `<p>Test ${i + 1}: ${passed ? '✅ Passed' : '❌ Failed'}</p>`;
         if (!passed) allTestsPassed = false;
 
         // add row to table
@@ -103,20 +133,24 @@ document.getElementById("run-tests").addEventListener("click", () => {
         row.innerHTML = `
             <td>${i + 1}</td>
             <td style="font-family: Consolas, monospace;">${test.input}</td>
+            <td>${test.expected}</td>
+            <td>${regex.test(test.input)}</td>
             <td>${passed ? '✅' : '❌'}</td>
         `;
         table.appendChild(row);
     });
+    publ.innerHTML = publist;
 
     // secret tests
-    results += `<h4>Secret Tests:</h4>`;
+    const secr = document.getElementById("secret-tests");
+    secretlist += `<h4>Secret Tests:</h4>`;
     currentQuestion.secretTests.forEach((test, i) => {
         const passed = regex.test(test.input) === test.expected;
-        results += `<p>Test ${i + 1}: ${passed ? '✅ Passed' : '❌ Failed'}</p>`;
+        secretlist += `<p>Test ${i + 1}: ${passed ? '✅ Passed' : '❌ Failed'}</p>`;
         if (!passed) allTestsPassed = false;
     });
+    secr.innerHTML = secretlist;
 
-    document.getElementById("results").innerHTML = results;
 
     if (allTestsPassed) {
         const questionIndex = questions.indexOf(currentQuestion);
@@ -126,14 +160,14 @@ document.getElementById("run-tests").addEventListener("click", () => {
             document.getElementById("feedback").textContent = "✅ All tests passed!";
         }
     } else {
-        document.getElementById("feedback").textContent = "❌ Some tests failed.";
+        document.getElementById("feedback").textContent = "❌ Some tests failed. See detailed output below.";
     }
 });
 
 // show sample answer
 document.getElementById("sample-answer").addEventListener("click", () => {
     if (!currentQuestion) {
-        document.getElementById("feedback").textContent = "Choose a question to get started!";
+        document.getElementById("feedback").textContent = "Choose a question!";
         return;
     }
     const popup = document.getElementById("sample-answer-popup");
@@ -142,11 +176,22 @@ document.getElementById("sample-answer").addEventListener("click", () => {
             <button id="popup-close" style="float: right;">X</button>
             <div style="font-family: Consolas, monospace;">${currentQuestion.sampleAnswer}</div>
         `;
+
         const sampleAnswerBtn = document.getElementById("sample-answer");
         const rect = sampleAnswerBtn.getBoundingClientRect();
-        popup.style.left = rect.left + "px";
-        popup.style.top = (rect.top - popup.offsetHeight) + "px";
+
         popup.style.display = "block";
+        popup.style.visibility = "hidden";
+        const popupHeight = popup.offsetHeight;
+        const popupWidth = popup.offsetWidth;
+
+        const topPosition = rect.top + window.scrollY - popupHeight - 10;
+        const leftPosition = rect.left + (rect.width / 2) - (popupWidth / 2);
+
+        popup.style.left = `${leftPosition}px`;
+        popup.style.top = `${topPosition}px`;
+
+        popup.style.visibility = "visible";
 
         document.getElementById("popup-close").addEventListener("click", () => {
             popup.style.display = "none";

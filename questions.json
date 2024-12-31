@@ -2,36 +2,53 @@
     {
         "id": 1,
         "title": "Email Addresses",
-        "prompt": "Write a regex to validate email addresses. There can be any amount of letters, numbers, periods, and underscores before the @ symbol, but there musn't be a period preceding the @ symbol. After the @ symbol, there can be any amount of letters, numbers, and periods. The email must end in a period followed by a 2-4 letter domain.",
+        "prompt": "Write a regex to validate email addresses. There must be one or more letters, numbers, or underscores in any order before the @ symbol, but there musn't be an underscore preceding the @ symbol. After the @ symbol, we have the domain. The domain is separated by the second-level domain and the top-level domain (e.g., in \"username@gmail.com\", the second-level domain is \"gmail\" and the top-level domain is \".com\"). For the second-level domain, there must be one or more letters, numbers, and periods in any order, but there musn't be a period at the end. The top-level domain must be either '.com', '.co', or '.edu'.",
         "valid_examples": [
             "test@example.com",
             "user.name@domain.co",
             "name.lastname@sub.domain.com",
-            "valid_email+alias@example.com"
+            "valid_email@example.com",
+            "dirid@terpmail.umd.edu",
+            "330@umd.edu",
+            "__a@gmail.com"
         ],
         "invalid_examples": [
             "user@domain",
             "@domain.com",
             "user@domain.c",
-            "user@.com"
+            "user@.com",
+            "user@domain..com",
+            "user.name@domain.foo",
+            "user@name@domain.com"
         ],
         "publicTests": [
             { "input": "test@example.com", "expected": true },
             { "input": "user.name@domain.co", "expected": true },
             { "input": "name.lastname@sub.domain.com", "expected": true },
-            { "input": "valid_email+alias@example.com", "expected": true },
+            { "input": "valid_email_alias@example.com", "expected": true },
+            { "input": "dirid@terpmail.umd.edu", "expected": true },
+            { "input": "330@umd.edu", "expected": true },
+            { "input": "__a@gmail.com", "expected": true },
             { "input": "user@domain", "expected": false },
             { "input": "@domain.com", "expected": false },
             { "input": "user@domain.c", "expected": false },
-            { "input": "user@.com", "expected": false }
+            { "input": "user@.com", "expected": false },
+            { "input": "user@domain..com", "expected": false },
+            { "input": "user.name@domain.foo", "expected": false },
+            { "input": "user@name@domain.com", "expected": false }
         ],
         "secretTests": [
             { "input": "user@domain..com", "expected": false },
             { "input": "user@domain.com.", "expected": false },
             { "input": "user@-domain.com", "expected": false },
             { "input": "user@domain-.com", "expected": false },
+            { "input": "invalid-email@example.com", "expected": false },
+            { "input": "a_b@gmail.com", "expected": true },
+            { "input": "@.com", "expected": false },
             { "input": "user@domain..com", "expected": false },
-            { "input": "id@terpmail#umd#edu", "expected": false }
+            { "input": "id@terpmail#umd#edu", "expected": false },
+            { "input": "_@gmail.com", "expected": false },
+            { "input": "a_@gmail.com", "expected": false }
         ],
         "sampleAnswer": "fghjf"
     }
