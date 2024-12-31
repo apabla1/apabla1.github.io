@@ -14,17 +14,27 @@ fetch("questions.json")
         alert("Failed to load questions. Please check the console for more details.");
     });
 
+// Populate question dropdown
+// const questionDropdown = document.getElementById("question-dropdown");
+// questions.forEach((question, index) => {
+//     const option = document.createElement("option");
+//     option.value = index;
+//     option.textContent = `Question ${question.id} - ${question.title}`;
+//     questionDropdown.appendChild(option);
+// });
+// questionDropdown.addEventListener("change", (event) => {
+//     const selectedIndex = event.target.value;
+//     loadQuestion(selectedIndex);
+// });
+
 // Load a specific question by index
 function loadQuestion(index) {
     currentQuestion = questions[index];
-    document.getElementById("problem-container").innerHTML = `
-        <h2>${currentQuestion.title}</h2>
-        <p>${currentQuestion.prompt}</p>
-        <h3>Examples:</h3>
-        <ul>
-            ${currentQuestion.publicTests.map(test => `<li>${test.input}</li>`).join('')}
-        </ul>
-    `;
+    document.getElementById("info").innerHTML = "<u><strong>Question</strong> " + currentQuestion.id + " - " + currentQuestion.title + "</u><br /><br />" +
+    "<i>" + currentQuestion.prompt + "</i><br /><br />" +
+    "<strong>Valid Examples:</strong>" + currentQuestion.valid_examples.map(example => `<li>${example}</li>`).join("\n") + "</ul><br /><br />" +
+    "<strong>Invalid Examples:</strong>" + currentQuestion.invalid_examples.map(example => `<li>${example}</li>`).join("\n") + "</ul>";
+    document.getElementById("results").innerHTML = "";
 }
 
 // Pick a random unsolved question
@@ -70,9 +80,9 @@ document.getElementById("run-tests").addEventListener("click", () => {
         if (!solvedQuestions.has(questionIndex)) {
             solvedQuestions.add(questionIndex);
             document.getElementById("solved-count").textContent = solvedQuestions.size;
-            alert("✅ All tests passed! Question solved!");
+            alert("✅ All tests passed!");
         }
     } else {
-        alert("❌ Some tests failed. Try again!");
+        alert("❌ Some tests failed.");
     }
 });

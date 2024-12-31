@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "title": "Email Validator",
+        "title": "Email Addresses",
         "prompt": "Write a regex to validate email addresses. There can be any amount of letters, numbers, periods, and underscores before the @ symbol, but there musn't be a period preceding the @ symbol. After the @ symbol, there can be any amount of letters, numbers, and periods. The email must end in a period followed by a 2-4 letter domain.",
         "valid_examples": [
             "test@example.com",
@@ -13,8 +13,7 @@
             "user@domain",
             "@domain.com",
             "user@domain.c",
-            "user@.com",
-            "id@terpmail#umd#edu"
+            "user@.com"
         ],
         "publicTests": [
             { "input": "test@example.com", "expected": true },
