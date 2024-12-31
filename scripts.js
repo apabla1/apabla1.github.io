@@ -8,6 +8,10 @@ fetch("questions.json")
     .then(data => {
         questions = data;
         document.getElementById("total-questions").textContent = questions.length;
+    })
+    .catch(error => {
+        console.error("Error loading questions:", error);
+        alert("Failed to load questions. Please check the console for more details.");
     });
 
 // Load a specific question by index
