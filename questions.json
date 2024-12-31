@@ -18,20 +18,21 @@
         "publicTests": [
             { "input": "test@example.com", "expected": true },
             { "input": "user.name@domain.co", "expected": true },
+            { "input": "name.lastname@sub.domain.com", "expected": true },
+            { "input": "valid_email+alias@example.com", "expected": true },
             { "input": "user@domain", "expected": false },
             { "input": "@domain.com", "expected": false },
             { "input": "user@domain.c", "expected": false },
-            { "input": "user@.com", "expected": false },
-            { "input": "name.lastname@sub.domain.com", "expected": true },
-            { "input": "valid_email+alias@example.com", "expected": true },
-            { "input": "id@terpmail#umd#edu", "expected": false }
+            { "input": "user@.com", "expected": false }
         ],
         "secretTests": [
             { "input": "user@domain..com", "expected": false },
             { "input": "user@domain.com.", "expected": false },
             { "input": "user@-domain.com", "expected": false },
             { "input": "user@domain-.com", "expected": false },
-            { "input": "user@domain..com", "expected": false }
-        ]
+            { "input": "user@domain..com", "expected": false },
+            { "input": "id@terpmail#umd#edu", "expected": false }
+        ],
+        "sampleAnswer": "fghjf"
     }
 ]

@@ -8,8 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <h1>Regex Exercises</h1>
-
         <!-- Counter -->
         <p>Solved: <span id="solved-count">0</span> / <span id="total-questions">0</span></p>
 
@@ -25,13 +23,29 @@
         <div id="info">Click 'Random Question' or choose one from the bank to start</div>
 
         <!-- Input -->
-        <textarea id="regex-input" placeholder="Enter your regex here" style="width: 25%;"></textarea>
+        <textarea id="input" placeholder="Enter your regex here" style="width: 25%;"></textarea>
 
-        <!-- Run Tests Button -->
-        <button id="run-tests">Run Tests</button>
+        <!-- Sample Answer & Run Tests Buttons + Popup -->
+        <div style="display: flex; justify-content: space-between;">
+            <!-- Add popup container above the sample answer button -->
+            <div id="sample-answer-popup" class="popup" style="display: none; position: absolute;">
+                <button id="popup-close" style="float: right;">X</button>
+            </div>
+            <button id="run-tests" style="height: 40px; float: left;">Run Tests</button>
+            <button id="sample-answer" style="height: 40px; float: right;">Sample Answer</button>
+        </div>
+
+        <!-- Feedback -->
+        <div id="feedback"></div>
 
         <!-- Results Section -->
-        <div id="results"></div>
+        <br />
+        <div id="results" style="float: left; width: 25%;"></div>
+        <div id="public-tests" style="float: right; width: 75%;">
+            <br /><br /><br /><br /><br /><br /><br /><table id="detailed-output">
+                <!-- Detailed output of public tests goes here -->
+            </table>
+        </div>
     </div>
 
     <script src="scripts.js"></script>

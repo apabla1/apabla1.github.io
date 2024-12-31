@@ -23,7 +23,7 @@ p {
     color: #666;
 }
 
-#question-bank, #random-question, #run-tests {
+#question-bank, #random-question, #run-tests, #sample-answer {
     display: block;
     margin: 10px 0;
     padding: 10px;
@@ -56,4 +56,30 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+.popup {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+#sample-answer-popup {
+    position: absolute;
+}
+#popup-close {
+    background: none;
+    border: 1px solid #000;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+    text-align: left;
 }
