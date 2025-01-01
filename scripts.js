@@ -171,9 +171,9 @@ document.getElementById("run-tests").addEventListener("click", () => {
         const questionIndex = questions.indexOf(currentQuestion);
         if (!solvedQuestions.has(questionIndex)) {
             solvedQuestions.add(questionIndex);
-            document.getElementById("solved-count").textContent = solvedQuestions.size;
-            document.getElementById("feedback").textContent = "✅ All tests passed!";
         }
+        document.getElementById("solved-count").textContent = solvedQuestions.size;
+        document.getElementById("feedback").textContent = "✅ All tests passed!";
     } else {
         document.getElementById("feedback").textContent = "❌ Some tests failed. See detailed output below.";
     }
