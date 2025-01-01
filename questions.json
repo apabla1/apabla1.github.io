@@ -229,6 +229,7 @@
             "FFF",
             "#000000",
             "f0f0f0",
+            "666",
             "#AaBbCc",
             "abc123",
             "#123456"
@@ -247,6 +248,7 @@
             { "input": "FFF", "expected": true },
             { "input": "#000000", "expected": true },
             { "input": "f0f0f0", "expected": true },
+            { "input": "666", "expected": true },
             { "input": "#AaBbCc", "expected": true },
             { "input": "abc123", "expected": true },
             { "input": "#123456", "expected": true },
