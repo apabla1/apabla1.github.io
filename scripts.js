@@ -72,6 +72,10 @@ function loadQuestion(index) {
     document.getElementById("input").style.display = "inline-block";
     document.getElementById("carat").style.display = "inline-block";
     document.getElementById("dollar").style.display = "inline-block";
+    document.getElementById("sample-answer-popup").style.display = "none";
+    document.getElementById("public-tests").innerHTML = "";
+    document.getElementById("secret-tests").innerHTML = "";
+    document.getElementById("detailed-output").innerHTML = "";
 }
 
 // pick a random unsolved question
@@ -110,7 +114,7 @@ document.getElementById("run-tests").addEventListener("click", () => {
     try {
         regex = new RegExp(regexInput);
     } catch (e) {
-        document.getElementById("feedback").textContent = "Invalid regex pattern.";
+        document.getElementById("feedback").textContent = e.message;
         return;
     }
 
@@ -210,3 +214,4 @@ document.getElementById("sample-answer").addEventListener("click", () => {
         });
     }
 });
+
