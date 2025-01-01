@@ -13,7 +13,10 @@
     <!-- Prompt + Input -->
     <div class="container">
         <!-- Counter -->
-        <p>Solved: <span id="solved-count">0</span> / <span id="total-questions">0</span></p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <p>Solved: <span id="solved-count">0</span> / <span id="total-questions">0</span></p>
+            <div>Errors: <u>apabla@terpmail.umd.edu</u></div>
+        </div>
 
         <!-- cheatsheet -->
         <div id="cheatsheet" style="border: 1px solid #ccc; padding: 10px; margin-top: 5px; margin-bottom: 15px; background-color: #f9f9f9;">
@@ -61,7 +64,7 @@
                         <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>[abc]</strong></td>
                         <td style="border: 1px solid #ccc; padding: 8px;">match any character in abc</td>
                         <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>(p)</strong></td>
-                        <td style="border: 1px solid #ccc; padding: 8px;">capture the pattern p and store it somewhere (match group in Python)</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">capture the pattern <span style="font-family: Consolas;">p</span> and store it somewhere (match group in Python)</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>[^abc]</strong></td>

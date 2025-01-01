@@ -2,7 +2,7 @@
     {
         "id": 1,
         "title": "Email Addresses",
-        "prompt": "Write a regex to validate email addresses. There must be one or more (uppercase or lowercase) letters, numbers, periods, or underscores in any order before the @ symbol, but there musn't be an underscore preceding the @ symbol. After the @ symbol, we have the domain. The domain is separated by the second-level domain and the top-level domain (e.g., in \"username@gmail.com\", the second-level domain is \"gmail\" and the top-level domain is \".com\"). For the second-level domain, there must be one or more (uppercase or lowercase) letters, numbers, and periods in any order, but there musn't be a period at the end. The top-level domain must be either '.com', '.co', or '.edu'.",
+        "prompt": "Write a regular expression to validate email addresses. There must be one or more (uppercase or lowercase) letters, numbers, periods, or underscores in any order before the @ symbol, but there musn't be an underscore preceding the @ symbol. After the @ symbol, we have the domain. The domain is separated by the second-level domain and the top-level domain (e.g., in \"username@gmail.com\", the second-level domain is \"gmail\" and the top-level domain is \".com\"). For the second-level domain, there must be one or more (uppercase or lowercase) letters, numbers, and periods in any order, but there musn't be a period at the end. The top-level domain must be either '.com', '.co', or '.edu'.",
         "valid_examples": [
             "test@example.com",
             "user.name@domain.co",
@@ -71,7 +71,7 @@
     {
         "id": 2,
         "title": "Secure Passwords",
-        "prompt": "Write a regex to validate a password that must be between 8 to 15 characters, contain at least one uppercase letter, one lowercase letter, one digit, and one special character (allowed: !, @, #, $, %, ^, &, *) with no spaces.",
+        "prompt": "Write a regular expression to validate a password that must be between 8 to 15 characters, contain at least one uppercase letter, one lowercase letter, one digit, and one special character (allowed: !, @, #, $, %, ^, &, *) with no spaces.",
         "valid_examples": [
             "Abcd1234!",
             "P@ssw0rd1",
@@ -127,7 +127,7 @@
     {
         "id": 3,
         "title": "US Phone Numbers",
-        "prompt": "Write a regex to validate a US phone number in the format (XXX) XXX-XXXX, (XXX)-XXX-XXXX, or XXX-XXX-XXXX, allowing optional country code '+1 ' (space after) at the beginning. Make sure your solution includes spaces where necessary.",
+        "prompt": "Write a regular expression to validate a US phone number in the format (XXX) XXX-XXXX, (XXX)-XXX-XXXX, or XXX-XXX-XXXX, allowing optional country code '+1 ' (space after) at the beginning. Make sure your solution includes spaces where necessary.",
         "valid_examples": [
             "(123) 456-7890",
             "123-456-7890",
@@ -175,7 +175,7 @@
     {
         "id": 4,
         "title": "IPv4 Addresses",
-        "prompt": "Write a regex to validate an IPv4 address (four octets, each 0-255, separated by dots). Leading zeros are allowed, but each octet must be a valid decimal number in [0-255].",
+        "prompt": "Write a regular expression to validate an IPv4 address (four octets, each 0-255, separated by dots). Leading zeros are allowed, but each octet must be a valid decimal number in [0-255].",
         "valid_examples": [
             "192.168.1.1",
             "127.0.0.1",
