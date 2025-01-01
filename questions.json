@@ -271,22 +271,24 @@
     {
         "id": 6,
         "title": "ISO 8601 Dates",
-        "prompt": "Write a regular expression to validate dates in the format YYYY-MM-DD. The year must be four digits. The month must be 01 to 12, and the day must be valid for the given month. Days per month: January (31), February (28 or 29), March (31), April (30), May (31), June (30), July (31), August (31), September (30), October (31), November (30), December (31).",
+        "prompt": "Write a regular expression to validate 20th and 21st century dates in the format YYYY-MM-DD. The day must be 01-31, and month must be 01-12 (zero-padded). The day need not correspond to the month, but days must be in the valid range.",
         "valid_examples": [
             "2023-01-01",
             "1999-12-31",
             "2000-02-29",
             "2022-09-30",
             "1980-11-15",
-            "2024-02-29"
+            "2024-02-29",
+            "2023-02-30"
         ],
         "invalid_examples": [
-            "2023-02-30",
+            "1899-02-15",
             "2023-13-01",
             "202-01-01",
             "2023-4-05",
             "2023-00-10",
-            "2023-01-32"
+            "2023-01-32",
+            "2125-02-15"
         ],
         "publicTests": [
             { "input": "2023-01-01", "expected": true },
@@ -295,12 +297,14 @@
             { "input": "2022-09-30", "expected": true },
             { "input": "1980-11-15", "expected": true },
             { "input": "2024-02-29", "expected": true },
-            { "input": "2023-02-30", "expected": false },
+            { "input": "2023-02-30", "expected": true },
+            { "input": "1899-02-15", "expected": false },
             { "input": "2023-13-01", "expected": false },
             { "input": "202-01-01", "expected": false },
             { "input": "2023-4-05", "expected": false },
             { "input": "2023-00-10", "expected": false },
-            { "input": "2023-01-32", "expected": false }
+            { "input": "2023-01-32", "expected": false },
+            { "input": "2125-02-15", "expected": false }
         ],
         "secretTests": [
             { "input": "1980-11-15", "expected": true },
@@ -308,7 +312,8 @@
             { "input": "2023-00-10", "expected": false },
             { "input": "2023-01-32", "expected": false },
             { "input": "2030-05-20", "expected": true },
-            { "input": "2025-02-29", "expected": false }
+            { "input": "1825-02-29", "expected": false },
+            { "input": "2025-02-29", "expected": true }
         ],
         "sampleAnswer": "(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"
     }
