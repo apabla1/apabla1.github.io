@@ -35,23 +35,155 @@
             { "input": "user@.com", "expected": false },
             { "input": "user@domain..com", "expected": false },
             { "input": "user.name@domain.foo", "expected": false },
-            { "input": "user@name@domain.com", "expected": false }
-        ],
-        "secretTests": [
-            { "input": "user@domain..com", "expected": false },
+            { "input": "user@name@domain.com", "expected": false },
             { "input": "user@domain.com.", "expected": false },
-            { "input": "user@-domain.com", "expected": false },
             { "input": "user@domain-.com", "expected": false },
             { "input": "invalid-email@example.com", "expected": false },
             { "input": "a_b@gmail.com", "expected": true },
             { "input": "@.com", "expected": false },
-            { "input": "user@domain..com", "expected": false },
+            { "input": "user@domain..com", "expected": false }
+        ],
+        "secretTests": [
             { "input": "id@terpmail#umd#edu", "expected": false },
             { "input": "_@gmail.com", "expected": false },
             { "input": "a_@gmail.com", "expected": false },
             { "input": "invalid?email@example.com", "expected": false },
-            { "input": "invalid.email@example_com", "expected": false }
+            { "input": "invalid.email@example_com", "expected": false },
+            { "input": "valid.email@domain.com", "expected": true },
+            { "input": "another.valid@domain.co", "expected": true },
+            { "input": "valid123@sub.domain.edu", "expected": true },
+            { "input": "valid.email@sub.domain.com", "expected": true },
+            { "input": "valid_email@domain.com", "expected": true },
+            { "input": "user@-domain.com", "expected": false },
+            { "input": "user@domain.com", "expected": true },
+            { "input": "user@domain.co", "expected": true },
+            { "input": "user@domain.edu", "expected": true },
+            { "input": "user@domain.com", "expected": true }
         ],
         "sampleAnswer": "([a-zA-Z0-9\\._])+[a-zA-Z0-9]@([a-zA-Z0-9\\.])+[a-zA-Z0-9]\\.(com|co|edu)"
+    },
+    {
+        "id": 2,
+        "title": "Secure Passwords",
+        "prompt": "Write a regex to validate a password that must be between 8 to 15 characters, contain at least one uppercase letter, one lowercase letter, one digit, and one special character (allowed: !, @, #, $, %, ^, &, *) with no spaces.",
+        "valid_examples": [
+            "Abcd1234!",
+            "P@ssw0rd1",
+            "Sec!reP9",
+            "Zz1#Zz1#"
+        ],
+        "invalid_examples": [
+            "password",
+            "ABC123!!",
+            "X y1!",
+            "p@ss"
+        ],
+        "publicTests": [
+            { "input": "Abcd1234!", "expected": true },
+            { "input": "Password1!", "expected": true },
+            { "input": "P@ssw0rd1", "expected": true },
+            { "input": "PassWord1", "expected": false },
+            { "input": "Xyz!1234", "expected": true },
+            { "input": "NoSpecial123", "expected": false },
+            { "input": "Short1!", "expected": false },
+            { "input": "AllSpecial!!!!!!!", "expected": false },
+            { "input": "Valid1@Pass", "expected": true },
+            { "input": "InvalidPass", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "ValidPass1!", "expected": true },
+            { "input": "Another1@", "expected": true },
+            { "input": "Short1!", "expected": false },
+            { "input": "NoDigit!", "expected": false },
+            { "input": "NoSpecial123", "expected": false },
+            { "input": "AllSpecial!!!!!!!", "expected": false },
+            { "input": "Valid1@Pass", "expected": true },
+            { "input": "InvalidPass", "expected": false },
+            { "input": "ValidPass1@", "expected": true },
+            { "input": "AnotherValid1#", "expected": true }
+        ],
+        "sampleAnswer": "(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,15}"
+    },
+    {
+        "id": 3,
+        "title": "US Phone Numbers",
+        "prompt": "Write a regex to validate a US phone number in the format (XXX) XXX-XXXX or XXX-XXX-XXXX, allowing optional country code '+1 '.",
+        "valid_examples": [
+            "(123) 456-7890",
+            "123-456-7890",
+            "+1 (123) 456-7890"
+        ],
+        "invalid_examples": [
+            "1234567890",
+            "(123)4567890",
+            "+1 1234567"
+        ],
+        "publicTests": [
+            { "input": "(123) 456-7890", "expected": true },
+            { "input": "123-456-7890", "expected": true },
+            { "input": "+1 (123) 456-7890", "expected": true },
+            { "input": "123-45-6789", "expected": false },
+            { "input": "+1 123-456-7890", "expected": true },
+            { "input": "+1 (123)-456-7890", "expected": true },
+            { "input": "999-9999", "expected": false },
+            { "input": "(123 456-7890", "expected": false },
+            { "input": "123-456-7890", "expected": true },
+            { "input": "(123) 456-7890", "expected": true }
+        ],
+        "secretTests": [
+            { "input": "+1 123-456-7890", "expected": true },
+            { "input": "+1 (123)-456-7890", "expected": true },
+            { "input": "999-9999", "expected": false },
+            { "input": "(123 456-7890", "expected": false },
+            { "input": "123-456-7890", "expected": true },
+            { "input": "(123) 456-7890", "expected": true },
+            { "input": "+1 123-456-7890", "expected": true },
+            { "input": "+1 (123)-456-7890", "expected": true },
+            { "input": "999-9999", "expected": false },
+            { "input": "(123 456-7890", "expected": false }
+        ],
+        "sampleAnswer": "\\+1\\s?\\(?(\\d{3})\\)?\\s?-?\\d{3}-\\d{4}"
+    },
+    {
+        "id": 4,
+        "title": "IPv4 Addresses",
+        "prompt": "Write a regex to validate an IPv4 address (four octets, each 0-255, separated by dots). Leading zeros are allowed, but each octet must be a valid decimal number in [0-255].",
+        "valid_examples": [
+            "192.168.1.1",
+            "127.0.0.1",
+            "255.255.255.255",
+            "0.0.0.0"
+        ],
+        "invalid_examples": [
+            "256.0.0.1",
+            "192.168.1",
+            "192.168.1.256",
+            "192.168.1.01.2"
+        ],
+        "publicTests": [
+            { "input": "192.168.1.1", "expected": true },
+            { "input": "10.10.10.10", "expected": true },
+            { "input": "255.255.255.255", "expected": true },
+            { "input": "256.0.0.1", "expected": false },
+            { "input": "1.1.1.1", "expected": true },
+            { "input": "01.02.03.04", "expected": true },
+            { "input": "999.888.777.666", "expected": false },
+            { "input": "192.168.1", "expected": false },
+            { "input": "192.168.1.256", "expected": false },
+            { "input": "192.168.1.01.2", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "1.1.1.1", "expected": true },
+            { "input": "01.02.03.04", "expected": true },
+            { "input": "999.888.777.666", "expected": false },
+            { "input": "192.168.1", "expected": false },
+            { "input": "192.168.1.256", "expected": false },
+            { "input": "192.168.1.01.2", "expected": false },
+            { "input": "192.168.1.1", "expected": true },
+            { "input": "10.10.10.10", "expected": true },
+            { "input": "255.255.255.255", "expected": true },
+            { "input": "256.0.0.1", "expected": false }
+        ],
+        "sampleAnswer": "((25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d?\\d)"
     }
 ]

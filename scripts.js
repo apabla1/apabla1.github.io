@@ -41,7 +41,7 @@ function populateQuestionDropdown() {
 document.getElementById("question-bank").addEventListener("change", (event) => {
     if (event.target.value === "") {
         currentQuestion = null;
-        document.getElementById("info").textContent = "Click 'Random Question' or choose one from the bank to start";
+        document.getElementById("info").textContent = "Click 'Random Unsolved Question' or choose one from the bank to start";
         document.getElementById("run-tests").style.display = "none";
         document.getElementById("input").style.display = "none";
         document.getElementById("carat").style.display = "none";
@@ -65,6 +65,7 @@ function loadQuestion(index) {
     "<i>" + currentQuestion.prompt + "</i><br /><br />" +
     "<strong>Valid Examples:</strong>" + currentQuestion.valid_examples.map(example => `<li style="font-family: Consolas, monospace;">${example}</li>`).join("\n") + "</ul><br />" +
     "<strong>Invalid Examples:</strong>" + currentQuestion.invalid_examples.map(example => `<li style="font-family: Consolas, monospace;">${example}</li>`).join("\n") + "</ul>";
+    document.getElementById("input").value = "";
     document.getElementById("feedback").textContent = "";
     document.getElementById("sample-answer").style.display = "inline-block";
     document.getElementById("run-tests").style.display = "inline-block";
@@ -76,11 +77,9 @@ function loadQuestion(index) {
 // pick a random unsolved question
 document.getElementById("random-question").addEventListener("click", () => {
     document.getElementById("feedback").textContent = "";
-    const unsolvedQuestions = questions.filter((_, index) => !solvedQuestions.has(index));
-    if (unsolvedQuestions.length === 0) {
-        document.getElementById("feedback").textContent = "Congratulations! You've solved all questions!";
-        return;
-    }
+    const currentQuestionIndex = parseInt(document.getElementById("question-bank").value, 10);
+    const unsolvedQuestions = questions.filter((_, index) => !solvedQuestions.has(index) && index !== currentQuestionIndex);
+    if (unsolvedQuestions.length === 0) { return; }
     const randomIndex = Math.floor(Math.random() * unsolvedQuestions.length);
     const questionIndex = questions.indexOf(unsolvedQuestions[randomIndex]);
     loadQuestion(questionIndex);
