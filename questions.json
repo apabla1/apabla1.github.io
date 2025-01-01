@@ -223,7 +223,7 @@
     {
         "id": 5,
         "title": "Hex Color Codes",
-        "prompt": "Write a regular expression that matches valid 3-digit or 6-digit hexadecimal color codes, optionally preceded by '#'. Letters can be uppercase or lowercase.",
+        "prompt": "Write a regular expression that matches valid 3-digit or 6-digit hexadecimal color codes, optionally preceded by '#'. Remember: in hex, each digit is in the range 0-9 or A-F. Letters can be uppercase or lowercase.",
         "valid_examples": [
             "#ABC",
             "FFF",
