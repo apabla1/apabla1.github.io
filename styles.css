@@ -74,12 +74,16 @@ button:hover {
 }
 
 .popup {
-    background-color: #eee;
-    border: 1px solid #ddd;
+    display: inline-block;
+    white-space: nowrap; 
+    position: absolute;
+    max-width: calc(100vw - 20px); 
+    overflow: hidden;
     padding: 10px;
-    border-radius: 4px;
-    transition: opacity 0.3s ease;
-    z-index: 999;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
 #sample-answer-popup {
     position: absolute;
@@ -92,9 +96,36 @@ button:hover {
     cursor: pointer;
 }
 
-table, th, td {
-    border: 1px solid black;
+#detailed-output {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
     border-collapse: collapse;
+    margin: 10px 0;
+}
+
+#detailed-output th, #detailed-output td {
+    border: 1px solid black;
     padding: 8px;
-    text-align: left;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#detailed-output th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+}
+
+#public-tests, #secret-tests {
+    font-family: Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#run-tests, #feedback {
+    display: inline-block;
+    vertical-align: middle;
 }

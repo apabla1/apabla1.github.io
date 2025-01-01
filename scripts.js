@@ -10,6 +10,10 @@ fetch("questions.json")
         document.getElementById("total-questions").textContent = questions.length;
         populateQuestionDropdown();
         document.getElementById("sample-answer").style.display = "none";
+        document.getElementById("run-tests").style.display = "none";
+        document.getElementById("input").style.display = "none";
+        document.getElementById("carat").style.display = "none";
+        document.getElementById("dollar").style.display = "none";
     })
     .catch(error => {
         console.error(error);
@@ -38,6 +42,10 @@ document.getElementById("question-bank").addEventListener("change", (event) => {
     if (event.target.value === "") {
         currentQuestion = null;
         document.getElementById("info").textContent = "Click 'Random Question' or choose one from the bank to start";
+        document.getElementById("run-tests").style.display = "none";
+        document.getElementById("input").style.display = "none";
+        document.getElementById("carat").style.display = "none";
+        document.getElementById("dollar").style.display = "none";
         document.getElementById("feedback").innerHTML = "";
         document.getElementById("input").value = "";
         document.getElementById("public-tests").innerHTML = "";
@@ -59,6 +67,10 @@ function loadQuestion(index) {
     "<strong>Invalid Examples:</strong>" + currentQuestion.invalid_examples.map(example => `<li style="font-family: Consolas, monospace;">${example}</li>`).join("\n") + "</ul>";
     document.getElementById("feedback").textContent = "";
     document.getElementById("sample-answer").style.display = "inline-block";
+    document.getElementById("run-tests").style.display = "inline-block";
+    document.getElementById("input").style.display = "inline-block";
+    document.getElementById("carat").style.display = "inline-block";
+    document.getElementById("dollar").style.display = "inline-block";
 }
 
 // pick a random unsolved question
@@ -174,7 +186,7 @@ document.getElementById("sample-answer").addEventListener("click", () => {
     if (popup) {
         popup.innerHTML = `
             <button id="popup-close" style="float: right;">X</button>
-            <div style="font-family: Consolas, monospace;">${currentQuestion.sampleAnswer}</div>
+            <br /><div style="font-family: Consolas, monospace;">${currentQuestion.sampleAnswer}</div>
         `;
 
         const sampleAnswerBtn = document.getElementById("sample-answer");
@@ -186,10 +198,11 @@ document.getElementById("sample-answer").addEventListener("click", () => {
         const popupWidth = popup.offsetWidth;
 
         const topPosition = rect.top + window.scrollY - popupHeight - 10;
-        const leftPosition = rect.left + (rect.width / 2) - (popupWidth / 2);
+        const leftPosition = rect.right - popup.offsetWidth;
 
         popup.style.left = `${leftPosition}px`;
         popup.style.top = `${topPosition}px`;
+        popup.style.width = 'auto';
 
         popup.style.visibility = "visible";
 

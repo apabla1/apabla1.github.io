@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regex Exercises</title>
@@ -14,8 +16,8 @@
         <p>Solved: <span id="solved-count">0</span> / <span id="total-questions">0</span></p>
 
         <!-- cheatsheet -->
-<div id="cheatsheet" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; background-color: #f9f9f9;">
-    <h3>Exam Regex Cheatsheet</h3>
+<div id="cheatsheet" style="border: 1px solid #ccc; padding: 10px; margin-top: 5px; margin-bottom: 15px; background-color: #f9f9f9;">
+    <h3>Exam Cheatsheet</h3>
     <table style="width:100%; border-collapse: collapse;">
         <thead>
             <tr>
@@ -30,19 +32,18 @@
                 <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>*</strong></td>
                 <td style="border: 1px solid #ccc; padding: 8px;">zero or more repetitions of the preceding character or group</td>
                 <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>{n}</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">exactly n repetitions of the preceding character or group</td>
-            </tr>
+                <td style="border: 1px solid #ccc; padding: 8px;">exactly \( n \) repetitions of the preceding character or group</td>            </tr>
             <tr>
                 <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>+</strong></td>
                 <td style="border: 1px solid #ccc; padding: 8px;">one or more repetitions of the preceding character or group</td>
                 <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>{n,}</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">at least n repetitions of the preceding character or group</td>
+                <td style="border: 1px solid #ccc; padding: 8px;">at least \( n \) repetitions of the preceding character or group</td>
             </tr>
             <tr>
                 <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>?</strong></td>
                 <td style="border: 1px solid #ccc; padding: 8px;">zero or one repetitions of the preceding character or group</td>
                 <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>{m,n}</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">at least m and at most n repetitions of the preceding character or group</td>
+                <td style="border: 1px solid #ccc; padding: 8px;">at least \( m \) and at most \( n \) repetitions of the preceding character or group</td>
             </tr>
             <tr>
                 <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>.</strong></td>
@@ -72,7 +73,7 @@
                 <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>[a-z]</strong></td>
                 <td style="border: 1px solid #ccc; padding: 8px;">any letter in the ASCII range of a-z</td>
                 <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>\s</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">any space character like \n, \t, \r, \f, or space</td>
+                <td style="border: 1px solid #ccc; padding: 8px;">any space character like <span style="font-family: Consolas;">\n</span>, <span style="font-family: Consolas;">\t</span>, <span style="font-family: Consolas;">\r</span>, <span style="font-family: Consolas;">\f</span>, or space</td>
             </tr>
         </tbody>
     </table>
@@ -91,14 +92,13 @@
 
         <!-- Input -->
         <div style="display: flex; align-items: center; gap: 5px; margin-top: 15px;">
-            <span style="font-family: Consolas;">^</span>
-            <textarea id="input" placeholder="Enter your regex here" style="width: 25%;"></textarea>
-            <span style="font-family: Consolas;">$</span>
+            <span id="carat" style="font-family: Consolas;">^</span>
+            <textarea id="input" placeholder="Enter your regex here" style="width: 50%;"></textarea>
+            <span id="dollar" style="font-family: Consolas;">$</span>
         </div>
 
         <!-- Sample Answer & Run Tests Buttons + Popup -->
         <div style="display: flex; justify-content: space-between;">
-            <!-- Add popup container above the sample answer button -->
             <div id="sample-answer-popup" class="popup" style="display: none; position: absolute;">
                 <button id="popup-close" style="float: right;">X</button>
             </div>
@@ -107,7 +107,7 @@
         </div>
 
         <!-- Feedback -->
-        <div id="feedback">Choose a question and enter Regex!</div>
+        <div id="feedback"></div>
   
     </div>
 
