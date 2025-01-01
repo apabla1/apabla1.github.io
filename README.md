@@ -4,6 +4,9 @@ The user will write a regular expression given a set of strings.
 ## Features
 - Expandability: More problems and test cases can be added in the `questions.json` file
 
+## Improvements
+- Highlighting matching parenthesis whilst typing the regular expression
+
 ## Usage
 Go to [https://apabla1.github.io/](https://apabla1.github.io/)
 1. Choose a problem from the dropdown or click the random problem button.

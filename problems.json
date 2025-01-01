@@ -1,0 +1,863 @@
+[
+    {
+        "id": 1,
+        "title": "Email Addresses",
+        "prompt": "Write a regular expression to validate email addresses. There must be one or more (uppercase or lowercase) letters, numbers, periods, or underscores in any order before the @ symbol, but there musn't be an underscore preceding the @ symbol. After the @ symbol, we have the domain. The domain is separated by the second-level domain and the top-level domain (e.g., in \"username@gmail.com\", the second-level domain is \"gmail\" and the top-level domain is \".com\"). For the second-level domain, there must be one or more (uppercase or lowercase) letters, numbers, and periods in any order, but there musn't be a period at the end. The top-level domain must be either '.com', '.co', or '.edu'.",
+        "valid_examples": [
+            "test@example.com",
+            "user.name@domain.co",
+            "name.lastname@sub.domain.com",
+            "vAlid_eMail@example.com",
+            "dirid@terpmail.umd.edu",
+            "330@umd.edu",
+            "__a@gmail.com",
+            "a_b@gmail.com"
+        ],
+        "invalid_examples": [
+            {
+                "example": "user@domain",
+                "reason": "missing top-level domain"
+            },
+            {
+                "example": "@domain.com",
+                "reason": "missing username part"
+            },
+            {
+                "example": "user@domain.c",
+                "reason": "invalid top-level domain"
+            },
+            {
+                "example": "user@.com",
+                "reason": "missing second-level domain"
+            },
+            {
+                "example": "user@domain..com",
+                "reason": "double dot in domain"
+            },
+            {
+                "example": "user.name@domain.foo",
+                "reason": "invalid top-level domain"
+            },
+            {
+                "example": "user@name@domain.com",
+                "reason": "multiple @ symbols"
+            },
+            {
+                "example": "user@domain.com.",
+                "reason": "extra dot in domain"
+            },
+            {
+                "example": "user@domain-.com",
+                "reason": "invalid character in domain"
+            },
+            {
+                "example": "invalid-email@example.com",
+                "reason": "dashes not allowed; only underscores"
+            },
+            {
+                "example": "@.com",
+                "reason": "missing username and second-level domain"
+            },
+            {
+                "example": "user@domain..com",
+                "reason": "double dot in domain"
+            }
+        ],
+        "publicTests": [
+            { "input": "test@example.com", "expected": true },
+            { "input": "user.name@domain.co", "expected": true },
+            { "input": "name.lastname@sub.domain.com", "expected": true },
+            { "input": "vAlid_eMail@example.com", "expected": true },
+            { "input": "dirid@terpmail.umd.edu", "expected": true },
+            { "input": "330@umd.edu", "expected": true },
+            { "input": "__a@gmail.com", "expected": true },
+            { "input": "user@domain", "expected": false },
+            { "input": "@domain.com", "expected": false },
+            { "input": "user@domain.c", "expected": false },
+            { "input": "user@.com", "expected": false },
+            { "input": "user@domain..com", "expected": false },
+            { "input": "user.name@domain.foo", "expected": false },
+            { "input": "user@name@domain.com", "expected": false },
+            { "input": "user@domain.com.", "expected": false },
+            { "input": "user@domain-.com", "expected": false },
+            { "input": "invalid-email@example.com", "expected": false },
+            { "input": "a_b@gmail.com", "expected": true },
+            { "input": "@.com", "expected": false },
+            { "input": "user@domain..com", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "id@terpmail#umd#edu", "expected": false },
+            { "input": "_@gmail.com", "expected": false },
+            { "input": "a_@gmail.com", "expected": false },
+            { "input": "invalid?email@example.com", "expected": false },
+            { "input": "invalid.email@example_com", "expected": false },
+            { "input": "valid.email@domain.com", "expected": true },
+            { "input": "another.valid@domain.co", "expected": true },
+            { "input": "valid123@sub.domain.edu", "expected": true },
+            { "input": "valid.email@sub.domain.com", "expected": true },
+            { "input": "valid_email@domain.com", "expected": true },
+            { "input": "user@-domain.com", "expected": false },
+            { "input": "user@domain.com", "expected": true },
+            { "input": "user@domain.co", "expected": true },
+            { "input": "user@domain.edu", "expected": true },
+            { "input": "user@domain.com", "expected": true }
+        ],
+        "sampleAnswer": "([a-zA-Z0-9\\._])+[a-zA-Z0-9]@([a-zA-Z0-9\\.])+[a-zA-Z0-9]\\.(com|co|edu)"
+    },
+    {
+        "id": 2,
+        "title": "Secure Passwords",
+        "prompt": "Write a regular expression to validate a password that must be between 8 to 15 characters, contain at least one uppercase letter, one lowercase letter, one digit, and one special character (allowed: !, @, #, $, %, ^, &, *) with no spaces.",
+        "valid_examples": [
+            "Abcd1234!",
+            "P@ssw0rd1",
+            "Sec!reP9",
+            "Zz1#Zz1#",
+            "Password1!",
+            "Xyz!1234",
+            "Valid1@Pass"
+        ],
+        "invalid_examples": [
+            {
+                "example": "password",
+                "reason": "missing uppercase, digit, special character"
+            },
+            {
+                "example": "ABC123!!",
+                "reason": "missing lowercase letter"
+            },
+            {
+                "example": "X y1!",
+                "reason": "contains space"
+            },
+            {
+                "example": "p@ss",
+                "reason": "too short"
+            },
+            {
+                "example": "PassWord1",
+                "reason": "missing special character"
+            },
+            {
+                "example": "NoSpecial123",
+                "reason": "missing special character"
+            },
+            {
+                "example": "Short1!",
+                "reason": "too short"
+            },
+            {
+                "example": "AllSpecial!!!!!!!",
+                "reason": "missing letters and digits"
+            },
+            {
+                "example": "InvalidPass",
+                "reason": "missing digit and special character"
+            }
+        ],
+        "publicTests": [
+            { "input": "Abcd1234!", "expected": true },
+            { "input": "P@ssw0rd1", "expected": true },
+            { "input": "Sec!reP9", "expected": true },
+            { "input": "Zz1#Zz1#", "expected": true },
+            { "input": "Password1!", "expected": true },
+            { "input": "Xyz!1234", "expected": true },
+            { "input": "Valid1@Pass", "expected": true },
+            { "input": "password", "expected": false },
+            { "input": "ABC123!!", "expected": false },
+            { "input": "X y1!", "expected": false },
+            { "input": "p@ss", "expected": false },
+            { "input": "PassWord1", "expected": false },
+            { "input": "NoSpecial123", "expected": false },
+            { "input": "Short1!", "expected": false },
+            { "input": "AllSpecial!!!!!!!", "expected": false },
+            { "input": "InvalidPass", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "ValidPass1!", "expected": true },
+            { "input": "Another1@", "expected": true },
+            { "input": "Short1!", "expected": false },
+            { "input": "NoDigit!", "expected": false },
+            { "input": "NoSpecial123", "expected": false },
+            { "input": "AllSpecial!!!!!!!", "expected": false },
+            { "input": "Valid1@Pass", "expected": true },
+            { "input": "InvalidPass", "expected": false },
+            { "input": "ValidPass1@", "expected": true },
+            { "input": "AnotherValid1#", "expected": true }
+        ],
+        "sampleAnswer": ""
+    },
+    {
+        "id": 3,
+        "title": "U.S. Phone Numbers",
+        "prompt": "Write a regular expression to validate a phone number in the format '(XXX) XXX-XXXX', '(XXX)-XXX-XXXX', or 'XXX-XXX-XXXX', allowing an optional United States country code '+1 ' (space after) at the beginning. Make sure your solution includes spaces where necessary.",
+        "valid_examples": [
+            "(123) 456-7890",
+            "123-456-7890",
+            "+1 (123) 456-7890",
+            "+1 123-456-7890",
+            "+1 (123)-456-7890",
+            "123-456-7890",
+            "(123) 456-7890"
+        ],
+        "invalid_examples": [
+            {
+                "example": "1234567890",
+                "reason": "missing separators"
+            },
+            {
+                "example": "(123)4567890",
+                "reason": "missing space"
+            },
+            {
+                "example": "+1 1234567",
+                "reason": "invalid length"
+            },
+            {
+                "example": "123-45-6789",
+                "reason": "invalid phone number format"
+            },
+            {
+                "example": "999-9999",
+                "reason": "too short"
+            },
+            {
+                "example": "(123 456-7890",
+                "reason": "missing closing parenthesis"
+            },
+            {
+                "example": "(123)456-7890",
+                "reason": "missing space"
+            }
+        ],
+        "publicTests": [
+            { "input": "(123) 456-7890", "expected": true },
+            { "input": "123-456-7890", "expected": true },
+            { "input": "+1 (123) 456-7890", "expected": true },
+            { "input": "+1 (123)-456-7890", "expected": true },
+            { "input": "+1 123-456-7890", "expected": true },
+            { "input": "1234567890", "expected": false },
+            { "input": "(123)4567890", "expected": false },
+            { "input": "+1 1234567", "expected": false },
+            { "input": "123-45-6789", "expected": false },
+            { "input": "999-9999", "expected": false },
+            { "input": "(123 456-7890", "expected": false },
+            { "input": "(123)456-7890", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "+1 123-456-7890", "expected": true },
+            { "input": "+1 (123)-456-7890", "expected": true },
+            { "input": "999-9999", "expected": false },
+            { "input": "(123 456-7890", "expected": false },
+            { "input": "123-456-7890", "expected": true },
+            { "input": "(123) 456-7890", "expected": true },
+            { "input": "+1 123-456-7890", "expected": true },
+            { "input": "+1 (123)-456-7890", "expected": true },
+            { "input": "999-9999", "expected": false },
+            { "input": "(123 456-7890", "expected": false },
+            { "input": "123456-7890", "expected": false }
+        ],
+        "sampleAnswer": "(\\+1 )?(\\d{3}-\\d{3}-\\d{4}|\\(\\d{3}\\)(-| )\\d{3}-\\d{4})"
+    },
+    {
+        "id": 4,
+        "title": "IPv4 Addresses",
+        "prompt": "Write a regular expression to validate an IPv4 address (four octets, each 0-255, separated by dots). Zero-padding is allowed, but each octet must be a valid decimal number in the range.",
+        "valid_examples": [
+            "192.168.1.1",
+            "127.0.0.1",
+            "255.255.255.255",
+            "0.0.0.0",
+            "10.10.10.10",
+            "1.1.1.1",
+            "01.02.03.04"
+        ],
+        "invalid_examples": [
+            {
+                "example": "256.0.0.1",
+                "reason": "octet exceeds 255"
+            },
+            {
+                "example": "192.168.1",
+                "reason": "missing octet"
+            },
+            {
+                "example": "192.168.1.256",
+                "reason": "octet exceeds 255"
+            },
+            {
+                "example": "192.168.1.01.2",
+                "reason": "too many octets"
+            },
+            {
+                "example": "999.888.777.666",
+                "reason": "octets exceed range"
+            }
+        ],
+        "publicTests": [
+            { "input": "192.168.1.1", "expected": true },
+            { "input": "127.0.0.1", "expected": true },
+            { "input": "255.255.255.255", "expected": true },
+            { "input": "0.0.0.0", "expected": true },
+            { "input": "10.10.10.10", "expected": true },
+            { "input": "1.1.1.1", "expected": true },
+            { "input": "01.02.03.04", "expected": true },
+            { "input": "256.0.0.1", "expected": false },
+            { "input": "192.168.1", "expected": false },
+            { "input": "192.168.1.256", "expected": false },
+            { "input": "192.168.1.01.2", "expected": false },
+            { "input": "999.888.777.666", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "1.1.1.1", "expected": true },
+            { "input": "01.02.03.04", "expected": true },
+            { "input": "999.888.777.666", "expected": false },
+            { "input": "192.168.1", "expected": false },
+            { "input": "192.168.1.256", "expected": false },
+            { "input": "192.168.1.01.2", "expected": false },
+            { "input": "192.168.1.1", "expected": true },
+            { "input": "10.10.10.10", "expected": true },
+            { "input": "255.255.255.255", "expected": true },
+            { "input": "256.0.0.1", "expected": false }
+        ],
+        "sampleAnswer": "((25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d?\\d)"
+    },
+    {
+        "id": 5,
+        "title": "Hex Color Codes",
+        "prompt": "Write a regular expression that matches valid 3-digit or 6-digit hexadecimal color codes, optionally preceded by '#'. Remember: in hex, each digit is in the range 0-9 or A-F. Letters can be uppercase or lowercase.",
+        "valid_examples": [
+            "#ABC",
+            "FFF",
+            "#000000",
+            "f0f0f0",
+            "666",
+            "#AaBbCc",
+            "abc123",
+            "#123456"
+        ],
+        "invalid_examples": [
+            {
+                "example": "#AB",
+                "reason": "invalid length"
+            },
+            {
+                "example": "Z1Z1Z1",
+                "reason": "invalid characters Z"
+            },
+            {
+                "example": "12345G",
+                "reason": "invalid character 'G'"
+            },
+            {
+                "example": "##123",
+                "reason": "double #"
+            },
+            {
+                "example": "#XYZ",
+                "reason": "invalid characters"
+            },
+            {
+                "example": "FFFFFZ",
+                "reason": "invalid character 'Z'"
+            },
+            {
+                "example": "00000",
+                "reason": "invalid length"
+            }
+        ],
+        "publicTests": [
+            { "input": "#ABC", "expected": true },
+            { "input": "FFF", "expected": true },
+            { "input": "#000000", "expected": true },
+            { "input": "f0f0f0", "expected": true },
+            { "input": "666", "expected": true },
+            { "input": "#AaBbCc", "expected": true },
+            { "input": "abc123", "expected": true },
+            { "input": "#123456", "expected": true },
+            { "input": "#AB", "expected": false },
+            { "input": "Z1Z1Z1", "expected": false },
+            { "input": "12345G", "expected": false },
+            { "input": "##123", "expected": false },
+            { "input": "#XYZ", "expected": false },
+            { "input": "FFFFFZ", "expected": false },
+            { "input": "00000", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "ABC123", "expected": true },
+            { "input": "123456", "expected": true },
+            { "input": "#FFAA00", "expected": true },
+            { "input": "#ABCD", "expected": false },
+            { "input": "#FFF0F0F", "expected": false },
+            { "input": "#abcdgg", "expected": false }
+        ],
+        "sampleAnswer": "#?[A-Fa-f0-9]{3}([A-Fa-f0-9]{3})?"
+    },
+    {
+        "id": 6,
+        "title": "ISO 8601 Dates",
+        "prompt": "Write a regular expression to validate 20th and 21st century dates in the ISO 8601 format YYYY-MM-DD. The day must be 01-31, and month must be 01-12 (zero-padded). The day need not correspond to the month, but days must be in the valid range.",
+        "valid_examples": [
+            "2023-01-01",
+            "1999-12-31",
+            "2000-02-29",
+            "2022-09-30",
+            "1980-11-15",
+            "2024-02-29",
+            "2023-02-30"
+        ],
+        "invalid_examples": [
+            {
+                "example": "1899-02-15",
+                "reason": "year out of range"
+            },
+            {
+                "example": "2023-13-01",
+                "reason": "invalid month"
+            },
+            {
+                "example": "202-01-01",
+                "reason": "year not four digits"
+            },
+            {
+                "example": "2023-4-05",
+                "reason": "month not zero-padded"
+            },
+            {
+                "example": "2023-00-10",
+                "reason": "invalid month"
+            },
+            {
+                "example": "2023-01-32",
+                "reason": "invalid day"
+            },
+            {
+                "example": "2125-02-15",
+                "reason": "year out of range"
+            }
+        ],
+        "publicTests": [
+            { "input": "2023-01-01", "expected": true },
+            { "input": "1999-12-31", "expected": true },
+            { "input": "2000-02-29", "expected": true },
+            { "input": "2022-09-30", "expected": true },
+            { "input": "1980-11-15", "expected": true },
+            { "input": "2024-02-29", "expected": true },
+            { "input": "2023-02-30", "expected": true },
+            { "input": "1899-02-15", "expected": false },
+            { "input": "2023-13-01", "expected": false },
+            { "input": "202-01-01", "expected": false },
+            { "input": "2023-4-05", "expected": false },
+            { "input": "2023-00-10", "expected": false },
+            { "input": "2023-01-32", "expected": false },
+            { "input": "2125-02-15", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "1980-11-15", "expected": true },
+            { "input": "2024-02-29", "expected": true },
+            { "input": "2023-00-10", "expected": false },
+            { "input": "2023-01-32", "expected": false },
+            { "input": "2030-05-20", "expected": true },
+            { "input": "1825-02-29", "expected": false },
+            { "input": "2025-02-29", "expected": true }
+        ],
+        "sampleAnswer": "(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"
+    },
+    {
+        "id": 7,
+        "title": "Absolute Paths",
+        "prompt": "Write a regular expression describing an absolute path to a file in Linux. Because the path is absolute, the first direct must either be the home (~) or root (/) directory. Each directory name in the path has the restriction that the first character can only be an uppercase or lowercase letter, but characters after that may be alphanumeric or an underscore. If the path references a file, the filename must have one or more alphanumeric characters or an underscore (may start with a number or underscore) and must have an extension afterwards. The extension will be a period folowed by a lowercase letter followed by 0 or more lowercase letters or numbers (e.g., `.txt`, `.png`., `.ml`, `.mp4`, etc.). No underscores in the extension. The destination may or may not have a slash afterwards.",
+        "valid_examples": [
+            "~",
+            "~/",
+            "~/myFile.txt",
+            "~/Folder1/File.png",
+            "~/Folder1/Folder2/File.dat",
+            "~/Documents/Work/Report.pdf",
+            "~/Music/Pop/Song.mp3",
+            "~/Projects/year2023/Project1/main.py",
+            "/usr/local/bin/script.sh",
+            "/Home/User/Documents/file.ml",
+            "~/Downloads/Image.jpeg",
+            "/Folder/Sub_Folder/File.md",
+            "/Folder/SubFolder/File_3.md",
+            "~/folder"
+        ],
+        "invalid_examples": [
+            {
+                "example": "~Folder",
+                "reason": "missing slash after ~"
+            },
+            {
+                "example": "~/file.",
+                "reason": "missing extension"
+            },
+            {
+                "example": "~/InvalidFolder/File.TXT",
+                "reason": "extension uppercase"
+            },
+            {
+                "example": "~/folder1/Folder2/File.",
+                "reason": "missing extension"
+            },
+            {
+                "example": "~//",
+                "reason": "double slash"
+            },
+            {
+                "example": "~/3Folder_Sub/File.txt",
+                "reason": "directory starts with a number"
+            },
+            {
+                "example": "/folder//File.txt",
+                "reason": "double slash in path"
+            },
+            {
+                "example": "/Folder/SubFolder//File.md",
+                "reason": "double slash in path"
+            }
+        ],
+        "publicTests": [
+            { "input": "~", "expected": true },
+            { "input": "~/", "expected": true },
+            { "input": "~/myFile.txt", "expected": true },
+            { "input": "~/Folder1/File.png", "expected": true },
+            { "input": "~/Folder1/Folder2/File.dat", "expected": true },
+            { "input": "~/Documents/Work/Report.pdf", "expected": true },
+            { "input": "~/Music/Pop/Song.mp3", "expected": true },
+            { "input": "~/Projects/year2023/Project1/main.py", "expected": true },
+            { "input": "/usr/local/bin/script.sh", "expected": true },
+            { "input": "/Home/User/Documents/file.ml", "expected": true },
+            { "input": "~/Downloads/Image.jpeg", "expected": true },
+            { "input": "/Folder/Sub_Folder/File.md", "expected": true },
+            { "input": "/Folder/SubFolder/File_3.md", "expected": true },
+            { "input": "~/folder", "expected": true },
+            { "input": "~Folder", "expected": false },
+            { "input": "~/file.", "expected": false },
+            { "input": "~/InvalidFolder/File.TXT", "expected": false },
+            { "input": "~/folder1/Folder2/File.", "expected": false },
+            { "input": "~//", "expected": false },
+            { "input": "~/3Folder_Sub/File.txt", "expected": false },
+            { "input": "/folder//File.txt", "expected": false },
+            { "input": "/Folder/SubFolder//File.md", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "~/abc123/xyz789/data.json", "expected": true },
+            { "input": "~/F/f.old", "expected": true },
+            { "input": "~/123Folder/File.txt", "expected": false },
+            { "input": "/Folder/SubFolder/File.md", "expected": true },
+            { "input": "/usr/bin/env", "expected": true },
+            { "input": "~/Folder/SubFolder/file.TXT", "expected": false },
+            { "input": "~/Folder_1/File.txt", "expected": true },
+            { "input": "/folder/SubFolder/File.md", "expected": true },
+            { "input": "/Folder//File.txt", "expected": false },
+            { "input": "~/Folder/SubFolder/file.", "expected": false },
+            { "input": "/Folder/SubFolder/File.MD", "expected": false },
+            { "input": "~/Folder/SubFolder/File.jPg", "expected": false },
+            { "input": "~/Folder//SubFolder/File.txt", "expected": false },
+            { "input": "~/fol_der/Sub_Folder/file.md", "expected": true },
+            { "input": "/Folder1/1SubFolder/File.md", "expected": false },
+            { "input": "~/Projects/2023/Project1/main.py", "expected": false },
+            { "input": "/A/b_c/d_e_f/file123.txt", "expected": true },
+            { "input": "~/New_Folder/Sub_Folder/file1.md", "expected": true },
+            { "input": "~/Folder-/File.txt", "expected": false },
+            { "input": "/folder/subfolder//file.txt", "expected": false },
+            { "input": "/Folder/SubFolder/File.tx_", "expected": false },
+            { "input": "~/Folder$Name/File.txt", "expected": false },
+            { "input": "/Folder_Name/File123.mp4", "expected": true },
+            { "input": "/folder/subfolder/file.", "expected": false }
+        ],
+        "sampleAnswer": "~?(\\/[a-zA-Z][a-zA-Z0-9_]*)*(\\/[a-zA-Z0-9_]+\\.[a-z][a-z0-9]+?)?\\/?"
+    },
+    {
+        "id": 8,
+        "title": "Military and Standard Time",
+        "prompt": "Write a regular expression describing a time in military time (24-hour format) or standard time (12-hour format). If the time is in military time, the format is HH:MM. The hour must be a zero-padded number from 00 to 23, and the minute must be a zero-padded number from 00 to 59. If the time is in standard time, the format is HH:MM (a.m./p.m.). The hour must be a zero-padded number from 01 to 12, and the minute must be a zero-padded number from 00 to 59. Then, state whether the time is anti-meridian or post-meridian using the abbreviations 'a.m.' or 'p.m', respectively. The abbreviations must have periods as shown. and make sure there is a space between the time and the abbreviation.",
+        "valid_examples": [
+            "00:00",
+            "23:59",
+            "01:00 a.m.",
+            "12:45 p.m.",
+            "12:00 p.m.",
+            "09:15 a.m.",
+            "07:30 p.m.",
+            "11:59 p.m.",
+            "01:01 a.m.",
+            "12:59 a.m."
+        ],
+        "invalid_examples": [
+            {
+                "example": "24:00",
+                "reason": "hour out of range"
+            },
+            {
+                "example": "13:60",
+                "reason": "minute out of range"
+            },
+            {
+                "example": "00:00 a.m.",
+                "reason": "military time with a.m."
+            },
+            {
+                "example": "01:30 am",
+                "reason": "missing periods in am"
+            },
+            {
+                "example": "00:60",
+                "reason": "minute out of range"
+            },
+            {
+                "example": "13:00 a.m.",
+                "reason": "hour out of range for a.m."
+            },
+            {
+                "example": "12:00 pm",
+                "reason": "missing periods in pm"
+            },
+            {
+                "example": "03:75 a.m.",
+                "reason": "minute out of range"
+            },
+            {
+                "example": "24:01",
+                "reason": "hour out of range"
+            },
+            {
+                "example": "11:61 p.m.",
+                "reason": "minute out of range"
+            }
+        ],
+        "publicTests": [
+            { "input": "00:00", "expected": true },
+            { "input": "23:59", "expected": true },
+            { "input": "01:00 a.m.", "expected": true },
+            { "input": "12:45 p.m.", "expected": true },
+            { "input": "12:00 p.m.", "expected": true },
+            { "input": "09:15 a.m.", "expected": true },
+            { "input": "07:30 p.m.", "expected": true },
+            { "input": "11:59 p.m.", "expected": true },
+            { "input": "01:01 a.m.", "expected": true },
+            { "input": "12:59 a.m.", "expected": true },
+            { "input": "24:00", "expected": false },
+            { "input": "13:60", "expected": false },
+            { "input": "00:00 a.m.", "expected": false },
+            { "input": "01:30 am", "expected": false },
+            { "input": "00:60", "expected": false },
+            { "input": "13:00 a.m.", "expected": false },
+            { "input": "12:00 pm", "expected": false },
+            { "input": "03:75 a.m.", "expected": false },
+            { "input": "24:01", "expected": false },
+            { "input": "11:61 p.m.", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "09:09 a.m.", "expected": true },
+            { "input": "12:59 a.m.", "expected": true },
+            { "input": "12:00 p.m.", "expected": true },
+            { "input": "07:01 p.m.", "expected": true },
+            { "input": "03:45 p.m.", "expected": true },
+            { "input": "00:59", "expected": true },
+            { "input": "23:00", "expected": true },
+            { "input": "11:59 p.m.", "expected": true },
+            { "input": "10:10 a.m.", "expected": true },
+            { "input": "08:08 p.m.", "expected": true },
+            { "input": "00:60", "expected": false },
+            { "input": "13:00 a.m.", "expected": false },
+            { "input": "12:00 pm", "expected": false },
+            { "input": "07:30 pm", "expected": false },
+            { "input": "24:00", "expected": false },
+            { "input": "12:60 a.m.", "expected": false },
+            { "input": "11:59", "expected": true },
+            { "input": "01:00 AM", "expected": false },
+            { "input": "1:00 a.m.", "expected": false },
+            { "input": "00:00 am", "expected": false }
+        ],
+        "sampleAnswer": "((([0-1][0-9]|2[0-3]):[0-5][0-9])|((0[1-9]|1[012]):[0-5][0-9] (a\\.m\\.|p\\.m\\.)))"
+    }, 
+    {
+        "id": 9,
+        "title": "CRON",
+        "prompt": "CRON (Command Run On Notice) is a time-based job scheduler (based on a CRON table) for Unix-like operating systems. You can edit your CRON table with `crontab -e` or the superuser's CRON table with `sudo crontab -e`. A CRON Table's line format is: `minute hour day_of_month month day_of_week script_to_execute`. Write a regular expression that represents a CRON table's line format. The `minute`s are 0-59, `hour`s are 0-23, `day_of_month` is 1-31, `month` is 1-12, and `day_of_week` is 0-6 (where Sunday is 0). If you do not want to specify a specific element, you must wildcard it with a '*'. Some examples: `15 * * * *` will run every 15 minutes past the hour, every hour, every day of the month, every month, every day of the week; `15 3 * * 0` will run 15 minutes past 3:00 a.m., every day of the month, every month, every Sunday. You may not zero-pad numbers. You can assume that the script to be executed is always `~/myScript`. Make sure spaces are provided where necessary.",
+        "valid_examples": [
+            "0 0 * * * ~/myScript",
+            "59 23 31 12 6 ~/myScript",
+            "15 * * * * ~/myScript",
+            "* 12 * * 0 ~/myScript",
+            "5 4 10 11 2 ~/myScript"
+        ],
+        "invalid_examples": [
+            {
+                "example": "30 14 15 6 3 ~/deployScript.sh",
+                "reason": "script name incorrect"
+            },
+            {
+                "example": "10 3 15 7 2 ~/execute.sh",
+                "reason": "script name incorrect"
+            },
+            {
+                "example": "15 * * * * ~/myScript.sh",
+                "reason": "random script extension"
+            },
+            {
+                "example": "60 0 1 1 0 ~/myScript",
+                "reason": "minute out of range"
+            },
+            {
+                "example": "* 24 1 1 0 ~/myScript",
+                "reason": "hour out of range"
+            },
+            {
+                "example": "0 0 0 1 0 ~/myScript",
+                "reason": "day_of_month out of range"
+            },
+            {
+                "example": "0 0 1 1 7 ~/myScript",
+                "reason": "day_of_week out of range"
+            },
+            {
+                "example": "0 0 1 1 0",
+                "reason": "no file"
+            },
+            {
+                "example": "0 0 32 1 0 ~/myScript",
+                "reason": "day_of_month out of range"
+            }
+        ],
+        "publicTests": [
+            { "input": "0 0 * * * ~/myScript", "expected": true },
+            { "input": "59 23 31 12 6 ~/myScript", "expected": true },
+            { "input": "15 * * * * ~/myScript", "expected": true },
+            { "input": "30 14 15 6 3 ~/deployScript.sh", "expected": false },
+            { "input": "* 12 * * 0 ~/myScript", "expected": true },
+            { "input": "5 4 10 11 2 ~/myScript", "expected": true },
+            { "input": "10 3 15 7 2 ~/execute.sh", "expected": false },
+            { "input": "15 * * * * ~/myScript.sh", "expected": false },
+            { "input": "60 0 1 1 0 ~/myScript", "expected": false },
+            { "input": "* 24 1 1 0 ~/myScript", "expected": false },
+            { "input": "0 0 0 1 0 ~/myScript", "expected": false },
+            { "input": "0 0 1 1 7 ~/myScript", "expected": false },
+            { "input": "0 0 1 1 0", "expected": false },
+            { "input": "0 0 32 1 0 ~/myScript", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "59 13 31 12 6 ~/myScript", "expected": true },
+            { "input": "5 0 1 12 0 ~/myScript", "expected": true },
+            { "input": "* * * * * ~/myScript", "expected": true },
+            { "input": "15 3 * * 0 ~/myScript", "expected": true },
+            { "input": "*/15 0-23 * * * ~/myScript", "expected": false },
+            { "input": "5 4 10 11 2 ~/cleanup.sh", "expected": false },
+            { "input": "15 * * * 7 ~/myScript", "expected": false },
+            { "input": "15 * * * * ~//myScript", "expected": false },
+            { "input": "15 * * * * ~/myScript", "expected": true },
+            { "input": "0 0 * * * ~/myScript", "expected": true },
+            { "input": "25 18 5 11 1 ~/launch.sh", "expected": false },
+            { "input": "0 0 1 1 0 ~/myScript", "expected": true },
+            { "input": "10 5 20 13 2 ~/execute.sh", "expected": false },
+            { "input": "0 0 1 1 0 ~/myScript", "expected": true }
+        ],
+        "sampleAnswer": "([0-9]|[1-5][0-9]|\\*) ([0-9]|1[0-9]|2[0-3]|\\*) ([1-9]|[12][0-9]|3[01]|\\*) ([1-9]|1[012]|\\*) ([0-6]|\\*) ~\\/myScript"
+    },
+    {
+        "id": 10,
+        "title": "Sed",
+        "prompt": "Sed (Stream editor) is a command-line utility to filter and transform ASCII text. The syntax for the command is `sed rule filename`. There are 3 `rule`s we will focus on. 1) `/regexp/d`: Will delete all lines that match `regexp` in the file. 2) `/s/regexp/replacement`: Will substitute the first occurrence of `regexp` in the file with replacement. 3) `/s/regexp/replacement/g`: Will substitute all occurrences of `regexp` in the file with `replacement`. Write a regular expression that will match an entire `sed` command accepting these three rules. Let `regexp`s be one or more of any character but a whitespace or a slash. Let `replacement`s be one or more of alphanumeric characters (lowercase or uppercase). Let the `filename` being scanned always be in the home directory (~), end in `.txt`, start with an uppercase or lowercase character and then have (uppercase or lowercase) alphanumeric characters after that, and have a length of at least 1. There will not be a slash after the file name. Make sure that spaces are provided where necessary.",
+        "valid_examples": [
+            "sed /abc/d ~/File.txt",
+            "sed s/hello/WORLD ~/MyExample2.txt",
+            "sed s/test/TEST/g ~/A1.txt",
+            "sed /deletePattern/d ~/Example.txt",
+            "sed s/find/Replace ~/TestFile.txt",
+            "sed s/old/new/g ~/Script123.txt",
+            "sed /removeLine/d ~/Sample1.txt",
+            "sed s/foo/bar/g ~/AnotherFile.txt",
+            "sed s/bar/foo ~/Change.txt",
+            "sed s/123/abc/g ~/Numbers.txt"
+        ],
+        "invalid_examples": [
+            {
+                "example": "sed /abc/d",
+                "reason": "missing filename"
+            },
+            {
+                "example": "sed //d ~/File.txt",
+                "reason": "empty regexp"
+            },
+            {
+                "example": "sed s/test/OneMoreTime",
+                "reason": "missing filename"
+            },
+            {
+                "example": "sed s/hello/HELLO ~/MyExample2.tx",
+                "reason": "incorrect extension"
+            },
+            {
+                "example": "sed /pattern/delete ~/LogFile.txt",
+                "reason": "invalid rule format"
+            },
+            {
+                "example": "sed s/lower/UPPER/g ~/2CaseTest.txt",
+                "reason": "filename starts with a number"
+            },
+            {
+                "example": "sed s/special/@!/g ~/Special.txt",
+                "reason": "invalid replacement characters"
+            },
+            {
+                "example": "sed s/space /Space/g ~/SpaceFile.txt",
+                "reason": "regexp contains space"
+            },
+            {
+                "example": "sed /removeLine/d ~/dir/Sample1.txt",
+                "reason": "file not in home directory"
+            },
+            {
+                "example": "sed /deletePattern/d ~/file.txt/",
+                "reason": "slash after the filename"
+            }
+        ],
+        "publicTests": [
+            { "input": "sed /abc/d ~/File.txt", "expected": true },
+            { "input": "sed s/hello/WORLD ~/MyExample2.txt", "expected": true },
+            { "input": "sed s/test/TEST/g ~/A1.txt", "expected": true },
+            { "input": "sed /deletePattern/d ~/Example.txt", "expected": true },
+            { "input": "sed s/find/Replace ~/TestFile.txt", "expected": true },
+            { "input": "sed s/old/new/g ~/Script123.txt", "expected": true },
+            { "input": "sed /removeLine/d ~/Sample1.txt", "expected": true },
+            { "input": "sed s/foo/bar/g ~/AnotherFile.txt", "expected": true },
+            { "input": "sed s/bar/foo ~/Change.txt", "expected": true },
+            { "input": "sed s/123/abc/g ~/Numbers.txt", "expected": true },
+            { "input": "sed /abc/d", "expected": false },
+            { "input": "sed //d ~/File.txt", "expected": false },
+            { "input": "sed s/test/OneMoreTime", "expected": false },
+            { "input": "sed s/hello/HELLO ~/MyExample2.tx", "expected": false },
+            { "input": "sed /pattern/delete ~/LogFile.txt", "expected": false },
+            { "input": "sed s/lower/UPPER/g ~/2CaseTest.txt", "expected": false },
+            { "input": "sed s/special/@!/g ~/Special.txt", "expected": false },
+            { "input": "sed s/space /Space/g ~/SpaceFile.txt", "expected": false },
+            { "input": "sed /removeLine/d ~/dir/Sample1.txt", "expected": false },
+            { "input": "sed /deletePattern/d ~/file.txt/", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "sed s/one/two/g ~/Convert.txt", "expected": true },
+            { "input": "sed s/invalid//g ~/Invalid.txt", "expected": false },
+            { "input": "sed s/hello/HELLO/g ~/Greeting.txt", "expected": true },
+            { "input": "sed /Stuff/d ~/MyFile123.txt", "expected": true },
+            { "input": "sed s/space /Space/g ~/MissingSpace.txt", "expected": false },
+            { "input": "sed s/extra/slash//g ~/ExtraSlash.txt", "expected": false },
+            { "input": "sed s/X/Y/g ~/FileABC99.txt", "expected": true },
+            { "input": "sed /pattern/d ~/LogFile.txt", "expected": true },
+            { "input": "sed s/123/abc/g ~/Numbers.txt", "expected": true },
+            { "input": "sed s/hello/HELLO ~/Greeting.txtt", "expected": false },
+            { "input": "sed s/Foo/Bar/g ~/ExampleFile.txt", "expected": true },
+            { "input": "sed s/special/@!/g ~/Special.txt", "expected": false },
+            { "input": "sed /delete/d ~/DeleteMe.txt", "expected": true },
+            { "input": "sed /invalid ~/BadFile.txt", "expected": false },
+            { "input": "sed s/hello/HELLO ~//Greeting.txt", "expected": false },
+            { "input": "sed s/Test1/Test2/g ~/TestFile.txt", "expected": true },
+            { "input": "sed /def/d", "expected": false },
+            { "input": "sed /removeLine/d ~/Sample1.tx", "expected": false },
+            { "input": "sed s/lower/UPPER/g ~/CaseTest.txt", "expected": true },
+            { "input": "sed s//replacement/g ~/NoRegexp.txt", "expected": false }
+        ],
+        "sampleAnswer": "sed (\\/.+\\/d|s\\/[^\\s\\/]+\\/[a-zA-Z0-9]+(\\/g)?) ~\\/[a-zA-Z][a-zA-Z0-9]*\\.txt"
+    }
+]

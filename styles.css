@@ -33,7 +33,7 @@ p {
     color: #666;
 }
 
-#question-bank, #random-question, #run-tests, #sample-answer {
+#problem-bank, #random-problem, #run-tests, #sample-answer, #complete, #incomplete {
     display: block;
     margin: 10px 0;
     padding: 10px;
@@ -100,7 +100,7 @@ button:hover {
 
 #detailed-output {
     width: 100%;
-    table-layout: fixed;
+    table-layout: auto;
     border-spacing: 0;
     border-collapse: collapse;
     margin: 10px 0;
@@ -127,7 +127,7 @@ button:hover {
     line-height: 1.5;
 }
 
-#run-tests, #feedback {
+#run-tests, #feedback, #complete, #incomplete {
     display: inline-block;
     vertical-align: middle;
 }

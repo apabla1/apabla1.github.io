@@ -1,60 +1,64 @@
-let questions = [];
-let currentQuestion = null;
-let solvedQuestions = new Set();
+let problems = [];
+let currentProblem = null;
+let solvedProblems = new Set();
 
-// load questions
-fetch("questions.json")
+// load problems
+fetch("problems.json")
     .then(response => response.json())
     .then(data => {
-        questions = data;
-        document.getElementById("total-questions").textContent = questions.length;
-        populateQuestionDropdown();
+        problems = data;
+        document.getElementById("total-problems").textContent = problems.length;
+        populateProblemDropdown();
         document.getElementById("sample-answer").style.display = "none";
         document.getElementById("run-tests").style.display = "none";
+        document.getElementById("complete").style.display = "none";
+        document.getElementById("incomplete").style.display = "none";
         document.getElementById("input").style.display = "none";
         document.getElementById("carat").style.display = "none";
         document.getElementById("dollar").style.display = "none";
     })
     .catch(error => {
         console.error(error);
-        alert("Failed to load questions. Please check the console for more details.");
+        alert("Failed to load problems. Please check the console for more details.");
     });
 
-// populate question dropdown
-function populateQuestionDropdown() {
-    const questionDropdown = document.getElementById("question-bank");
-    questionDropdown.innerHTML = "";
+// populate problem dropdown
+function populateProblemDropdown() {
+    const problemDropdown = document.getElementById("problem-bank");
+    problemDropdown.innerHTML = "";
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
-    defaultOption.textContent = "Question List";
-    questionDropdown.appendChild(defaultOption);
+    defaultOption.textContent = "Problem List";
+    problemDropdown.appendChild(defaultOption);
 
-    questions.forEach((question, index) => {
+    problems.forEach((problem, index) => {
         const option = document.createElement("option");
         option.value = index;
-        option.textContent = `Question ${question.id} - ${question.title}`;
-        questionDropdown.appendChild(option);
+        option.textContent = `Problem ${problem.id} - ${problem.title}`;
+        problemDropdown.appendChild(option);
     });
 }
 
-function repopulateQuestionDropdown() {
-    const questionDropdown = document.getElementById("question-bank");
-    for (let i = 1; i < questionDropdown.options.length; i++) {
-        const idx = parseInt(questionDropdown.options[i].value, 10);
-        if (solvedQuestions.has(idx)) {
-            questionDropdown.options[i].textContent = "✔ Question " + questions[idx].id + " - " + questions[idx].title;
+function repopulateProblemDropdown() {
+    const problemDropdown = document.getElementById("problem-bank");
+    for (let i = 1; i < problemDropdown.options.length; i++) {
+        const idx = parseInt(problemDropdown.options[i].value, 10);
+        if (solvedProblems.has(idx)) {
+            problemDropdown.options[i].textContent = "✔ Problem " + problems[idx].id + " - " + problems[idx].title;
         } else {
-            questionDropdown.options[i].textContent = "Question " + questions[idx].id + " - " + questions[idx].title;
+            problemDropdown.options[i].textContent = "Problem " + problems[idx].id + " - " + problems[idx].title;
         }
     }
 }
 
 // change event
-document.getElementById("question-bank").addEventListener("change", (event) => {
+document.getElementById("problem-bank").addEventListener("change", (event) => {
     if (event.target.value === "") {
-        currentQuestion = null;
-        document.getElementById("info").textContent = "Click 'Random Unsolved Question' or choose one from the bank to start";
+        currentProblem = null;
+        document.getElementById("info").textContent = "Click 'Random Unsolved Problem' or choose one from the bank to start";
         document.getElementById("run-tests").style.display = "none";
+        document.getElementById("complete").style.display = "none";
+        document.getElementById("incomplete").style.display = "none";
         document.getElementById("input").style.display = "none";
         document.getElementById("carat").style.display = "none";
         document.getElementById("dollar").style.display = "none";
@@ -66,21 +70,24 @@ document.getElementById("question-bank").addEventListener("change", (event) => {
         document.getElementById("sample-answer").style.display = "none";
         return;
     }
-    loadQuestion(event.target.value);
+    loadProblem(event.target.value);
     document.getElementById("feedback").textContent = "";
 });
 
-// load a specific question by index
-function loadQuestion(index) {
-    currentQuestion = questions[index];
-    document.getElementById("info").innerHTML = "<u><strong>Question " + currentQuestion.id + "</strong> - " + currentQuestion.title + "</u><br /><br />" +
-    "<i>" + currentQuestion.prompt + "</i><br /><br />" +
-    "<strong>Valid Examples:</strong>" + currentQuestion.valid_examples.map(example => `<li style="font-family: Consolas, monospace;">${example}</li>`).join("\n") + "</ul><br />" +
-    "<strong>Invalid Examples:</strong>" + currentQuestion.invalid_examples.map(example => `<li style="font-family: Consolas, monospace;">${example}</li>`).join("\n") + "</ul>";
+// load a specific problem by index
+function loadProblem(index) {
+    currentProblem = problems[index];
+    var formattedPrompt = currentProblem.prompt.replace(/`([^`]+)`/g, "<span style='font-family:Consolas;'>$1</span>");
+    document.getElementById("info").innerHTML = "<u><strong>Problem " + currentProblem.id + "</strong> - " + currentProblem.title + "</u><br /><br />" +
+    "<i>" + formattedPrompt + "</i><br /><br />" +
+    "<strong>Valid Examples:</strong>" + currentProblem.valid_examples.map(example => `<li style="font-family: Consolas, monospace;">${example}</li>`).join("\n") + "</ul><br />" +
+    "<strong>Invalid Examples:</strong>" + currentProblem.invalid_examples.map(example => `<li><span style="font-family: Consolas, monospace;">${example.example}</span> (${example.reason})</li>`).join("\n") + "</ul>";
     document.getElementById("input").value = "";
     document.getElementById("feedback").textContent = "";
     document.getElementById("sample-answer").style.display = "inline-block";
     document.getElementById("run-tests").style.display = "inline-block";
+    document.getElementById("complete").style.display = "inline-block";
+    document.getElementById("incomplete").style.display = "inline-block";
     document.getElementById("input").style.display = "inline-block";
     document.getElementById("carat").style.display = "inline-block";
     document.getElementById("dollar").style.display = "inline-block";
@@ -90,26 +97,26 @@ function loadQuestion(index) {
     document.getElementById("detailed-output").innerHTML = "";
 }
 
-// pick a random unsolved question
-document.getElementById("random-question").addEventListener("click", () => {
+// pick a random unsolved problem
+document.getElementById("random-problem").addEventListener("click", () => {
     document.getElementById("feedback").textContent = "";
-    const currentQuestionIndex = parseInt(document.getElementById("question-bank").value, 10);
-    const unsolvedQuestions = questions.filter((_, index) => !solvedQuestions.has(index) && index !== currentQuestionIndex);
-    if (unsolvedQuestions.length === 0) { return; }
-    const randomIndex = Math.floor(Math.random() * unsolvedQuestions.length);
-    const questionIndex = questions.indexOf(unsolvedQuestions[randomIndex]);
-    loadQuestion(questionIndex);
+    const currentProblemIndex = parseInt(document.getElementById("problem-bank").value, 10);
+    const unsolvedProblems = problems.filter((_, index) => !solvedProblems.has(index) && index !== currentProblemIndex);
+    if (unsolvedProblems.length === 0) { return; }
+    const randomIndex = Math.floor(Math.random() * unsolvedProblems.length);
+    const problemIndex = problems.indexOf(unsolvedProblems[randomIndex]);
+    loadProblem(problemIndex);
 
-    document.getElementById("question-bank").value = questionIndex;
+    document.getElementById("problem-bank").value = problemIndex;
 });
 
 // run tests and check the solution
 document.getElementById("run-tests").addEventListener("click", () => {
-    if (!currentQuestion) {
+    if (!currentProblem) {
         if (document.getElementById("input").value.trim() === "") {
-            document.getElementById("feedback").textContent = "Choose a question and enter Regex!";
+            document.getElementById("feedback").textContent = "Choose a problem and enter Regex!";
         } else {
-            document.getElementById("feedback").textContent = "Choose a question!";
+            document.getElementById("feedback").textContent = "Choose a problem!";
         }
         return;
     }
@@ -150,7 +157,7 @@ document.getElementById("run-tests").addEventListener("click", () => {
     // public tests
     const publ = document.getElementById("public-tests");
     publist += `<h4>Public Tests:</h4>`;
-    currentQuestion.publicTests.forEach((test, i) => {
+    currentProblem.publicTests.forEach((test, i) => {
         const passed = regex.test(test.input) === test.expected;
         publist += `<p>Test ${i + 1}: ${passed ? '✅ Passed' : '❌ Failed'}</p>`;
         if (!passed) allTestsPassed = false;
@@ -171,7 +178,7 @@ document.getElementById("run-tests").addEventListener("click", () => {
     // secret tests
     const secr = document.getElementById("secret-tests");
     secretlist += `<h4>Secret Tests:</h4>`;
-    currentQuestion.secretTests.forEach((test, i) => {
+    currentProblem.secretTests.forEach((test, i) => {
         const passed = regex.test(test.input) === test.expected;
         secretlist += `<p>Test ${i + 1}: ${passed ? '✅ Passed' : '❌ Failed'}</p>`;
         if (!passed) allTestsPassed = false;
@@ -180,29 +187,29 @@ document.getElementById("run-tests").addEventListener("click", () => {
 
 
     if (allTestsPassed) {
-        const questionIndex = questions.indexOf(currentQuestion);
-        if (!solvedQuestions.has(questionIndex)) {
-            solvedQuestions.add(questionIndex);
+        const problemIndex = problems.indexOf(currentProblem);
+        if (!solvedProblems.has(problemIndex)) {
+            solvedProblems.add(problemIndex);
         }
-        document.getElementById("solved-count").textContent = solvedQuestions.size;
+        document.getElementById("solved-count").textContent = solvedProblems.size;
         document.getElementById("feedback").textContent = "✅ All tests passed!";
-        repopulateQuestionDropdown();
+        repopulateProblemDropdown();
     } else {
-        document.getElementById("feedback").textContent = "❌ Some tests failed. See detailed output below.";
+        document.getElementById("feedback").innerHTML = "❌ Some tests failed. Debug why your regex might've failed using the debugger at <a href='https://regex101.com/' target='_blank'>https://regex101.com/</a>. See detailed output below.";
     }
 });
 
 // show sample answer
 document.getElementById("sample-answer").addEventListener("click", () => {
-    if (!currentQuestion) {
-        document.getElementById("feedback").textContent = "Choose a question!";
+    if (!currentProblem) {
+        document.getElementById("feedback").textContent = "Choose a problem!";
         return;
     }
     const popup = document.getElementById("sample-answer-popup");
     if (popup) {
         popup.innerHTML = `
             <button id="popup-close" style="float: right;">X</button>
-            <br /><div style="font-family: Consolas, monospace;">${currentQuestion.sampleAnswer}</div>
+            <br /><div style="font-family: Consolas, monospace;">${currentProblem.sampleAnswer}</div>
         `;
 
         const sampleAnswerBtn = document.getElementById("sample-answer");
@@ -226,5 +233,25 @@ document.getElementById("sample-answer").addEventListener("click", () => {
             popup.style.display = "none";
         });
     }
+});
+
+// marking problems
+document.getElementById("complete").addEventListener("click", () => {
+    const problemIndex = problems.indexOf(currentProblem);
+    if (!solvedProblems.has(problemIndex)) {
+        solvedProblems.add(problemIndex);
+    }
+    document.getElementById("solved-count").textContent = solvedProblems.size;
+    document.getElementById("feedback").textContent = "Problem Marked as Complete";
+    repopulateProblemDropdown();
+});
+document.getElementById("incomplete").addEventListener("click", () => {
+    const problemIndex = problems.indexOf(currentProblem);
+    if (solvedProblems.has(problemIndex)) {
+        solvedProblems.delete(problemIndex);
+    }
+    document.getElementById("solved-count").textContent = solvedProblems.size;
+    document.getElementById("feedback").textContent = "Problem Marked as Incomplete";
+    repopulateProblemDropdown();
 });
 

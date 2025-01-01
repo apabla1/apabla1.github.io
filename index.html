@@ -14,7 +14,7 @@
     <div class="container">
         <!-- Counter -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <p>Solved: <span id="solved-count">0</span> / <span id="total-questions">0</span></p>
+            <p>Solved: <span id="solved-count">0</span> / <span id="total-problems">0</span></p>
             <div>Errors: <u>apabla@terpmail.umd.edu</u></div>
         </div>
 
@@ -83,16 +83,16 @@
             </table>
         </div>
 
-        <!-- Question Bank Dropdown -->
-        <select id="question-bank">
-            <option value="">Question List</option>
+        <!-- Problem Bank Dropdown -->
+        <select id="problem-bank">
+            <option value="">Problem List</option>
         </select>
 
-        <!-- Random Question Button -->
-        <button id="random-question">Random Unsolved Question</button>
+        <!-- Random Problem Button -->
+        <button id="random-problem">Random Unsolved Problem</button>
         
         <!-- Problem -->
-        <div id="info">Click 'Random Unsolved Question' or choose one from the bank to start</div>
+        <div id="info">Click 'Random Unsolved Problem' or choose one from the bank to start</div>
 
         <!-- Input -->
         <div style="display: flex; align-items: center; gap: 5px; margin-top: 15px;">
@@ -107,6 +107,8 @@
                 <button id="popup-close" style="float: right;">X</button>
             </div>
             <button id="run-tests" style="height: 40px; float: left;">Run Tests</button>
+            <button id="complete" style="height: 40px;">Mark Problem Complete</button>
+            <button id="incomplete" style="height: 40px;">Mark Problem Incomplete</button>
             <button id="sample-answer" style="height: 40px; float: right;">Sample Answer</button>
         </div>
 
@@ -119,7 +121,15 @@
     <div class="results">
         <div id="public-tests"></div>
         <div id="secret-tests"></div>
-        <table id="detailed-output"></table>
+        <table id="detailed-output">
+            <colgroup>
+                <col style="width: 10%;">
+                <col style="width: 70%;">
+                <col style="width: 10%;">
+                <col style="width: 10%;">
+                <col style="width: 10%;">
+            </colgroup>
+        </table>
     </div>  
 
 
