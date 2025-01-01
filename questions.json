@@ -273,7 +273,7 @@
     {
         "id": 6,
         "title": "ISO 8601 Dates",
-        "prompt": "Write a regular expression to validate 20th and 21st century dates in the format YYYY-MM-DD. The day must be 01-31, and month must be 01-12 (zero-padded). The day need not correspond to the month, but days must be in the valid range.",
+        "prompt": "Write a regular expression to validate 20th and 21st century dates in the ISO 8601 format YYYY-MM-DD. The day must be 01-31, and month must be 01-12 (zero-padded). The day need not correspond to the month, but days must be in the valid range.",
         "valid_examples": [
             "2023-01-01",
             "1999-12-31",
@@ -319,5 +319,4 @@
         ],
         "sampleAnswer": "(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"
     }
-
 ]
