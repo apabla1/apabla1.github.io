@@ -16,68 +16,68 @@
         <p>Solved: <span id="solved-count">0</span> / <span id="total-questions">0</span></p>
 
         <!-- cheatsheet -->
-<div id="cheatsheet" style="border: 1px solid #ccc; padding: 10px; margin-top: 5px; margin-bottom: 15px; background-color: #f9f9f9;">
-    <h3>Exam Cheatsheet</h3>
-    <table style="width:100%; border-collapse: collapse;">
-        <thead>
-            <tr>
-                <th style="border: 1px solid #ccc; padding: 8px;">Regex</th>
-                <th style="border: 1px solid #ccc; padding: 8px;">Description</th>
-                <th style="border: 1px solid #ccc; padding: 8px;">Regex</th>
-                <th style="border: 1px solid #ccc; padding: 8px;">Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>*</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">zero or more repetitions of the preceding character or group</td>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>{n}</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">exactly \( n \) repetitions of the preceding character or group</td>            </tr>
-            <tr>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>+</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">one or more repetitions of the preceding character or group</td>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>{n,}</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">at least \( n \) repetitions of the preceding character or group</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>?</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">zero or one repetitions of the preceding character or group</td>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>{m,n}</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">at least \( m \) and at most \( n \) repetitions of the preceding character or group</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>.</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">any character</td>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>^</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">start of string</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>a|b</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">a or b</td>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>$</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">end of string</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>[abc]</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">match any character in abc</td>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>(p)</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">capture the pattern p and store it somewhere (match group in Python)</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>[^abc]</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">anything but an ’a’, ’b’, or ’c’</td>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>\d</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">any digit, same as [0-9]</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>[a-z]</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">any letter in the ASCII range of a-z</td>
-                <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>\s</strong></td>
-                <td style="border: 1px solid #ccc; padding: 8px;">any space character like <span style="font-family: Consolas;">\n</span>, <span style="font-family: Consolas;">\t</span>, <span style="font-family: Consolas;">\r</span>, <span style="font-family: Consolas;">\f</span>, or space</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        <div id="cheatsheet" style="border: 1px solid #ccc; padding: 10px; margin-top: 5px; margin-bottom: 15px; background-color: #f9f9f9;">
+            <h3>Exam Cheatsheet</h3>
+            <table style="width:100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid #ccc; padding: 8px;">Regex</th>
+                        <th style="border: 1px solid #ccc; padding: 8px;">Description</th>
+                        <th style="border: 1px solid #ccc; padding: 8px;">Regex</th>
+                        <th style="border: 1px solid #ccc; padding: 8px;">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>*</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">zero or more repetitions of the preceding character or group</td>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>{n}</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">exactly \( n \) repetitions of the preceding character or group</td>            </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>+</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">one or more repetitions of the preceding character or group</td>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>{n,}</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">at least \( n \) repetitions of the preceding character or group</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>?</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">zero or one repetitions of the preceding character or group</td>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>{m,n}</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">at least \( m \) and at most \( n \) repetitions of the preceding character or group</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>.</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">any character</td>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>^</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">start of string</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>a|b</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">a or b</td>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>$</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">end of string</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>[abc]</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">match any character in abc</td>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>(p)</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">capture the pattern p and store it somewhere (match group in Python)</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>[^abc]</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">anything but an ’a’, ’b’, or ’c’</td>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>\d</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">any digit, same as [0-9]</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>[a-z]</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">any letter in the ASCII range of a-z</td>
+                        <td style="border: 1px solid #ccc; padding: 8px; font-family: Consolas;"><strong>\s</strong></td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">any space character like <span style="font-family: Consolas;">\n</span>, <span style="font-family: Consolas;">\t</span>, <span style="font-family: Consolas;">\r</span>, <span style="font-family: Consolas;">\f</span>, or space</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <!-- Question Bank Dropdown -->
         <select id="question-bank">
