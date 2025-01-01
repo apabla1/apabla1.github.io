@@ -2,7 +2,7 @@
 The user will write a regular expression given a set of strings.
 
 ## Features
-- Expandability: More problems and test cases can be added in the questions.json file
+- Expandability: More problems and test cases can be added in the `questions.json` file
 
 ## Usage:
 Go to [https://apabla1.github.io/](https://apabla1.github.io/)
