@@ -37,6 +37,18 @@ function populateQuestionDropdown() {
     });
 }
 
+function repopulateQuestionDropdown() {
+    const questionDropdown = document.getElementById("question-bank");
+    for (let i = 1; i < questionDropdown.options.length; i++) {
+        const idx = parseInt(questionDropdown.options[i].value, 10);
+        if (solvedQuestions.has(idx)) {
+            questionDropdown.options[i].textContent = "✔ Question " + questions[idx].id + " - " + questions[idx].title;
+        } else {
+            questionDropdown.options[i].textContent = "Question " + questions[idx].id + " - " + questions[idx].title;
+        }
+    }
+}
+
 // change event
 document.getElementById("question-bank").addEventListener("change", (event) => {
     if (event.target.value === "") {
@@ -174,6 +186,7 @@ document.getElementById("run-tests").addEventListener("click", () => {
         }
         document.getElementById("solved-count").textContent = solvedQuestions.size;
         document.getElementById("feedback").textContent = "✅ All tests passed!";
+        repopulateQuestionDropdown();
     } else {
         document.getElementById("feedback").textContent = "❌ Some tests failed. See detailed output below.";
     }
