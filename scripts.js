@@ -205,6 +205,15 @@ document.getElementById("sample-answer").addEventListener("click", () => {
         document.getElementById("feedback").textContent = "Choose a problem!";
         return;
     }
+
+    // special case for problem 2
+    if (currentProblem.id === 2) {
+        document.getElementById("feedback").innerHTML = currentProblem.sampleAnswer
+            .replace(/`([^`]+)`/g, "<span style='font-family: Consolas;'>$1</span>")
+            .replace(/\n/g, "<br>");
+        return;
+    }
+
     const popup = document.getElementById("sample-answer-popup");
     if (popup) {
         popup.innerHTML = `
