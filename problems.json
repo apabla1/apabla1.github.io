@@ -2,7 +2,7 @@
     {
         "id": 1,
         "title": "Email Addresses",
-        "prompt": "Write a regular expression to validate email addresses. There must be one or more (uppercase or lowercase) letters, numbers, periods, or underscores in any order before the @ symbol, but there musn't be an underscore preceding the @ symbol. After the @ symbol, we have the domain. The domain is separated by the second-level domain and the top-level domain (e.g., in \"username@gmail.com\", the second-level domain is \"gmail\" and the top-level domain is \".com\"). For the second-level domain, there must be one or more (uppercase or lowercase) letters, numbers, and periods in any order, but there musn't be a period at the end. The top-level domain must be either '.com', '.co', or '.edu'.",
+        "prompt": "Write a regular expression to validate email addresses.<br /><br />There must be one or more (uppercase or lowercase) letters, numbers, periods, or underscores in any order before the @ symbol, but there musn't be an underscore preceding the @ symbol.<br /><br />After the @ symbol, we have the domain. The domain is separated by the second-level domain and the top-level domain (e.g., in \"username@gmail.com\", the second-level domain is \"gmail\" and the top-level domain is \".com\").<br /><br />For the second-level domain, there must be one or more (uppercase or lowercase) letters, numbers, and periods in any order, but there musn't be a period at the end.<br /><br />The top-level domain must be either '.com', '.co', or '.edu'.",
         "valid_examples": [
             "test@example.com",
             "user.name@domain.co",
@@ -190,7 +190,7 @@
     {
         "id": 3,
         "title": "U.S. Phone Numbers",
-        "prompt": "Write a regular expression to validate a phone number in the format '(XXX) XXX-XXXX', '(XXX)-XXX-XXXX', or 'XXX-XXX-XXXX', allowing an optional United States country code '+1 ' (space after) at the beginning. Make sure your solution includes spaces where necessary.",
+        "prompt": "Write a regular expression to validate a phone number in the format '(XXX) XXX-XXXX', '(XXX)-XXX-XXXX', or 'XXX-XXX-XXXX'.<br /><br />You must allow an optional United States country code '+1 ' (space after) at the beginning.<br /><br />Make sure your solution includes spaces where necessary.",
         "valid_examples": [
             "(123) 456-7890",
             "123-456-7890",
@@ -262,7 +262,7 @@
     {
         "id": 4,
         "title": "IPv4 Addresses",
-        "prompt": "Write a regular expression to validate an IPv4 address (four octets, each 0-255, separated by dots). Zero-padding is allowed, but each octet must be a valid decimal number in the range.",
+        "prompt": "Write a regular expression to validate an IPv4 address (four octets, each 0-255, separated by dots).<br /><br />Zero-padding is allowed, but each octet must be a valid decimal number in the range.",
         "valid_examples": [
             "192.168.1.1",
             "127.0.0.1",
@@ -325,7 +325,7 @@
     {
         "id": 5,
         "title": "Hex Color Codes",
-        "prompt": "Write a regular expression that matches valid 3-digit or 6-digit hexadecimal color codes, optionally preceded by '#'. Remember: in hex, each digit is in the range 0-9 or A-F. Letters can be uppercase or lowercase.",
+        "prompt": "Write a regular expression that matches valid 3-digit (#XXX) or 6-digit (#XXXXXX) hexadecimal color codes, which is basically just a combination of 3 or 6 hexadecimal digits. The color code is optionally preceded by '#'.<br /><br />Remember: in hex, each digit is in the range 0-9 or A-F.<br /><br />Letters can be uppercase or lowercase.",
         "valid_examples": [
             "#ABC",
             "FFF",
@@ -396,7 +396,7 @@
     {
         "id": 6,
         "title": "ISO 8601 Dates",
-        "prompt": "Write a regular expression to validate 20th and 21st century dates in the ISO 8601 format YYYY-MM-DD. The day must be 01-31, and month must be 01-12 (zero-padded). The day need not correspond to the month, but days must be in the valid range.",
+        "prompt": "Write a regular expression to validate 20th and 21st century dates in the ISO 8601 format YYYY-MM-DD.<br /><br />The day must be 01-31, and month must be 01-12 (zero-padded). The day need not correspond to the month, but days must be in the valid range.",
         "valid_examples": [
             "2023-01-01",
             "1999-12-31",
@@ -466,7 +466,7 @@
     {
         "id": 7,
         "title": "Absolute Paths",
-        "prompt": "Write a regular expression describing an absolute path to a file in Linux. Because the path is absolute, the first direct must either be the home (~) or root (/) directory. Each directory name in the path has the restriction that the first character can only be an uppercase or lowercase letter, but characters after that may be alphanumeric or an underscore. If the path references a file, the filename must have one or more alphanumeric characters or an underscore (may start with a number or underscore) and must have an extension afterwards. The extension will be a period folowed by a lowercase letter followed by 0 or more lowercase letters or numbers (e.g., `.txt`, `.png`., `.ml`, `.mp4`, etc.). No underscores in the extension. The destination may or may not have a slash afterwards.",
+        "prompt": "Write a regular expression describing an absolute path to a file in Linux. Because the path is absolute, the first direct must either be the home (~) or root (/) directory.<br /><br />Each directory name in the path has the restriction that the first character can only be an uppercase or lowercase letter, but characters after that may be alphanumeric or an underscore.<br /><br />If the path references a file, the filename must have one or more alphanumeric characters or an underscore (may start with a number or underscore) and must have an extension afterwards. The extension will be a period folowed by a lowercase letter followed by 0 or more lowercase letters or numbers (e.g., `.txt`, `.png`., `.ml`, `.mp4`, etc.). No underscores in the extension.<br /><br />The destination may or may not have a slash afterwards.",
         "valid_examples": [
             "~",
             "~/",
@@ -572,7 +572,7 @@
     {
         "id": 8,
         "title": "Military and Standard Time",
-        "prompt": "Write a regular expression describing a time in military time (24-hour format) or standard time (12-hour format). If the time is in military time, the format is HH:MM. The hour must be a zero-padded number from 00 to 23, and the minute must be a zero-padded number from 00 to 59. If the time is in standard time, the format is HH:MM (a.m./p.m.). The hour must be a zero-padded number from 01 to 12, and the minute must be a zero-padded number from 00 to 59. Then, state whether the time is anti-meridian or post-meridian using the abbreviations 'a.m.' or 'p.m', respectively. The abbreviations must have periods as shown. and make sure there is a space between the time and the abbreviation.",
+        "prompt": "Write a regular expression describing a time in military time (24-hour format) or standard time (12-hour format).<br /><br />If the time is in military time, the format is HH:MM. The hour must be a zero-padded number from 00 to 23, and the minute must be a zero-padded number from 00 to 59.<br /><br />If the time is in standard time, the format is HH:MM (a.m./p.m.). The hour must be a zero-padded number from 01 to 12, and the minute must be a zero-padded number from 00 to 59. Then, state whether the time is anti-meridian or post-meridian using the abbreviations 'a.m.' or 'p.m', respectively. The abbreviations must have periods as shown. and make sure there is a space between the time and the abbreviation.",
         "valid_examples": [
             "00:00",
             "23:59",
@@ -676,7 +676,7 @@
     {
         "id": 9,
         "title": "CRON",
-        "prompt": "CRON (Command Run On Notice) is a time-based job scheduler (based on a CRON table) for Unix-like operating systems. You can edit your CRON table with `crontab -e` or the superuser's CRON table with `sudo crontab -e`. A CRON Table's line format is: `minute hour day_of_month month day_of_week script_to_execute`. Write a regular expression that represents a CRON table's line format. The `minute`s are 0-59, `hour`s are 0-23, `day_of_month` is 1-31, `month` is 1-12, and `day_of_week` is 0-6 (where Sunday is 0). If you do not want to specify a specific element, you must wildcard it with a '*'. Some examples: `15 * * * *` will run every 15 minutes past the hour, every hour, every day of the month, every month, every day of the week; `15 3 * * 0` will run 15 minutes past 3:00 a.m., every day of the month, every month, every Sunday. You may not zero-pad numbers. You can assume that the script to be executed is always `~/myScript`. Make sure spaces are provided where necessary.",
+        "prompt": "CRON (Command Run On Notice) is a time-based job scheduler (based on a CRON table) for Unix-like operating systems. You can edit your CRON table with `crontab -e` or the superuser's CRON table with `sudo crontab -e`.<br /><br />A CRON table's line format is: `minute hour day_of_month month day_of_week script_to_execute`<br /><br />Write a regular expression that represents a CRON table's line format. The `minute`s are 0-59, `hour`s are 0-23, `day_of_month` is 1-31, `month` is 1-12, and `day_of_week` is 0-6 (where Sunday is 0).<br /><br />If you do not want to specify a specific element, you must wildcard it with a '*'. Some examples: `15 * * * *` will run every 15 minutes past the hour, every hour, every day of the month, every month, every day of the week; `15 3 * * 0` will run 15 minutes past 3:00 a.m., every day of the month, every month, every Sunday.<br /><br />You may not zero-pad numbers. You can assume that the script to be executed is always `~/myScript`. Make sure spaces are provided where necessary.",
         "valid_examples": [
             "0 0 * * * ~/myScript",
             "59 23 31 12 6 ~/myScript",
@@ -759,7 +759,7 @@
     {
         "id": 10,
         "title": "Sed",
-        "prompt": "Sed (Stream editor) is a command-line utility to filter and transform ASCII text. The syntax for the command is `sed rule filename`. There are 3 `rule`s we will focus on. 1) `/regexp/d`: Will delete all lines that match `regexp` in the file. 2) `/s/regexp/replacement`: Will substitute the first occurrence of `regexp` in the file with replacement. 3) `/s/regexp/replacement/g`: Will substitute all occurrences of `regexp` in the file with `replacement`. Write a regular expression that will match an entire `sed` command accepting these three rules. Let `regexp`s be one or more of any character but a whitespace or a slash. Let `replacement`s be one or more of alphanumeric characters (lowercase or uppercase). Let the `filename` being scanned always be in the home directory (~), end in `.txt`, start with an uppercase or lowercase character and then have (uppercase or lowercase) alphanumeric characters after that, and have a length of at least 1. There will not be a slash after the file name. Make sure that spaces are provided where necessary.",
+        "prompt": "Sed (Stream editor) is a command-line utility to filter and transform ASCII text. The syntax for the command is `sed rule filename`. There are 3 `rule`s we will focus on.<br />1) `/regexp/d`: Will delete all lines that match `regexp` in the file.<br />2) `/s/regexp/replacement`: Will substitute the first occurrence of `regexp` in the file with replacement.<br />3) `/s/regexp/replacement/g`: Will substitute all occurrences of `regexp` in the file with `replacement`.<br /><br />Write a regular expression that will match an entire `sed` command accepting these three rules. Let `regexp`s be one or more of any character but a whitespace or a slash. Let `replacement`s be one or more of alphanumeric characters (lowercase or uppercase). Let the `filename` being scanned always be in the home directory (~), end in `.txt`, start with an uppercase or lowercase character and then have (uppercase or lowercase) alphanumeric characters after that, and have a length of at least 1.<br /><br />There will not be a slash after the file name. Make sure that spaces are provided where necessary.",
         "valid_examples": [
             "sed /abc/d ~/File.txt",
             "sed s/hello/WORLD ~/MyExample2.txt",
