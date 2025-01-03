@@ -102,11 +102,13 @@ document.getElementById("random-problem").addEventListener("click", () => {
     document.getElementById("feedback").textContent = "";
     const currentProblemIndex = parseInt(document.getElementById("problem-bank").value, 10);
     const unsolvedProblems = problems.filter((_, index) => !solvedProblems.has(index) && index !== currentProblemIndex);
-    if (unsolvedProblems.length === 0) { return; }
+    if (unsolvedProblems.length === 0) { 
+        document.getElementById("feedback").textContent = "All problems completed!";
+        return; 
+    }
     const randomIndex = Math.floor(Math.random() * unsolvedProblems.length);
     const problemIndex = problems.indexOf(unsolvedProblems[randomIndex]);
     loadProblem(problemIndex);
-
     document.getElementById("problem-bank").value = problemIndex;
 });
 
