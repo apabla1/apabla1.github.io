@@ -343,7 +343,7 @@
             },
             {
                 "example": "Z1Z1Z1",
-                "reason": "invalid characters Z"
+                "reason": "invalid character 'Z'"
             },
             {
                 "example": "12345G",
@@ -355,7 +355,7 @@
             },
             {
                 "example": "#XYZ",
-                "reason": "invalid characters"
+                "reason": "invalid characters 'X' 'Y' 'Z'"
             },
             {
                 "example": "FFFFFZ",
