@@ -2,7 +2,7 @@
     {
         "id": 1,
         "title": "Email Addresses",
-        "prompt": "Write a regular expression to validate email addresses.<br /><br />There must be one or more (uppercase or lowercase) letters, numbers, periods, or underscores in any order before the @ symbol, but there musn't be an underscore preceding the @ symbol.<br /><br />After the @ symbol, we have the domain. The domain is separated by the second-level domain and the top-level domain (e.g., in \"username@gmail.com\", the second-level domain is \"gmail\" and the top-level domain is \".com\").<br /><br />For the second-level domain, there must be one or more (uppercase or lowercase) letters, numbers, and periods in any order, but there musn't be a period at the end.<br /><br />The top-level domain must be either '.com', '.co', or '.edu'.",
+        "prompt": "Write a regular expression to validate email addresses.<br /><br />1. The email must begin with a username part:<br />&nbsp;&nbsp;&nbsp;&nbsp;- The username must consist of one or more uppercase or lowercase letters, numbers, periods (<code>.</code>), or underscores (<code>_</code>).<br />&nbsp;&nbsp;&nbsp;&nbsp;- An underscore (<code>_</code>) is <strong>not allowed</strong> immediately before the <code>@</code> symbol.<br /><br />2. After the username part, the email must contain the <code>@</code> symbol.<br /><br />3. After the <code>@</code> symbol, specify the domain:<br />&nbsp;&nbsp;&nbsp;&nbsp;- The domain is divided into two parts: second-level domain, and top-level domain. In <code>username@domain.com</code>, the second-level domain is <code>domain</code> and the top-level domain is <code>.com</code><br /><br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <strong>Second-level domain:</strong> This must consist of one or more uppercase or lowercase letters, numbers, or periods (<code>.</code>). A period <strong>cannot appear at the end</strong> of this part.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <strong>Top-level domain (TLD):</strong> This must be one of the following: <code>.com</code>, <code>.co</code>, or <code>.edu</code>.<br /><br />4. Ensure that there are no additional characters before, after, or in between the required parts.",
         "valid_examples": [
             "test@example.com",
             "user.name@domain.co",
@@ -1012,95 +1012,5 @@
             { "input": "ftp://example.com#fragment#extra", "expected": false }
         ],
         "sampleAnswer": "(http|https|ftp):\\/\\/([a-zA-Z0-9]+[-a-zA-Z0-9]*\\.)+(com|org|net|io|gov)(:(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{1,4}|[0-9]{1,4}|[0-9]))?(\\/[a-zA-Z0-9._-]+)*(\\?[a-zA-Z0-9&=_-]+)?(#[-a-zA-Z0-9]+)?"
-    },
-    {
-        "id": 12,
-        "title": "ISBN",
-        "prompt": "Write a regular expression to validate International Standard Book Numbers (ISBNs). A valid ISBN follows these rules:<br /><br />1. An ISBN must be either 10 digits (ISBN-10) or 13 digits (ISBN-13).<br />2. ISBN-10 format: Exactly 10 characters consisting of 9 digits followed by either a digit or an uppercase 'X'. Example: `0-306-40615-2` or `0306406152`.<br />3. ISBN-13 format: Exactly 13 digits, grouped as 3-1-5-7-1 or similar, separated by hyphens or no separators at all. Example: `978-0-306-40615-7` or `9780306406157`.<br />4. Separators (hyphens) are optional but must follow correct grouping if present.<br />5. No extra characters such as spaces, letters, or symbols other than hyphens are allowed.",
-        "valid_examples": [
-            "978-3-16-148410-0",
-            "9783161484100",
-            "0-306-40615-2",
-            "0306406152",
-            "978-0-306-40615-7",
-            "9780306406157",
-            "978-1-56619-909-4",
-            "1566199093"
-        ],
-        "invalid_examples": [
-            {
-                "example": "978-3-16-148410",
-                "reason": "Missing final digit in ISBN-13"
-            },
-            {
-                "example": "030640615X",
-                "reason": "Invalid 'X' placement in ISBN-10"
-            },
-            {
-                "example": "978-3-16-14841-00",
-                "reason": "Incorrect grouping in ISBN-13"
-            },
-            {
-                "example": "978316148410A",
-                "reason": "Contains an invalid letter"
-            },
-            {
-                "example": "978-3-16 148410-0",
-                "reason": "Contains a space"
-            },
-            {
-                "example": "978-3--16-148410-0",
-                "reason": "Double hyphen"
-            },
-            {
-                "example": "97803161484100",
-                "reason": "Exceeds 13 digits for ISBN-13"
-            },
-            {
-                "example": "03064061523",
-                "reason": "Exceeds 10 digits for ISBN-10"
-            },
-            {
-                "example": "0306-406152",
-                "reason": "Incorrect grouping in ISBN-10"
-            },
-            {
-                "example": "978#316#1484100",
-                "reason": "Contains invalid symbols"
-            }
-        ],
-        "publicTests": [
-            { "input": "978-3-16-148410-0", "expected": true },
-            { "input": "9783161484100", "expected": true },
-            { "input": "0-306-40615-2", "expected": true },
-            { "input": "0306406152", "expected": true },
-            { "input": "978-0-306-40615-7", "expected": true },
-            { "input": "9780306406157", "expected": true },
-            { "input": "978-1-56619-909-4", "expected": true },
-            { "input": "1566199093", "expected": true },
-            { "input": "978-3-16-148410", "expected": false },
-            { "input": "030640615X", "expected": false },
-            { "input": "978-3-16-14841-00", "expected": false },
-            { "input": "978316148410A", "expected": false },
-            { "input": "978-3-16 148410-0", "expected": false },
-            { "input": "978-3--16-148410-0", "expected": false },
-            { "input": "97803161484100", "expected": false },
-            { "input": "03064061523", "expected": false },
-            { "input": "0306-406152", "expected": false },
-            { "input": "978#316#1484100", "expected": false }
-        ],
-        "secretTests": [
-            { "input": "978-0-345-39180-3", "expected": true },
-            { "input": "0345391802", "expected": true },
-            { "input": "9780345391803", "expected": true },
-            { "input": "1-84356-028-3", "expected": true },
-            { "input": "978-1-84356-028-3", "expected": true },
-            { "input": "978-3-16-148410", "expected": false },
-            { "input": "0-84356-028-X", "expected": false },
-            { "input": "978-3-16-14841", "expected": false },
-            { "input": "97831614841A0", "expected": false },
-            { "input": "978--316-148410-0", "expected": false }
-        ],
-        "sampleAnswer": "(?:\\d{9}[\\dX])|(?:(?:978|979)-?\\d-?\\d{2,5}-?\\d{2,7}-?\\d)"
-    }    
+    }
 ]
