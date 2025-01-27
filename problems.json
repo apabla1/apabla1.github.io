@@ -872,7 +872,17 @@
             "https://example.org/path/to/page",
             "https://example.net/path/to/page?query=1&sort=asc",
             "http://example.gov#fragment",
-            "https://example.io:443/resource#details"
+            "https://example.io:443/resource#details",
+            "http://blog.example.com",
+            "https://shop.example.org/products",
+            "ftp://192.168.1.1/files",
+            "http://example.com/path-with-hyphens",
+            "https://example.net/path_with_underscores",
+            "ftp://sub.example.io:2121/uploads",
+            "https://www.example.com?query=key&value=data",
+            "http://example.com/resource.html#anchor",
+            "ftp://example.gov:1234/subdir/file",
+            "https://example.io:80/special.path"
         ],
         "invalid_examples": [
             {
@@ -914,6 +924,42 @@
             {
                 "example": "https://example.com::443",
                 "reason": "Double colons"
+            },
+            {
+                "example": "ftp://example.com:",
+                "reason": "Port number missing after colon"
+            },
+            {
+                "example": "http://.com",
+                "reason": "Domain name missing"
+            },
+            {
+                "example": "https://com",
+                "reason": "Subdomain missing"
+            },
+            {
+                "example": "http://example.com:/path",
+                "reason": "Port number colon without value"
+            },
+            {
+                "example": "ftp://example.io:999999/path",
+                "reason": "Port number too large"
+            },
+            {
+                "example": "http://example.com#fragment#extra",
+                "reason": "Multiple fragments"
+            },
+            {
+                "example": "https://-example.org",
+                "reason": "Invalid domain name with leading hyphen"
+            },
+            {
+                "example": "http://example.com?q=value space",
+                "reason": "Query contains a space"
+            },
+            {
+                "example": "ftp://example.com//path",
+                "reason": "Double slash in path"
             }
         ],
         "publicTests": [
@@ -925,6 +971,16 @@
             { "input": "https://example.net/path/to/page?query=1&sort=asc", "expected": true },
             { "input": "http://example.gov#fragment", "expected": true },
             { "input": "https://example.io:443/resource#details", "expected": true },
+            { "input": "http://blog.example.com", "expected": true },
+            { "input": "https://shop.example.org/products", "expected": true },
+            { "input": "ftp://192.168.1.1/files", "expected": true },
+            { "input": "http://example.com/path-with-hyphens", "expected": true },
+            { "input": "https://example.net/path_with_underscores", "expected": true },
+            { "input": "ftp://sub.example.io:2121/uploads", "expected": true },
+            { "input": "https://www.example.com?query=key&value=data", "expected": true },
+            { "input": "http://example.com/resource.html#anchor", "expected": true },
+            { "input": "ftp://example.gov:1234/subdir/file", "expected": true },
+            { "input": "https://example.io:80/special.path", "expected": true },
             { "input": "example.com", "expected": false },
             { "input": "http:/example.com", "expected": false },
             { "input": "https://example", "expected": false },
@@ -934,7 +990,16 @@
             { "input": "http://example..com", "expected": false },
             { "input": "http://example.com/invalid path", "expected": false },
             { "input": "http://example.com?query=value#frag#extra", "expected": false },
-            { "input": "https://example.com::443", "expected": false }
+            { "input": "https://example.com::443", "expected": false },
+            { "input": "ftp://example.com:", "expected": false },
+            { "input": "http://.com", "expected": false },
+            { "input": "https://com", "expected": false },
+            { "input": "http://example.com:/path", "expected": false },
+            { "input": "ftp://example.io:999999/path", "expected": false },
+            { "input": "http://example.com#fragment#extra", "expected": false },
+            { "input": "https://-example.org", "expected": false },
+            { "input": "http://example.com?q=value space", "expected": false },
+            { "input": "ftp://example.com//path", "expected": false }
         ],
         "secretTests": [
             { "input": "https://subdomain.example.net/path#details", "expected": true },
