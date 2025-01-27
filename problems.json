@@ -1110,7 +1110,7 @@
             { "input": "97831614841A0", "expected": false },
             { "input": "978--316-148410-0", "expected": false },
             { "input": "978-3-144-410-0", "expected": false },
-            { "input": "978-3-144-4170-0", "expected": false },
+            { "input": "978-3-144-4170-0", "expected": false }
         ],
         "sampleAnswer": "(978|979)?\\d{9}[\\dX]|(978-|979-)?\\d-(\\d-\\d{7}|\\d{2}-\\d{6}|\\d{3}-\\d{5}|\\d{4}-\\d{4}|\\d{5}-\\d{3})-[\\dX]"
     }    
