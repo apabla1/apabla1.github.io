@@ -859,5 +859,95 @@
             { "input": "sed s//replacement/g ~/NoRegexp.txt", "expected": false }
         ],
         "sampleAnswer": "sed (\\/.+\\/d|s\\/[^\\s\\/]+\\/[a-zA-Z0-9]+(\\/g)?) ~\\/[a-zA-Z][a-zA-Z0-9]*\\.txt"
+    },
+    {
+        "id": 11,
+        "title": "URLs",
+        "prompt": "Write a regular expression to validate a URL. A valid URL follows these rules:<br /><br />1. The protocol must be one of the following: `http`, `https`, or `ftp`.<br />2. The protocol is followed by `://`.<br />3. The domain name consists of:<br />&nbsp&nbsp&nbsp&nbsp- One or more subdomains separated by periods. Each subdomain must start with an alphanumeric character and may include hyphens.<br />&nbsp&nbsp&nbsp&nbsp- A top-level domain (TLD) that is either `.com`, `.org`, `.net`, `.io`, or `.gov`.<br />4. The URL may optionally include a port number after the domain, starting with a colon `:` and followed by a non-zero-padded number from 0 to 65535.<br />5. The URL may optionally include a path, which starts with `/` and may contain alphanumeric characters, hyphens, underscores, or periods. The path may also include additional `/` to represent directories.<br />6. Query strings (starting with `?`) and fragments (starting with `#`) are optional. Both may contain alphanumeric characters and the symbols `&`, `=`, `_`, and `-`.",
+        "valid_examples": [
+            "http://example.com",
+            "https://www.example.com",
+            "ftp://sub.domain.io",
+            "http://example.com:8080",
+            "https://example.org/path/to/page",
+            "https://example.net/path/to/page?query=1&sort=asc",
+            "http://example.gov#fragment",
+            "https://example.io:443/resource#details"
+        ],
+        "invalid_examples": [
+            {
+                "example": "example.com",
+                "reason": "Missing protocol"
+            },
+            {
+                "example": "http:/example.com",
+                "reason": "Incorrect protocol format"
+            },
+            {
+                "example": "https://example",
+                "reason": "Missing TLD"
+            },
+            {
+                "example": "https://example.abc",
+                "reason": "Invalid TLD"
+            },
+            {
+                "example": "ftp://example.com:70000",
+                "reason": "Port number out of range"
+            },
+            {
+                "example": "http://-example.com",
+                "reason": "Invalid domain name"
+            },
+            {
+                "example": "http://example..com",
+                "reason": "Double periods in domain"
+            },
+            {
+                "example": "http://example.com/invalid path",
+                "reason": "Space in path"
+            },
+            {
+                "example": "http://example.com?query=value#frag#extra",
+                "reason": "Multiple fragments"
+            },
+            {
+                "example": "https://example.com::443",
+                "reason": "Double colons"
+            }
+        ],
+        "publicTests": [
+            { "input": "http://example.com", "expected": true },
+            { "input": "https://www.example.com", "expected": true },
+            { "input": "ftp://sub.domain.io", "expected": true },
+            { "input": "http://example.com:8080", "expected": true },
+            { "input": "https://example.org/path/to/page", "expected": true },
+            { "input": "https://example.net/path/to/page?query=1&sort=asc", "expected": true },
+            { "input": "http://example.gov#fragment", "expected": true },
+            { "input": "https://example.io:443/resource#details", "expected": true },
+            { "input": "example.com", "expected": false },
+            { "input": "http:/example.com", "expected": false },
+            { "input": "https://example", "expected": false },
+            { "input": "https://example.abc", "expected": false },
+            { "input": "ftp://example.com:70000", "expected": false },
+            { "input": "http://-example.com", "expected": false },
+            { "input": "http://example..com", "expected": false },
+            { "input": "http://example.com/invalid path", "expected": false },
+            { "input": "http://example.com?query=value#frag#extra", "expected": false },
+            { "input": "https://example.com::443", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "https://subdomain.example.net/path#details", "expected": true },
+            { "input": "ftp://fileserver.io/downloads", "expected": true },
+            { "input": "http://localhost:8080/test", "expected": false },
+            { "input": "https://example.com/path/to/resource?key=value", "expected": true },
+            { "input": "ftp://example.org:21/resource?file=name", "expected": true },
+            { "input": "http://-invalid.com", "expected": false },
+            { "input": "https://example..com/path", "expected": false },
+            { "input": "https://example.com:70000/path", "expected": false },
+            { "input": "http://example.com?invalid query", "expected": false },
+            { "input": "ftp://example.com#fragment#extra", "expected": false }
+        ],
+        "sampleAnswer": "(https?|ftp):\\/\\/([a-zA-Z0-9]+[-a-zA-Z0-9]*\\.)+(com|org|net|io|gov)(:(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{0,4}|[0-9]{0,4}|[0-9]))?(\\/[a-zA-Z0-9._-]+)*(\\?[a-zA-Z0-9&=_-]+)?(#[-a-zA-Z0-9]+)?"
     }
 ]

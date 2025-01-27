@@ -208,42 +208,9 @@ document.getElementById("sample-answer").addEventListener("click", () => {
         return;
     }
 
-    // special case for problem 2
-    if (currentProblem.id === 2) {
-        document.getElementById("feedback").innerHTML = currentProblem.sampleAnswer
+    document.getElementById("feedback").innerHTML = currentProblem.sampleAnswer
             .replace(/`([^`]+)`/g, "<span style='font-family: Consolas;'>$1</span>")
             .replace(/\n/g, "<br>");
-        return;
-    }
-
-    const popup = document.getElementById("sample-answer-popup");
-    if (popup) {
-        popup.innerHTML = `
-            <button id="popup-close" style="float: right;">X</button>
-            <br /><div style="font-family: Consolas, monospace;">${currentProblem.sampleAnswer}</div>
-        `;
-
-        const sampleAnswerBtn = document.getElementById("sample-answer");
-        const rect = sampleAnswerBtn.getBoundingClientRect();
-
-        popup.style.display = "block";
-        popup.style.visibility = "hidden";
-        const popupHeight = popup.offsetHeight;
-        const popupWidth = popup.offsetWidth;
-
-        const topPosition = rect.top + window.scrollY - popupHeight - 10;
-        const leftPosition = rect.right - popup.offsetWidth;
-
-        popup.style.left = `${leftPosition}px`;
-        popup.style.top = `${topPosition}px`;
-        popup.style.width = 'auto';
-
-        popup.style.visibility = "visible";
-
-        document.getElementById("popup-close").addEventListener("click", () => {
-            popup.style.display = "none";
-        });
-    }
 });
 
 // marking problems

@@ -75,12 +75,17 @@ button:hover {
     background-color: #0056b3;
 }
 
-.popup {
+/* .popup {
     display: inline-block;
-    white-space: nowrap; 
     position: absolute;
     max-width: calc(100vw - 20px); 
     overflow: hidden;
+    white-space: normal;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow: visible;
+    word-wrap: break-word;
+    height: auto;
     padding: 10px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -96,7 +101,7 @@ button:hover {
     color: #000;
     font-weight: bold;
     cursor: pointer;
-}
+} */
 
 #detailed-output {
     width: 100%;
