@@ -132,7 +132,7 @@ document.getElementById("run-tests").addEventListener("click", () => {
         return;
     }
 
-    let regexInput = '^' + rawInput + '$';
+    let regexInput = '^(' + rawInput + ')$';
 
     let regex;
     try {
