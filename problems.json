@@ -1012,5 +1012,99 @@
             { "input": "ftp://example.com#fragment#extra", "expected": false }
         ],
         "sampleAnswer": "(http|https|ftp):\\/\\/([a-zA-Z0-9]+[-a-zA-Z0-9]*\\.)+(com|org|net|io|gov)(:(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{1,4}|[0-9]{1,4}|[0-9]))?(\\/[a-zA-Z0-9._-]+)*(\\?[a-zA-Z0-9&=_-]+)?(#[-a-zA-Z0-9]+)?"
-    }
+    },
+    {
+        "id": 12,
+        "title": "ISBN Validation",
+        "prompt": "Write a regular expression to validate International Standard Book Numbers (ISBNs). An ISBN must be either in the <strong>ISBN-10</strong> or <strong>ISBN-13</strong> format.<br /><br />1. <strong>ISBN-10 Format:</strong><br />&nbsp;&nbsp;&nbsp;&nbsp;- The ISBN must contain exactly 10 characters.<br />&nbsp;&nbsp;&nbsp;&nbsp;- The first 9 characters must be digits.<br />&nbsp;&nbsp;&nbsp;&nbsp;- The 10th character must be either a digit or an uppercase <code>X</code>.<br />&nbsp;&nbsp;&nbsp;&nbsp;- Hyphens are optional, but if used, they must separate the ISBN into valid groups. Example: <code>0-306-40615-2</code> or <code>0306406152</code>.<br /><br />2. <strong>ISBN-13 Format:</strong><br />&nbsp;&nbsp;&nbsp;&nbsp;- The ISBN must contain exactly 13 digits.<br />&nbsp;&nbsp;&nbsp;&nbsp;- Hyphens are optional, but if used, they must follow valid grouping (e.g., <code>978-0-306-40615-7</code> or <code>9780306406157</code>).<br /><br />4. Ensure that the ISBN does not contain any spaces, letters (except <code>X</code> in ISBN-10), or other invalid characters.<br /><br />Your regex should match only valid ISBN-10 and ISBN-13 formats and nothing else.",
+        "valid_examples": [
+            "978-3-16-148410-0",
+            "9783161484100",
+            "0-306-40615-2",
+            "0306406152",
+            "978-0-306-40615-7",
+            "9780306406157",
+            "978-1-56619-909-4",
+            "1566199093",
+            "1-84356-028-3",
+            "1843560283"
+        ],
+        "invalid_examples": [
+            {
+                "example": "978-3-16-148410",
+                "reason": "Missing final digit in ISBN-13"
+            },
+            {
+                "example": "030640615X",
+                "reason": "Invalid 'X' placement in ISBN-10"
+            },
+            {
+                "example": "978-3-16-14841-00",
+                "reason": "Incorrect grouping in ISBN-13"
+            },
+            {
+                "example": "978316148410A",
+                "reason": "Contains an invalid letter"
+            },
+            {
+                "example": "978-3-16 148410-0",
+                "reason": "Contains a space"
+            },
+            {
+                "example": "978-3--16-148410-0",
+                "reason": "Double hyphen"
+            },
+            {
+                "example": "97803161484100",
+                "reason": "Exceeds 13 digits for ISBN-13"
+            },
+            {
+                "example": "03064061523",
+                "reason": "Exceeds 10 digits for ISBN-10"
+            },
+            {
+                "example": "0306-406152",
+                "reason": "Incorrect grouping in ISBN-10"
+            },
+            {
+                "example": "978#316#1484100",
+                "reason": "Contains invalid symbols"
+            }
+        ],
+        "publicTests": [
+            { "input": "978-3-16-148410-0", "expected": true },
+            { "input": "9783161484100", "expected": true },
+            { "input": "0-306-40615-2", "expected": true },
+            { "input": "0306406152", "expected": true },
+            { "input": "978-0-306-40615-7", "expected": true },
+            { "input": "9780306406157", "expected": true },
+            { "input": "978-1-56619-909-4", "expected": true },
+            { "input": "1566199093", "expected": true },
+            { "input": "1-84356-028-3", "expected": true },
+            { "input": "1843560283", "expected": true },
+            { "input": "978-3-16-148410", "expected": false },
+            { "input": "030640615X", "expected": false },
+            { "input": "978-3-16-14841-00", "expected": false },
+            { "input": "978316148410A", "expected": false },
+            { "input": "978-3-16 148410-0", "expected": false },
+            { "input": "978-3--16-148410-0", "expected": false },
+            { "input": "97803161484100", "expected": false },
+            { "input": "03064061523", "expected": false },
+            { "input": "0306-406152", "expected": false },
+            { "input": "978#316#1484100", "expected": false }
+        ],
+        "secretTests": [
+            { "input": "978-0-345-39180-3", "expected": true },
+            { "input": "0345391802", "expected": true },
+            { "input": "9780345391803", "expected": true },
+            { "input": "1-84356-028-3", "expected": true },
+            { "input": "978-1-84356-028-3", "expected": true },
+            { "input": "978-3-16-148410", "expected": false },
+            { "input": "0-84356-028-X", "expected": false },
+            { "input": "978-3-16-14841", "expected": false },
+            { "input": "97831614841A0", "expected": false },
+            { "input": "978--316-148410-0", "expected": false }
+        ],
+        "sampleAnswer": "(\\d{9}[\\dX])|((978|979)-?\\d-?\\d{1,5}-?\\d{1,7}-?\\d)"
+    }    
 ]
