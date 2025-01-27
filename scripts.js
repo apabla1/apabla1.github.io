@@ -219,6 +219,11 @@ document.getElementById("sample-answer").addEventListener("click", () => {
     document.getElementById("feedback").innerHTML = `<span style='font-family: Consolas;'>${currentProblem.sampleAnswer}</span>`;
 });
 
+// clear feedback field button
+document.getElementById("clear-feedback").addEventListener("click", () => {
+    document.getElementById("feedback").textContent = "";
+});
+
 // marking problems
 document.getElementById("complete").addEventListener("click", () => {
     const problemIndex = problems.indexOf(currentProblem);
