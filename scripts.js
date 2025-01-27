@@ -13,6 +13,7 @@ fetch("problems.json")
         document.getElementById("run-tests").style.display = "none";
         document.getElementById("complete").style.display = "none";
         document.getElementById("incomplete").style.display = "none";
+        document.getElementById("clear-feedback").style.display = "none";
         document.getElementById("input").style.display = "none";
         document.getElementById("carat").style.display = "none";
         document.getElementById("dollar").style.display = "none";
@@ -59,6 +60,7 @@ document.getElementById("problem-bank").addEventListener("change", (event) => {
         document.getElementById("run-tests").style.display = "none";
         document.getElementById("complete").style.display = "none";
         document.getElementById("incomplete").style.display = "none";
+        document.getElementById("clear-feedback").style.display = "none";
         document.getElementById("input").style.display = "none";
         document.getElementById("carat").style.display = "none";
         document.getElementById("dollar").style.display = "none";
@@ -88,6 +90,7 @@ function loadProblem(index) {
     document.getElementById("run-tests").style.display = "inline-block";
     document.getElementById("complete").style.display = "inline-block";
     document.getElementById("incomplete").style.display = "inline-block";
+    document.getElementById("clear-feedback").style.display = "inline-block";
     document.getElementById("input").style.display = "inline-block";
     document.getElementById("carat").style.display = "inline-block";
     document.getElementById("dollar").style.display = "inline-block";
