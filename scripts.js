@@ -208,9 +208,7 @@ document.getElementById("sample-answer").addEventListener("click", () => {
         return;
     }
 
-    document.getElementById("feedback").innerHTML = currentProblem.sampleAnswer
-            .replace(/`([^`]+)`/g, "<span style='font-family: Consolas;'>$1</span>")
-            .replace(/\n/g, "<br>");
+    document.getElementById("feedback").innerHTML = `<span style='font-family: Consolas;'>${currentProblem.sampleAnswer}</span>`;
 });
 
 // marking problems
