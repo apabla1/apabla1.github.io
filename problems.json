@@ -1069,6 +1069,10 @@
             {
                 "example": "978#316#1484100",
                 "reason": "Contains invalid symbols"
+            },
+            {
+                "example": "978-3-14-410-0",
+                "reason": "Not enough symbols"
             }
         ],
         "publicTests": [
@@ -1091,7 +1095,8 @@
             { "input": "97803161484100", "expected": false },
             { "input": "03064061523", "expected": false },
             { "input": "0306-406152", "expected": false },
-            { "input": "978#316#1484100", "expected": false }
+            { "input": "978#316#1484100", "expected": false },
+            { "input": "978-3-14-410-0", "expected": false }
         ],
         "secretTests": [
             { "input": "978-0-345-39180-3", "expected": true },
@@ -1103,8 +1108,10 @@
             { "input": "0-84356-028-X", "expected": true },
             { "input": "978-3-16-14841", "expected": false },
             { "input": "97831614841A0", "expected": false },
-            { "input": "978--316-148410-0", "expected": false }
+            { "input": "978--316-148410-0", "expected": false },
+            { "input": "978-3-144-410-0", "expected": false },
+            { "input": "978-3-144-4170-0", "expected": false },
         ],
-        "sampleAnswer": "(978|979)?\\d{9}[\\dX]|(978-|979-)?\\d-\\d{1,5}-\\d{1,7}-[\\dX]"
+        "sampleAnswer": "(978|979)?\\d{9}[\\dX]|(978-|979-)?\\d-(\\d-\\d{7}|\\d{2}-\\d{6}|\\d{3}-\\d{5}|\\d{4}-\\d{4}|\\d{5}-\\d{3})-[\\dX]"
     }    
 ]
