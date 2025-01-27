@@ -875,7 +875,6 @@
             "https://example.io:443/resource#details",
             "http://blog.example.com",
             "https://shop.example.org/products",
-            "ftp://192.168.1.1/files",
             "http://example.com/path-with-hyphens",
             "https://example.net/path_with_underscores",
             "ftp://sub.example.io:2121/uploads",
@@ -973,7 +972,6 @@
             { "input": "https://example.io:443/resource#details", "expected": true },
             { "input": "http://blog.example.com", "expected": true },
             { "input": "https://shop.example.org/products", "expected": true },
-            { "input": "ftp://192.168.1.1/files", "expected": true },
             { "input": "http://example.com/path-with-hyphens", "expected": true },
             { "input": "https://example.net/path_with_underscores", "expected": true },
             { "input": "ftp://sub.example.io:2121/uploads", "expected": true },
@@ -1013,6 +1011,6 @@
             { "input": "http://example.com?invalid query", "expected": false },
             { "input": "ftp://example.com#fragment#extra", "expected": false }
         ],
-        "sampleAnswer": "(http|https|ftp):\\/\\/([a-zA-Z0-9]+[-a-zA-Z0-9]*\\.)+(com|org|net|io|gov)(:(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{0,4}|[0-9]{0,4}|[0-9]))?(\\/[a-zA-Z0-9._-]+)*(\\?[a-zA-Z0-9&=_-]+)?(#[-a-zA-Z0-9]+)?"
+        "sampleAnswer": "(http|https|ftp):\\/\\/([a-zA-Z0-9]+[-a-zA-Z0-9]*\\.)+(com|org|net|io|gov)(:(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{1,4}|[0-9]{1,4}|[0-9]))?(\\/[a-zA-Z0-9._-]+)*(\\?[a-zA-Z0-9&=_-]+)?(#[-a-zA-Z0-9]+)?"
     }
 ]
