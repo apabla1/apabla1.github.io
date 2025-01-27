@@ -208,6 +208,14 @@ document.getElementById("sample-answer").addEventListener("click", () => {
         return;
     }
 
+    // special case for problem 2
+    if (currentProblem.id === 2) {
+        document.getElementById("feedback").innerHTML = currentProblem.sampleAnswer
+            .replace(/`([^`]+)`/g, "<span style='font-family: Consolas;'>$1</span>")
+            .replace(/\n/g, "<br>");
+        return;
+    }
+    
     document.getElementById("feedback").innerHTML = `<span style='font-family: Consolas;'>${currentProblem.sampleAnswer}</span>`;
 });
 
