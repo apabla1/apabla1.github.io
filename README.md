@@ -1,12 +1,12 @@
 ## Overview
-The user will write a regular expression given a set of strings.
+The user will write a regular expression given a string set description.
 
 ## Features
 - Expandability: More problems and test cases can be added in the `questions.json` file
-- Seeding: Working to randomly seed problem constraints
 
 ## Improvements
 - Highlighting matching parenthesis whilst typing the regular expression
+- Working to seed problem constraints
 
 ## Usage
 Go to [https://apabla1.github.io/](https://apabla1.github.io/)
@@ -16,3 +16,4 @@ Go to [https://apabla1.github.io/](https://apabla1.github.io/)
 
 ## Contact
 Questions, Errors, or Feedback: apabla@terpmail.umd.edu
+(Please try and look for non-exhaustive test cases!)
