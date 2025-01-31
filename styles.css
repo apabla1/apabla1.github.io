@@ -126,7 +126,7 @@ button:hover {
     font-weight: bold;
 }
 
-#public-tests, #secret-tests {
+#public-tests, #hidden-tests {
     font-family: Consolas, monospace;
     font-size: 14px;
     line-height: 1.5;

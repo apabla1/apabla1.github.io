@@ -67,7 +67,7 @@ document.getElementById("problem-bank").addEventListener("change", (event) => {
         document.getElementById("feedback").innerHTML = "";
         document.getElementById("input").value = "";
         document.getElementById("public-tests").innerHTML = "";
-        document.getElementById("secret-tests").innerHTML = "";
+        document.getElementById("hidden-tests").innerHTML = "";
         document.getElementById("detailed-output").innerHTML = "";
         document.getElementById("sample-answer").style.display = "none";
         return;
@@ -96,7 +96,7 @@ function loadProblem(index) {
     document.getElementById("dollar").style.display = "inline-block";
     document.getElementById("sample-answer-popup").style.display = "none";
     document.getElementById("public-tests").innerHTML = "";
-    document.getElementById("secret-tests").innerHTML = "";
+    document.getElementById("hidden-tests").innerHTML = "";
     document.getElementById("detailed-output").innerHTML = "";
 }
 
@@ -145,7 +145,7 @@ document.getElementById("run-tests").addEventListener("click", () => {
     let allTestsPassed = true;
     let publist = ``;
     let pubtable = ``;
-    let secretlist = ``;
+    let hiddenlist = ``;
 
     // table headers
     const table = document.getElementById("detailed-output");
@@ -180,15 +180,15 @@ document.getElementById("run-tests").addEventListener("click", () => {
     });
     publ.innerHTML = publist;
 
-    // secret tests
-    const secr = document.getElementById("secret-tests");
-    secretlist += `<h4>Secret Tests:</h4>`;
-    currentProblem.secretTests.forEach((test, i) => {
+    // hidden tests
+    const secr = document.getElementById("hidden-tests");
+    hiddenlist += `<h4>Hidden Tests:</h4>`;
+    currentProblem.hiddenTests.forEach((test, i) => {
         const passed = regex.test(test.input) === test.expected;
-        secretlist += `<p>Test ${i + 1}: ${passed ? '✅ Passed' : '❌ Failed'}</p>`;
+        hiddenlist += `<p>Test ${i + 1}: ${passed ? '✅ Passed' : '❌ Failed'}</p>`;
         if (!passed) allTestsPassed = false;
     });
-    secr.innerHTML = secretlist;
+    secr.innerHTML = hiddenlist;
 
 
     if (allTestsPassed) {

@@ -85,7 +85,7 @@
             { "input": "@.com", "expected": false },
             { "input": "user@domain..com", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "id@terpmail#umd#edu", "expected": false },
             { "input": "_@gmail.com", "expected": false },
             { "input": "a_@gmail.com", "expected": false },
@@ -173,7 +173,7 @@
             { "input": "AllSpecial!!!!!!!", "expected": false },
             { "input": "InvalidPass", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "ValidPass1!", "expected": true },
             { "input": "Another1@", "expected": true },
             { "input": "Short1!", "expected": false },
@@ -245,7 +245,7 @@
             { "input": "(123 456-7890", "expected": false },
             { "input": "(123)456-7890", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "+1 123-456-7890", "expected": true },
             { "input": "+1 (123)-456-7890", "expected": true },
             { "input": "999-9999", "expected": false },
@@ -309,7 +309,7 @@
             { "input": "192.168.1.01.2", "expected": false },
             { "input": "999.888.777.666", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "1.1.1.1", "expected": true },
             { "input": "01.02.03.04", "expected": true },
             { "input": "999.888.777.666", "expected": false },
@@ -384,7 +384,7 @@
             { "input": "FFFFFZ", "expected": false },
             { "input": "00000", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "ABC123", "expected": true },
             { "input": "123456", "expected": true },
             { "input": "#FFAA00", "expected": true },
@@ -453,7 +453,7 @@
             { "input": "2023-01-32", "expected": false },
             { "input": "2125-02-15", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "1980-11-15", "expected": true },
             { "input": "2024-02-29", "expected": true },
             { "input": "2023-00-10", "expected": false },
@@ -542,7 +542,7 @@
             { "input": "/folder//File.txt", "expected": false },
             { "input": "/Folder/SubFolder//File.md", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "~/abc123/xyz789/data.json", "expected": true },
             { "input": "~/F/f.old", "expected": true },
             { "input": "~/123Folder/File.txt", "expected": false },
@@ -650,7 +650,7 @@
             { "input": "24:01", "expected": false },
             { "input": "11:61 p.m.", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "09:09 a.m.", "expected": true },
             { "input": "12:59 a.m.", "expected": true },
             { "input": "12:00 p.m.", "expected": true },
@@ -739,7 +739,7 @@
             { "input": "0 0 1 1 0", "expected": false },
             { "input": "0 0 32 1 0 ~/myScript", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "59 13 31 12 6 ~/myScript", "expected": true },
             { "input": "5 0 1 12 0 ~/myScript", "expected": true },
             { "input": "* * * * * ~/myScript", "expected": true },
@@ -837,7 +837,7 @@
             { "input": "sed /removeLine/d ~/dir/Sample1.txt", "expected": false },
             { "input": "sed /deletePattern/d ~/file.txt/", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "sed s/one/two/g ~/Convert.txt", "expected": true },
             { "input": "sed s/invalid//g ~/Invalid.txt", "expected": false },
             { "input": "sed s/hello/HELLO/g ~/Greeting.txt", "expected": true },
@@ -1000,7 +1000,7 @@
             { "input": "http://example.com?q=value space", "expected": false },
             { "input": "ftp://example.com//path", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "https://subdomain.example.net/path#details", "expected": true },
             { "input": "ftp://fileserver.io/downloads", "expected": true },
             { "input": "http://localhost:8080/test", "expected": false },
@@ -1017,7 +1017,7 @@
     {
         "id": 12,
         "title": "ISBN",
-        "prompt": "Write a regular expression to validate International Standard Book Numbers (ISBNs). An ISBN must be either in the `ISBN-10` or `ISBN-13` format.<br /><br />1. `ISBN-10`:<br />&nbsp&nbsp&nbsp&nbsp- The ISBN must contain exactly 10 characters.<br />&nbsp&nbsp&nbsp&nbsp- The first 9 characters must be digits.<br />&nbsp&nbsp&nbsp&nbsp&nbsp- The 10th character must be either a digit or an uppercase `X`.<br />&nbsp&nbsp&nbsp&nbsp- Hyphens are optional, but if used, they must divide the ISBN into the following groups:<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 1: 1 digit<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 2: 1-5 digits<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 3: 1-7 digits<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 4: 1 digit or an '`X`' (capital) (the check digit)<br /><br />2. `ISBN-13` Format:<br />&nbsp&nbsp&nbsp&nbsp- The ISBN must contain exactly 13 digits.<br />&nbsp&nbsp&nbsp&nbsp- Hyphens are optional, but if used, they must divide the ISBN into the following groups:<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 1: 3 digits (the prefix, either `978` or `979`)<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 2: 1 digit<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 3: 1-5 digits<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 4: 1-7 digits<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 5: 1 digit or an '`X`' (capital) (the check digit).<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp- Note that this is the exact same as `ISBN-10`, just with 'Group 1' at the beginning.<br /><br />Ensure that the ISBN does not contain any spaces, letters (except `X`), or invalid characters like extra hyphens, symbols, or letters.",
+        "prompt": "Write a regular expression to validate International Standard Book Numbers (ISBNs). An ISBN must be either in the `ISBN-10` or `ISBN-13` format.<br /><br />1. `ISBN-10`:<br />&nbsp&nbsp&nbsp&nbsp- The ISBN must contain exactly 10 characters.<br />&nbsp&nbsp&nbsp&nbsp- The first 9 characters must be digits.<br />&nbsp&nbsp&nbsp&nbsp- The 10th character must be either a digit or an uppercase `X`.<br />&nbsp&nbsp&nbsp&nbsp- Hyphens are optional, but if used, they must divide the ISBN into the following groups:<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 1: 1 digit<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 2: 1-5 digits<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 3: 1-7 digits<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 4: 1 digit or an '`X`' (capital) (the check digit)<br /><br />2. `ISBN-13` Format:<br />&nbsp&nbsp&nbsp&nbsp- The ISBN must contain exactly 13 digits.<br />&nbsp&nbsp&nbsp&nbsp- Hyphens are optional, but if used, they must divide the ISBN into the following groups:<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 1: 3 digits (the prefix, either `978` or `979`)<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 2: 1 digit<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 3: 1-5 digits<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 4: 1-7 digits<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*Group 5: 1 digit or an '`X`' (capital) (the check digit).<br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp- Note that this is the exact same as `ISBN-10`, just with 'Group 1' at the beginning.<br /><br />Ensure that the ISBN does not contain any spaces, letters (except `X`), or invalid characters like extra hyphens, symbols, or letters.",
         "valid_examples": [
             "978-3-16-148410-0",
             "9783161484100",
@@ -1028,7 +1028,9 @@
             "978-1-56619-909-4",
             "1566199093",
             "1-84356-028-3",
-            "1843560283"
+            "1843560283",
+            "978-1-56619-909-X",
+            "184356028X"
         ],
         "invalid_examples": [
             {
@@ -1074,6 +1076,18 @@
             {
                 "example": "978-3-14-410-0",
                 "reason": "10 numbers (implies ISBN-10) but five groups (implies ISBN-13)"
+            },
+            {
+                "example": "988-3-16-148410-0",
+                "reason": "ISBN-13 starts with 978 or 979"
+            },
+            {
+                "example": "988-34-16-14810-0",
+                "reason": "ISBN-13 has 1 digit in the second group"
+            },
+            {
+                "example": "34-16-14810-0",
+                "reason": "ISBN-10 has 1 digit in the first group"
             }
         ],
         "publicTests": [
@@ -1087,6 +1101,8 @@
             { "input": "1566199093", "expected": true },
             { "input": "1-84356-028-3", "expected": true },
             { "input": "1843560283", "expected": true },
+            { "input": "978-1-56619-909-X", "expected": true },
+            { "input": "184356028X", "expected": true },
             { "input": "978-3-16-148410", "expected": false },
             { "input": "030640615-X", "expected": false },
             { "input": "978-3-16-14841-00", "expected": false },
@@ -1097,9 +1113,12 @@
             { "input": "03064061523", "expected": false },
             { "input": "0306-406152", "expected": false },
             { "input": "978#316#1484100", "expected": false },
-            { "input": "978-3-14-410-0", "expected": false }
+            { "input": "978-3-14-410-0", "expected": false },
+            { "input": "988-3-16-148410-0", "expected": false },
+            { "input": "988-34-16-14810-0", "expected": false },
+            { "input": "34-16-14810-0", "expected": false }
         ],
-        "secretTests": [
+        "hiddenTests": [
             { "input": "978-0-345-39180-3", "expected": true },
             { "input": "0345391802", "expected": true },
             { "input": "9780345391803", "expected": true },
