@@ -1133,5 +1133,273 @@
             { "input": "978-3-144-4170-0", "expected": false }
         ],
         "sampleAnswer": "(978|979)?\\d{9}[\\dX]|(978-|979-)?\\d-(\\d-\\d{7}|\\d{2}-\\d{6}|\\d{3}-\\d{5}|\\d{4}-\\d{4}|\\d{5}-\\d{3})-[\\dX]"
-    }    
+    },
+    {
+        "id": 13,
+        "title": "MAC Addresses",
+        "prompt": "A MAC address is a unique identifier assigned to network interfaces for communications on the physical network. Write a regular expression to validate MAC addresses.<br /><br />A valid MAC address must follow these rules:<br />1. It consists of 6 groups of 2 hexadecimal digits (0-9, A-F, a-f).<br />2. Each group is separated by either a colon (:) or a hyphen (-).<br />3. The groups must be consistent in their separator (either all colons or all hyphens).<br /><br />Ensure that there are no additional characters before, after, or in between the required parts.",
+        "valid_examples": [
+            "00:1A:2B:3C:4D:5E",
+            "00-1A-2B-3C-4D-5E",
+            "01:23:45:67:89:AB",
+            "01-23-45-67-89-AB",
+            "a1:b2:c3:d4:e5:f6",
+            "a1-b2-c3-d4-e5-f6",
+            "A1:B2:C3:D4:E5:F6",
+            "A1-B2-C3-D4-E5-F6"
+        ],
+        "invalid_examples": [
+            {
+                "example": "00:1A:2B:3C:4D:5E:6F",
+                "reason": "too many groups"
+            },
+            {
+                "example": "00-1A-2B-3C-4D",
+                "reason": "too few groups"
+            },
+            {
+                "example": "00:1A:2B:3C:4D:5G",
+                "reason": "invalid character 'G'"
+            },
+            {
+                "example": "00-1A-2B-3C-4D-5E-",
+                "reason": "trailing hyphen"
+            },
+            {
+                "example": "00:1A:2B:3C:4D:5E:",
+                "reason": "trailing colon"
+            },
+            {
+                "example": "00-1A:2B:3C:4D-5E",
+                "reason": "mixed separators"
+            },
+            {
+                "example": "001A:2B:3C:4D:5E",
+                "reason": "missing separator"
+            },
+            {
+                "example": "00:1A:2B:3C:4D:5",
+                "reason": "incomplete group"
+            },
+            {
+                "example": "00:1A:2B:3C:4D:5E:7F",
+                "reason": "too many groups"
+            },
+            {
+                "example": "00:1A:2B:3C:4D:5E:7",
+                "reason": "too many groups + incomplete group"
+            },
+            {
+                "example": "1A:2B:3C:4D:5E:7G",
+                "reason": "invalid character 'G'"
+            },
+            {
+                "example": "1A-2B:3C-4D:5E:7D",
+                "reason": "mixed separators"
+            },
+            {
+                "example": "1A:2B:3C:4D:5E:7D:",
+                "reason": "trailing colon"
+            },
+            {
+                "example": "1A:2B:3C:4D:5E:7D-",
+                "reason": "trailing hyphen"
+            },
+            {
+                "example": "00:1A:2B:3C:4D:5E:7",
+                "reason": "too many groups"
+            },
+            {
+                "example": "1A:2B:3C:4D:5E:7G",
+                "reason": "invalid character 'G'"
+            },
+            {
+                "example": "1A:2B:3C-4D:5E:7D",
+                "reason": "mixed separators"
+            },
+            {
+                "example": "1A:2B:3C:4D:5E:7D:",
+                "reason": "trailing colon"
+            },
+            {
+                "example": "1A:2B-3C:4D:5E:7D",
+                "reason": "mixed separators"
+            }
+        ],
+        "publicTests": [
+            { "input": "00:1A:2B:3C:4D:5E", "expected": true },
+            { "input": "00-1A-2B-3C-4D-5E", "expected": true },
+            { "input": "01:23:45:67:89:AB", "expected": true },
+            { "input": "01-23-45-67-89-AB", "expected": true },
+            { "input": "a1:b2:c3:d4:e5:f6", "expected": true },
+            { "input": "a1-b2-c3-d4-e5-f6", "expected": true },
+            { "input": "A1:B2:C3:D4:E5:F6", "expected": true },
+            { "input": "A1-B2-C3-D4-E5-F6", "expected": true },
+            { "input": "00:1A:2B:3C:4D:5E:6F", "expected": false },
+            { "input": "00-1A-2B-3C-4D", "expected": false },
+            { "input": "00:1A:2B:3C:4D:5G", "expected": false },
+            { "input": "00-1A-2B-3C-4D-5E-", "expected": false },
+            { "input": "00:1A:2B:3C:4D:5E:", "expected": false },
+            { "input": "00-1A:2B:3C:4D-5E", "expected": false },
+            { "input": "001A:2B:3C:4D:5E", "expected": false },
+            { "input": "00:1A:2B:3C:4D:5", "expected": false },
+            { "input": "00:1A:2B:3C:4D:5E:7F", "expected": false },
+            { "input": "00:1A:2B:3C:4D:5E:7", "expected": false },
+            { "input": "1A:2B:3C:4D:5E:7G", "expected": false },
+            { "input": "1A-2B:3C-4D:5E:7D", "expected": false },
+            { "input": "1A:2B:3C:4D:5E:7D:", "expected": false },
+            { "input": "1A:2B:3C:4D:5E:7D-", "expected": false },
+            { "input": "00:1A:2B:3C:4D:5E:7", "expected": false },
+            { "input": "1A:2B:3C:4D:5E:7G", "expected": false },
+            { "input": "1A:2B:3C-4D:5E:7D", "expected": false },
+            { "input": "1A:2B:3C:4D:5E:7D:", "expected": false },
+            { "input": "1A:2B-3C:4D:5E:7D", "expected": false }
+        ],
+        "hiddenTests": [
+            { "input": "001A:2B:3C:4D:5E", "expected": false },
+            { "input": "01:23:45:67:89:AB", "expected": true },
+            { "input": "a1:b2:c3:d4:E5:F6", "expected": true },
+            { "input": "00:1A:2B:3C:4D:5", "expected": false },
+            { "input": "A1:B2:C3:D4:E5:F6", "expected": true },
+            { "input": "00:1A:2B:3C:4D:5E:6F", "expected": false },
+            { "input": "00-1A-2B:3C:4D-5E-", "expected": false },
+            { "input": "01-23:45:67:89:AB", "expected": false },
+            { "input": "00:1A:2B:3C:4D:5G", "expected": false },
+            { "input": "00-1A-2B:3C:4D:5E", "expected": false },
+            { "input": "00:1A:2B:3C:4D:5E:", "expected": false },
+            { "input": "00-1A-2B:3C:4D", "expected": false },
+            { "input": "a1-b2:c3:d4:e5:f6", "expected": false },
+            { "input": "A1-B2:C3:D4:E5:F6", "expected": false },
+            { "input": "00:1A:2B:3C:4D:5E", "expected": true },
+            { "input": "00:1A:2B:3C:4D:5E-", "expected": false }
+        ],
+        "sampleAnswer": "([0-9A-Fa-f]{2}-){5}[0-9A-Fa-f]{2}|([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}"
+    },
+    {
+        "id": 14,
+        "title": "Credit Card Numbers",
+        "prompt": "Write a regular expression to validate credit card numbers. A valid credit card number must meet these requirements:<br /><br />1. It consists of exactly 16 digits in total.<br />2. You may optionally separate each group of 4 digits with a single hyphen (`-`) or space (` `).<br />3. Mixed separators are not allowed (all spaces or all hyphens, or no separators at all).<br />4. No extra characters are allowed before, after, or in between.<br /><br />Examples of valid patterns include:<br />- 16 consecutive digits, e.g. `1234567812345678`<br />- Groups of 4 digits separated by hyphens, e.g. `1234-5678-1234-5678`<br />- Groups of 4 digits separated by spaces, e.g. `1234 5678 1234 5678`",
+        "valid_examples": [
+            "1234567812345678",
+            "1111222233334444",
+            "0000111122223333",
+            "9999999999999999",
+            "1234-5678-1234-5678",
+            "0000-1111-2222-3333",
+            "9999 8888 7777 6666",
+            "1234 5678 1234 5678",
+            "5555555555554444",
+            "0123-4567-8901-2345"
+        ],
+        "invalid_examples": [
+            {
+                "example": "1234-567-1234-5678",
+                "reason": "one group has only 3 digits"
+            },
+            {
+                "example": "123456789012345",
+                "reason": "only 15 digits"
+            },
+            {
+                "example": "12345678901234567",
+                "reason": "17 digits"
+            },
+            {
+                "example": "1 2345 6789 0123 4567",
+                "reason": "five groups and total more than 16 digits"
+            },
+            {
+                "example": "0000-1111 2222 3333",
+                "reason": "mixed separators"
+            },
+            {
+                "example": "1234--5678--1234--5678",
+                "reason": "double hyphen separators"
+            },
+            {
+                "example": "123456789012345a",
+                "reason": "contains a non-digit character"
+            },
+            {
+                "example": " 1234567812345678 ",
+                "reason": "leading or trailing whitespace"
+            },
+            {
+                "example": "1234-5678-1234-56789",
+                "reason": "extra digit at the end"
+            },
+            {
+                "example": "abcd-efgh-ijkl-mnop",
+                "reason": "all characters are letters"
+            },
+            {
+                "example": "---- ---- ---- ----",
+                "reason": "only separators, no digits"
+            },
+            {
+                "example": "1234--5678-1234-5678",
+                "reason": "some groups have double hyphens"
+            },
+            {
+                "example": "1234 5678 1234  5678",
+                "reason": "two spaces in one group"
+            },
+            {
+                "example": "12-34-56-78-90-12-34-56",
+                "reason": "eight groups of 2 digits each"
+            }
+        ],
+        "publicTests": [
+            { "input": "1234567812345678", "expected": true },
+            { "input": "1111222233334444", "expected": true },
+            { "input": "0000111122223333", "expected": true },
+            { "input": "9999999999999999", "expected": true },
+            { "input": "1234-5678-1234-5678", "expected": true },
+            { "input": "0000-1111-2222-3333", "expected": true },
+            { "input": "9999 8888 7777 6666", "expected": true },
+            { "input": "1234 5678 1234 5678", "expected": true },
+            { "input": "5555555555554444", "expected": true },
+            { "input": "0123-4567-8901-2345", "expected": true },
+            { "input": "1234-567-1234-5678", "expected": false },
+            { "input": "123456789012345", "expected": false },
+            { "input": "12345678901234567", "expected": false },
+            { "input": "1 2345 6789 0123 4567", "expected": false },
+            { "input": "0000-1111 2222 3333", "expected": false },
+            { "input": "1234--5678--1234--5678", "expected": false },
+            { "input": "123456789012345a", "expected": false },
+            { "input": " 1234567812345678 ", "expected": false },
+            { "input": "1234-5678-1234-56789", "expected": false },
+            { "input": "abcd-efgh-ijkl-mnop", "expected": false },
+            { "input": "---- ---- ---- ----", "expected": false },
+            { "input": "1234--5678-1234-5678", "expected": false },
+            { "input": "1234 5678 1234  5678", "expected": false },
+            { "input": "12-34-56-78-90-12-34-56", "expected": false }
+        ],
+        "hiddenTests": [
+            { "input": "1234 5678-1234-5678", "expected": false },
+            { "input": "8888-1111-2222-3333", "expected": true },
+            { "input": "123456781234567", "expected": false },
+            { "input": "4444444444444444", "expected": true },
+            { "input": "1111 2222 3333 44441", "expected": false },
+            { "input": "1234 5678 1234 5670", "expected": true },
+            { "input": "----111122223333", "expected": false },
+            { "input": "12 34567812345678", "expected": false },
+            { "input": "1234 5678 1234 5678", "expected": true },
+            { "input": "1234-5678-1234-5678", "expected": true },
+            { "input": "1234567812345678", "expected": true },
+            { "input": "1234 5678 1234 567", "expected": false },
+            { "input": "1234-5678-1234-567", "expected": false },
+            { "input": "123456781234567", "expected": false },
+            { "input": "1234 5678 1234 56789", "expected": false },
+            { "input": "1234-5678-1234-56789", "expected": false },
+            { "input": "12345678123456789", "expected": false },
+            { "input": "1234 5678 1234 5678 ", "expected": false },
+            { "input": " 1234 5678 1234 5678", "expected": false },
+            { "input": "1234-5678-1234-5678-", "expected": false },
+            { "input": "-1234-5678-1234-5678", "expected": false },
+            { "input": "1234 5678 1234 5678-", "expected": false },
+            { "input": "-1234 5678 1234 5678", "expected": false }
+        ],
+        "sampleAnswer": "(\\d{4}-){3}\\d{4}|(\\d{4}\\ ){3}\\d{4}|(\\d{4}){3}\\d{4}"
+    }
 ]
