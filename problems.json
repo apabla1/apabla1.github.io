@@ -1820,35 +1820,110 @@
             "john-doe/this_repo_is_100_chars_longxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         ],
         "invalid_examples": [
-            { "example": "myuser", "reason": "No slash" },
-            { "example": "/myrepo", "reason": "Missing username" },
-            { "example": "MyUser-/Repo", "reason": "Username ends with hyphen" },
-            { "example": "myuser/my_repo_", "reason": "Repo ends with underscore" },
-            { "example": "myuser/_myrepo", "reason": "Repo starts with underscore" },
-            { "example": "-myuser/repo", "reason": "Username starts with hyphen" },
-            { "example": "myuser/my?repo", "reason": "Invalid character ?" },
-            { "example": "myUser!/repo", "reason": "Invalid character !" },
-            { "example": "abcde12345abcde12345abcde12345abcde12345/myrepo", "reason": "Username too long" },
-            { "example": "myuser/myrepo_", "reason": "Repo ends with underscore" },
-            { "example": "myuser/--Repo", "reason": "Repo starts with multiple hyphens" },
-            { "example": "myuser/Repo--", "reason": "Repo ends with multiple hyphens" },
-            { "example": "my-user/repo__", "reason": "Repo ends with multiple underscores" },
-            { "example": "my_user/_repo", "reason": "Repo starts with underscore" },
-            { "example": "my-user/repo?", "reason": "Invalid character ?" },
-            { "example": "my-user/repo name", "reason": "Space not allowed" },
             {
-            "example": "somebody12345/this_repo_is_101_chars_longxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "reason": "Repo too long"
+                "example": "myuser",
+                "reason": "no slash"
             },
-            { "example": "myusername/---invalid", "reason": "Repo starts with multiple hyphens" },
-            { "example": "myusername/___invalid", "reason": "Repo starts with underscores" },
-            { "example": "myusername/inv@alid", "reason": "Invalid character @" },
-            { "example": "username/invalid(repos)", "reason": "Invalid character (" },
-            { "example": "UPPERCASE-/InvalidRepoName", "reason": "Username ends with hyphen" },
-            { "example": "Lowercase/InvalidRepoName-", "reason": "Repo ends with hyphen" },
-            { "example": "a/b", "reason": "Username and repo name too small" },
-            { "example": "aa/b", "reason": "Repo name too small" },
-            { "example": "a/bb", "reason": "Username name too small" }
+            {
+                "example": "/myrepo",
+                "reason": "missing username"
+            },
+            {
+                "example": "MyUser-/Repo",
+                "reason": "username ends with hyphen"
+            },
+            {
+                "example": "myuser/my_repo_",
+                "reason": "repo ends with underscore"
+            },
+            {
+                "example": "myuser/_myrepo",
+                "reason": "repo starts with underscore"
+            },
+            {
+                "example": "-myuser/repo",
+                "reason": "username starts with hyphen"
+            },
+            {
+                "example": "myuser/my?repo",
+                "reason": "invalid character ?"
+            },
+            {
+                "example": "myUser!/repo",
+                "reason": "invalid character !"
+            },
+            {
+                "example": "abcde12345abcde12345abcde12345abcde12345/myrepo",
+                "reason": "username too long"
+            },
+            {
+                "example": "myuser/myrepo_",
+                "reason": "repo ends with underscore"
+            },
+            {
+                "example": "myuser/--Repo",
+                "reason": "repo starts with multiple hyphens"
+            },
+            {
+                "example": "myuser/Repo--",
+                "reason": "repo ends with multiple hyphens"
+            },
+            {
+                "example": "my-user/repo__",
+                "reason": "repo ends with multiple underscores"
+            },
+            {
+                "example": "my_user/_repo",
+                "reason": "repo starts with underscore"
+            },
+            {
+                "example": "my-user/repo?",
+                "reason": "invalid character ?"
+            },
+            {
+                "example": "my-user/repo name",
+                "reason": "space not allowed"
+            },
+            {
+                "example": "somebody12345/this_repo_is_101_chars_longxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "reason": "repo too long"
+            },
+            {
+                "example": "myusername/---invalid",
+                "reason": "repo starts with multiple hyphens"
+            },
+            {
+                "example": "myusername/___invalid",
+                "reason": "repo starts with underscores"
+            },
+            {
+                "example": "myusername/inv@alid",
+                "reason": "invalid character @"
+            },
+            {
+                "example": "username/invalid(repos)",
+                "reason": "invalid character ("
+            },
+            {
+                "example": "UPPERCASE-/InvalidRepoName",
+                "reason": "username ends with hyphen"
+            },
+            {
+                "example": "Lowercase/InvalidRepoName-",
+                "reason": "repo ends with hyphen"
+            },
+            {
+                "example": "a/b",
+                "reason": "username and repo name too small"
+            },
+            {
+                "example": "aa/b",
+                "reason": "repo name too small"
+            },
+            {
+                "example": "a/bb",
+                "reason": "username name too small"
+            }
         ],
         "publicTests": [
             { "input": "myuser/myrepo", "expected": true },
