@@ -20,7 +20,7 @@ fetch("problems.json")
     })
     .catch(error => {
         console.error(error);
-        alert("Failed to load problems. Please check the console for more details.");
+        alert("Failed to load problems. Please contact me or post on Piazza.");
     });
 
 // populate problem dropdown

@@ -11,9 +11,22 @@
             "dirid@terpmail.umd.edu",
             "330@umd.edu",
             "__a@gmail.com",
-            "a_b@gmail.com"
+            "a_b@gmail.com",
+            "USER@DOMAIN.com"
         ],
         "invalid_examples": [
+            {
+                "example": "user@domainccom",
+                "reason": "missing dot between domain parts"
+            },
+            {
+                "example": "user@domaincco",
+                "reason": "missing dot between domain parts"
+            },
+            {
+                "example": "user@domaincedu",
+                "reason": "missing dot between domain parts"
+            },
             {
                 "example": "user@domain",
                 "reason": "missing top-level domain"
@@ -61,6 +74,18 @@
             {
                 "example": "user@domain..com",
                 "reason": "double dot in domain"
+            },
+            {
+                "example": "abc_@domain.com",
+                "reason": "underscore not allowed before @"
+            },
+            {
+                "example": "abc.@domain.com",
+                "reason": "dot not allowed at end of username"
+            },
+            {
+                "example": "USERNAME@DOMAIN.COM",
+                "reason": "uppercase letters in TLD"
             }
         ],
         "publicTests": [
@@ -71,6 +96,10 @@
             { "input": "dirid@terpmail.umd.edu", "expected": true },
             { "input": "330@umd.edu", "expected": true },
             { "input": "__a@gmail.com", "expected": true },
+            { "input": "USER@DOMAIN.com", "expected": true },
+            { "input": "user@domainccom", "expected": false },
+            { "input": "user@domaincco", "expected": false },
+            { "input": "user@domaincedu", "expected": false },
             { "input": "user@domain", "expected": false },
             { "input": "@domain.com", "expected": false },
             { "input": "user@domain.c", "expected": false },
@@ -83,7 +112,10 @@
             { "input": "invalid-email@example.com", "expected": false },
             { "input": "a_b@gmail.com", "expected": true },
             { "input": "@.com", "expected": false },
-            { "input": "user@domain..com", "expected": false }
+            { "input": "user@domain..com", "expected": false },
+            { "input": "abc_@domain.com", "expected": false },
+            { "input": "abc.@domain.com", "expected": false },
+            { "input": "USER@DOMAIN.COM", "expected": false }
         ],
         "hiddenTests": [
             { "input": "id@terpmail#umd#edu", "expected": false },
@@ -115,7 +147,8 @@
             "Zz1#Zz1#",
             "Password1!",
             "Xyz!1234",
-            "Valid1@Pass"
+            "Valid1@Pass",
+            "fifteencharssss"
         ],
         "invalid_examples": [
             {
@@ -153,6 +186,18 @@
             {
                 "example": "InvalidPass",
                 "reason": "missing digit and special character"
+            },
+            {
+                "example": "Abc1!2",
+                "reason": "too short"
+            },
+            {
+                "example": "Abc!xyzq",
+                "reason": "missing digit"
+            },
+            {
+                "example": "fifteencharssss",
+                "reason": "missing uppercase, digit, special character"
             }
         ],
         "publicTests": [
@@ -163,6 +208,7 @@
             { "input": "Password1!", "expected": true },
             { "input": "Xyz!1234", "expected": true },
             { "input": "Valid1@Pass", "expected": true },
+            { "input": "fifteencharsS3!", "expected": true },
             { "input": "password", "expected": false },
             { "input": "ABC123!!", "expected": false },
             { "input": "X y1!", "expected": false },
@@ -171,7 +217,10 @@
             { "input": "NoSpecial123", "expected": false },
             { "input": "Short1!", "expected": false },
             { "input": "AllSpecial!!!!!!!", "expected": false },
-            { "input": "InvalidPass", "expected": false }
+            { "input": "InvalidPass", "expected": false },
+            { "input": "Abc1!2", "expected": false },
+            { "input": "Abc!xyzq", "expected": false },
+            { "input": "fifteencharssss", "expected": false }
         ],
         "hiddenTests": [
             { "input": "ValidPass1!", "expected": true },
@@ -229,6 +278,14 @@
             {
                 "example": "(123)456-7890",
                 "reason": "missing space"
+            },
+            {
+                "example": "(123) 4567890",
+                "reason": "missing dash"
+            },
+            { 
+                "example": "+1123-456-7890",
+                "reason": "no space after country code"
             }
         ],
         "publicTests": [
@@ -243,7 +300,9 @@
             { "input": "123-45-6789", "expected": false },
             { "input": "999-9999", "expected": false },
             { "input": "(123 456-7890", "expected": false },
-            { "input": "(123)456-7890", "expected": false }
+            { "input": "(123)456-7890", "expected": false },
+            { "input": "(123) 4567890", "expected": false },
+            { "input": "+1123-456-7890", "expected": false }
         ],
         "hiddenTests": [
             { "input": "+1 123-456-7890", "expected": true },
@@ -293,6 +352,18 @@
             {
                 "example": "999.888.777.666",
                 "reason": "octets exceed range"
+            },
+            {
+                "example": "255.s55.255.255",
+                "reason": "invalid character s"
+            },
+            {
+                "example": "0001.001.010.255",
+                "reason": "too many leading zeros"
+            },
+            {
+                "example": "192.abc.1.1",
+                "reason": "invalid character"
             }
         ],
         "publicTests": [
@@ -307,7 +378,10 @@
             { "input": "192.168.1", "expected": false },
             { "input": "192.168.1.256", "expected": false },
             { "input": "192.168.1.01.2", "expected": false },
-            { "input": "999.888.777.666", "expected": false }
+            { "input": "999.888.777.666", "expected": false },
+            { "input": "255.s55.255.255", "expected": false },
+            { "input": "0001.001.010.255", "expected": false },
+            { "input": "192.abc.1.1", "expected": false }
         ],
         "hiddenTests": [
             { "input": "1.1.1.1", "expected": true },
@@ -365,6 +439,14 @@
             {
                 "example": "00000",
                 "reason": "invalid length"
+            },
+            {
+                "example": "#1234567",
+                "reason": "invalid length"
+            },
+            {
+                "example": "#",
+                "reason": "missing digits"
             }
         ],
         "publicTests": [
@@ -382,7 +464,9 @@
             { "input": "##123", "expected": false },
             { "input": "#XYZ", "expected": false },
             { "input": "FFFFFZ", "expected": false },
-            { "input": "00000", "expected": false }
+            { "input": "00000", "expected": false },
+            { "input": "#1234567", "expected": false },
+            { "input": "#", "expected": false }
         ],
         "hiddenTests": [
             { "input": "ABC123", "expected": true },
@@ -405,7 +489,8 @@
             "2022-09-30",
             "1980-11-15",
             "2024-02-29",
-            "2023-02-30"
+            "2023-02-30",
+            "2099-12-31"
         ],
         "invalid_examples": [
             {
@@ -435,6 +520,14 @@
             {
                 "example": "2125-02-15",
                 "reason": "year out of range"
+            },
+            {
+                "example": "1900-00-01",
+                "reason": "invalid month"
+            },
+            {
+                "example": "2025-02-32",
+                "reason": "invalid day"
             }
         ],
         "publicTests": [
@@ -445,13 +538,16 @@
             { "input": "1980-11-15", "expected": true },
             { "input": "2024-02-29", "expected": true },
             { "input": "2023-02-30", "expected": true },
+            { "input": "2099-12-31", "expected": true },
             { "input": "1899-02-15", "expected": false },
             { "input": "2023-13-01", "expected": false },
             { "input": "202-01-01", "expected": false },
             { "input": "2023-4-05", "expected": false },
             { "input": "2023-00-10", "expected": false },
             { "input": "2023-01-32", "expected": false },
-            { "input": "2125-02-15", "expected": false }
+            { "input": "2125-02-15", "expected": false },
+            { "input": "1900-00-01", "expected": false },
+            { "input": "2025-02-32", "expected": false }
         ],
         "hiddenTests": [
             { "input": "1980-11-15", "expected": true },
@@ -482,7 +578,8 @@
             "~/Downloads/Image.jpeg",
             "/Folder/Sub_Folder/File.md",
             "/Folder/SubFolder/File_3.md",
-            "~/folder"
+            "~/folder",
+            "/Folder/SubFolder/File.txt/"
         ],
         "invalid_examples": [
             {
@@ -516,6 +613,46 @@
             {
                 "example": "/Folder/SubFolder//File.md",
                 "reason": "double slash in path"
+            },
+            {
+                "example": "~/Folder-/File.txt",
+                "reason": "invalid character in directory"
+            },
+            {
+                "example": "/folder/subfolder//file.txt",
+                "reason": "double slash in path"
+            },
+            {
+                "example": "/Folder/SubFolder/File.tx_",
+                "reason": "invalid character in extension"
+            },
+            {
+                "example": "~/Folder$Name/File.txt",
+                "reason": "invalid character in directory"
+            },
+            {
+                "example": "/folder/subfolder/file.",
+                "reason": "missing extension"
+            },
+            {
+                "example": "~/Folder/SubFolder/File.jPg",
+                "reason": "extension uppercase"
+            },
+            {
+                "example": "~/Folder//SubFolder/File.txt",
+                "reason": "double slash in path"
+            },
+            {
+                "example": "/Folder1/1SubFolder/File.md",
+                "reason": "directory starts with a number"
+            },
+            {
+                "example": "/folder/SubFolder//file.txt",
+                "reason": "double slash in path"
+            },
+            {
+                "example": "~/9folder/file.txt",
+                "reason": "directory starts with a number"
             }
         ],
         "publicTests": [
@@ -533,6 +670,7 @@
             { "input": "/Folder/Sub_Folder/File.md", "expected": true },
             { "input": "/Folder/SubFolder/File_3.md", "expected": true },
             { "input": "~/folder", "expected": true },
+            { "input": "/Folder/SubFolder/File.txt/", "expected": true },
             { "input": "~Folder", "expected": false },
             { "input": "~/file.", "expected": false },
             { "input": "~/InvalidFolder/File.TXT", "expected": false },
@@ -540,7 +678,17 @@
             { "input": "~//", "expected": false },
             { "input": "~/3Folder_Sub/File.txt", "expected": false },
             { "input": "/folder//File.txt", "expected": false },
-            { "input": "/Folder/SubFolder//File.md", "expected": false }
+            { "input": "/Folder/SubFolder//File.md", "expected": false },
+            { "input": "~/Folder-/File.txt", "expected": false },
+            { "input": "/folder/subfolder//file.txt", "expected": false },
+            { "input": "/Folder/SubFolder/File.tx_", "expected": false },
+            { "input": "~/Folder$Name/File.txt", "expected": false },
+            { "input": "/folder/subfolder/file.", "expected": false },
+            { "input": "~/Folder/SubFolder/File.jPg", "expected": false },
+            { "input": "~/Folder//SubFolder/File.txt", "expected": false },
+            { "input": "/Folder1/1SubFolder/File.md", "expected": false },
+            { "input": "/folder/SubFolder//file.txt", "expected": false },
+            { "input": "~/9folder/file.txt", "expected": false }
         ],
         "hiddenTests": [
             { "input": "~/abc123/xyz789/data.json", "expected": true },
@@ -626,6 +774,14 @@
             {
                 "example": "11:61 p.m.",
                 "reason": "minute out of range"
+            },
+            {
+                "example": "23:60",
+                "reason": "minute out of range"
+            },
+            {
+                "example": "12:59a.m.",
+                "reason": "missing space"
             }
         ],
         "publicTests": [
@@ -648,7 +804,9 @@
             { "input": "12:00 pm", "expected": false },
             { "input": "03:75 a.m.", "expected": false },
             { "input": "24:01", "expected": false },
-            { "input": "11:61 p.m.", "expected": false }
+            { "input": "11:61 p.m.", "expected": false },
+            { "input": "23:60", "expected": false },
+            { "input": "12:59a.m.", "expected": false }
         ],
         "hiddenTests": [
             { "input": "09:09 a.m.", "expected": true },
@@ -721,6 +879,14 @@
             {
                 "example": "0 0 32 1 0 ~/myScript",
                 "reason": "day_of_month out of range"
+            },
+            {
+                "example": "05 08 * * * ~/myScript",
+                "reason": "zero-padded numbers"
+            },
+            {
+                "example": "* * 0 13 * ~/myScript",
+                "reason": "day_of_month out of range"
             }
         ],
         "publicTests": [
@@ -737,7 +903,9 @@
             { "input": "0 0 0 1 0 ~/myScript", "expected": false },
             { "input": "0 0 1 1 7 ~/myScript", "expected": false },
             { "input": "0 0 1 1 0", "expected": false },
-            { "input": "0 0 32 1 0 ~/myScript", "expected": false }
+            { "input": "0 0 32 1 0 ~/myScript", "expected": false },
+            { "input": "05 08 * * * ~/myScript", "expected": false },
+            { "input": "* * 0 13 * ~/myScript", "expected": false }
         ],
         "hiddenTests": [
             { "input": "59 13 31 12 6 ~/myScript", "expected": true },
@@ -813,6 +981,14 @@
             {
                 "example": "sed /deletePattern/d ~/file.txt/",
                 "reason": "slash after the filename"
+            },
+            {
+                "example": "sed s//replacement/g ~/NoRegexp.txt",
+                "reason": "empty regexp"
+            },
+            {
+                "example": "sed s/abc def/g ~/file.txt",
+                "reason": "replacement contains space"
             }
         ],
         "publicTests": [
@@ -835,7 +1011,9 @@
             { "input": "sed s/special/@!/g ~/Special.txt", "expected": false },
             { "input": "sed s/space /Space/g ~/SpaceFile.txt", "expected": false },
             { "input": "sed /removeLine/d ~/dir/Sample1.txt", "expected": false },
-            { "input": "sed /deletePattern/d ~/file.txt/", "expected": false }
+            { "input": "sed /deletePattern/d ~/file.txt/", "expected": false },
+            { "input": "sed s//replacement/g ~/NoRegexp.txt", "expected": false },
+            { "input": "sed s/abc def/g ~/file.txt", "expected": false }
         ],
         "hiddenTests": [
             { "input": "sed s/one/two/g ~/Convert.txt", "expected": true },
@@ -960,6 +1138,18 @@
             {
                 "example": "ftp://example.com//path",
                 "reason": "Double slash in path"
+            },
+            { 
+                "example": "http://example.com:0000",
+                "reason": "Port number zero-padded"
+            },
+            { 
+                "example": "http://example.com:99999",
+                "reason": "Port number too large"
+            },
+            { 
+                "example": "http://example.com:000",
+                "reason": "Port number zero-padded"
             }
         ],
         "publicTests": [
@@ -998,7 +1188,10 @@
             { "input": "http://example.com#fragment#extra", "expected": false },
             { "input": "https://-example.org", "expected": false },
             { "input": "http://example.com?q=value space", "expected": false },
-            { "input": "ftp://example.com//path", "expected": false }
+            { "input": "ftp://example.com//path", "expected": false },
+            { "input": "http://example.com:0000", "expected": false },
+            { "input": "http://example.com:99999", "expected": false },
+            { "input": "http://example.com:000", "expected": false }
         ],
         "hiddenTests": [
             { "input": "https://subdomain.example.net/path#details", "expected": true },
@@ -1012,7 +1205,7 @@
             { "input": "http://example.com?invalid query", "expected": false },
             { "input": "ftp://example.com#fragment#extra", "expected": false }
         ],
-        "sampleAnswer": "(http|https|ftp):\\/\\/([a-zA-Z0-9]+[-a-zA-Z0-9]*\\.)+(com|org|net|io|gov)(:(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{1,4}|[0-9]{1,4}|[0-9]))?(\\/[a-zA-Z0-9._-]+)*(\\?[a-zA-Z0-9&=_-]+)?(#[-a-zA-Z0-9]+)?"
+        "sampleAnswer": "(http|https|ftp):\\/\\/([a-zA-Z0-9]+[-a-zA-Z0-9]*\\.)+(com|org|net|io|gov)(:(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{1,4}|[1-9][0-9]{0,3}|[1-9]))?(\\/[a-zA-Z0-9._-]+)*(\\?[a-zA-Z0-9&=_-]+)?(#[-a-zA-Z0-9]+)?"
     },
     {
         "id": 12,
@@ -1088,6 +1281,14 @@
             {
                 "example": "34-16-14810-0",
                 "reason": "ISBN-10 has 1 digit in the first group"
+            },
+            {
+                "example": "123456789",
+                "reason": "9 characters"
+            },
+            {
+                "example": "97-8-12345-678-9",
+                "reason": "Invalid grouping"
             }
         ],
         "publicTests": [
@@ -1116,7 +1317,9 @@
             { "input": "978-3-14-410-0", "expected": false },
             { "input": "988-3-16-148410-0", "expected": false },
             { "input": "988-34-16-14810-0", "expected": false },
-            { "input": "34-16-14810-0", "expected": false }
+            { "input": "34-16-14810-0", "expected": false },
+            { "input": "123456789", "expected": false },
+            { "input": "97-8-12345-678-9", "expected": false }
         ],
         "hiddenTests": [
             { "input": "978-0-345-39180-3", "expected": true },
@@ -1224,6 +1427,14 @@
             {
                 "example": "1A:2B-3C:4D:5E:7D",
                 "reason": "mixed separators"
+            },
+            {
+                "example": "A1:B2-C3:D4:E5:F6",
+                "reason": "mixed separators"
+            },
+            {
+                "example": "A:B2:C3:D4:E5:F6",
+                "reason": "one-digit group"
             }
         ],
         "publicTests": [
@@ -1253,7 +1464,9 @@
             { "input": "1A:2B:3C:4D:5E:7G", "expected": false },
             { "input": "1A:2B:3C-4D:5E:7D", "expected": false },
             { "input": "1A:2B:3C:4D:5E:7D:", "expected": false },
-            { "input": "1A:2B-3C:4D:5E:7D", "expected": false }
+            { "input": "1A:2B-3C:4D:5E:7D", "expected": false },
+            { "input": "A1:B2-C3:D4:E5:F6", "expected": false },
+            { "input": "A:B2:C3:D4:E5:F6", "expected": false }
         ],
         "hiddenTests": [
             { "input": "001A:2B:3C:4D:5E", "expected": false },
@@ -1289,7 +1502,8 @@
             "9999 8888 7777 6666",
             "1234 5678 1234 5678",
             "5555555555554444",
-            "0123-4567-8901-2345"
+            "0123-4567-8901-2345",
+            "1234-5673-1234-5678"
         ],
         "invalid_examples": [
             {
@@ -1347,6 +1561,58 @@
             {
                 "example": "12-34-56-78-90-12-34-56",
                 "reason": "eight groups of 2 digits each"
+            },
+            {
+                "example": "1234-5678 1234-5678",
+                "reason": "mixed separators"
+            },
+            {
+                "example": "123456781234567",
+                "reason": "only 15 digits"
+            },
+            {
+                "example": "1234 5678 1234 56789",
+                "reason": "extra digit at the end"
+            },
+            {
+                "example": "1111 2222 3333 44441",
+                "reason": "one group has 5 digits"
+            },
+            {
+                "example": "1234 5678 1234 56705",
+                "reason": "last group has 5 digits"
+            },
+            {
+                "example": "----111122223333",
+                "reason": "only separators, no digits"
+            },
+            {
+                "example": "12 34567812345678",
+                "reason": "two digits in the first group"
+            },
+            {
+                "example": "1234 5678 1234 5678 ",
+                "reason": "trailing whitespace"
+            },
+            {
+                "example": " 1234 5678 1234 5678",
+                "reason": "leading whitespace"
+            },
+            {
+                "example": "1234-5678-1234-5678-",
+                "reason": "trailing separator"
+            },
+            {
+                "example": "-1234-5678-1234-5678",
+                "reason": "leading separator"
+            },
+            {
+                "example": "1234 5678 1234 5678-",
+                "reason": "trailing separator"
+            },
+            {
+                "example": "-1234 5678 1234 5678",
+                "reason": "leading separator"
             }
         ],
         "publicTests": [
@@ -1360,6 +1626,8 @@
             { "input": "1234 5678 1234 5678", "expected": true },
             { "input": "5555555555554444", "expected": true },
             { "input": "0123-4567-8901-2345", "expected": true },
+            { "input": "0123-4567-8901-2345", "expected": true },
+            { "input": "1234-5673-1234-5678", "expected": true },
             { "input": "1234-567-1234-5678", "expected": false },
             { "input": "123456789012345", "expected": false },
             { "input": "12345678901234567", "expected": false },
@@ -1373,7 +1641,20 @@
             { "input": "---- ---- ---- ----", "expected": false },
             { "input": "1234--5678-1234-5678", "expected": false },
             { "input": "1234 5678 1234  5678", "expected": false },
-            { "input": "12-34-56-78-90-12-34-56", "expected": false }
+            { "input": "12-34-56-78-90-12-34-56", "expected": false },
+            { "input": "1234-5678 1234-5678", "expected": false },
+            { "input": "123456781234567", "expected": false },
+            { "input": "1234 5678 1234 56789", "expected": false },
+            { "input": "1111 2222 3333 44441", "expected": false },
+            { "input": "1234 5678 1234 56705", "expected": false },
+            { "input": "----111122223333", "expected": false },
+            { "input": "12 34567812345678", "expected": false },
+            { "input": "1234 5678 1234 5678 ", "expected": false },
+            { "input": " 1234 5678 1234 5678", "expected": false },
+            { "input": "1234-5678-1234-5678-", "expected": false },
+            { "input": "-1234-5678-1234-5678", "expected": false },
+            { "input": "1234 5678 1234 5678-", "expected": false },
+            { "input": "-1234 5678 1234 5678", "expected": false }
         ],
         "hiddenTests": [
             { "input": "1234 5678-1234-5678", "expected": false },
