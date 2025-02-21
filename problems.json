@@ -1682,5 +1682,265 @@
             { "input": "-1234 5678 1234 5678", "expected": false }
         ],
         "sampleAnswer": "(\\d{4}-){3}\\d{4}|(\\d{4}\\ ){3}\\d{4}|(\\d{4}){3}\\d{4}"
+    },
+    {
+        "id": 15,
+        "title": "Rocket Launch Codes",
+        "prompt": "Write a regular expression to validate Rocket Launch Codes. A valid code must follow these rules:<br /><br />1. The code must begin with `LAUNCH-` (uppercase).<br />2. Immediately after, you must have a 4-digit year ranging from 1970 to 2050 (inclusive).<br />3. After that, you must place a dash (`-`).<br />4. After the dash, you must have exactly 2 uppercase letters representing the rocket series (e.g., `AB`).<br />5. Then, you must have another dash (`-`).<br />6. Finally, you must include a flight number from 1 to 999. This flight number can have one to three digits (leading zeros are allowed, so `001` is acceptable).<br /><br />Do not allow any extra characters, spaces, or symbols beyond this exact format.",
+        "valid_examples": [
+            "LAUNCH-1970-AB-1",
+            "LAUNCH-2050-ZZ-999",
+            "LAUNCH-1999-RQ-10",
+            "LAUNCH-2000-XY-001",
+            "LAUNCH-2020-AA-123",
+            "LAUNCH-2049-BB-999",
+            "LAUNCH-1985-ZZ-050",
+            "LAUNCH-1971-AB-007",
+            "LAUNCH-2050-AB-001",
+            "LAUNCH-1970-RR-999"
+        ],
+        "invalid_examples": [
+            {
+                "example": "launch-1970-AB-1",
+                "reason": "missing uppercase in first word"
+            },
+            {
+                "example": "LAUNCH-1969-AB-100",
+                "reason": "year out of range"
+            },
+            {
+                "example": "LAUNCH-2051-AZ-10",
+                "reason": "year out of range"
+            },
+            {
+                "example": "LAUNCH-2000-ABC-10",
+                "reason": "3 letters instead of 2"
+            },
+            {
+                "example": "LAUNCH-2000-AB-1000",
+                "reason": "flight number out of range"
+            },
+            {
+                "example": "LAUNCH-2000-AB",
+                "reason": "missing final flight number"
+            },
+            {
+                "example": "LAUNCH-2000-AB-",
+                "reason": "final dash with no flight number"
+            },
+            {
+                "example": "LAUNCH-2010AB50",
+                "reason": "missing dashes"
+            },
+            {
+                "example": "LAUNCH-2010-AB-5x",
+                "reason": "extra invalid character"
+            },
+            {
+                "example": "LAUNCH2010AB50",
+                "reason": "missing multiple dashes"
+            },
+            {
+                "example": "LAUNCH-2010-AB-0003",
+                "reason": "4 digits at the end"
+            }
+        ],
+        "publicTests": [
+            { "input": "LAUNCH-1970-AB-1", "expected": true },
+            { "input": "LAUNCH-2050-ZZ-999", "expected": true },
+            { "input": "LAUNCH-1999-RQ-10", "expected": true },
+            { "input": "LAUNCH-2000-XY-001", "expected": true },
+            { "input": "LAUNCH-2020-AA-123", "expected": true },
+            { "input": "LAUNCH-2049-BB-999", "expected": true },
+            { "input": "LAUNCH-1985-ZZ-050", "expected": true },
+            { "input": "LAUNCH-1971-AB-007", "expected": true },
+            { "input": "LAUNCH-2050-AB-001", "expected": true },
+            { "input": "LAUNCH-1970-RR-999", "expected": true },
+            { "input": "launch-1970-AB-1", "expected": false },
+            { "input": "LAUNCH-1969-AB-100", "expected": false },
+            { "input": "LAUNCH-2051-AZ-10", "expected": false },
+            { "input": "LAUNCH-2000-ABC-10", "expected": false },
+            { "input": "LAUNCH-2000-AB-1000", "expected": false },
+            { "input": "LAUNCH-2000-AB", "expected": false },
+            { "input": "LAUNCH-2000-AB-", "expected": false },
+            { "input": "LAUNCH-2010AB50", "expected": false },
+            { "input": "LAUNCH-2010-AB-5x", "expected": false },
+            { "input": "LAUNCH2010AB50", "expected": false },
+            { "input": "LAUNCH-2010-AB-0003", "expected": false }
+        ],
+        "hiddenTests": [
+            { "input": "LAUNCH-1970-AB-1", "expected": true },
+            { "input": "LAUNCH-2050-ZZ-999", "expected": true },
+            { "input": "LAUNCH-2015-GG-010", "expected": true },
+            { "input": "LAUNCH-1970-AB-001", "expected": true },
+            { "input": "LAUNCH-2030-XY-999", "expected": true },
+            { "input": "LAUNCH-2000-ZZ-455", "expected": true },
+            { "input": "LAUNCH-2001-AB-12", "expected": true },
+            { "input": "LAUNCH-2019-ZZ-9990", "expected": false },
+            { "input": "LAUNCH-1969-AB-100", "expected": false },
+            { "input": "LAUNCH-2051-AA-50", "expected": false },
+            { "input": "LAUNCH-2200-XX-5", "expected": false },
+            { "input": "LAUNCH-2000-RA-1000", "expected": false },
+            { "input": "LAUNCH-2005-00-10", "expected": false },
+            { "input": "LAUNCH-1970-ABC-99", "expected": false },
+            { "input": "LAUNCH-2000-AB", "expected": false },
+            { "input": "LAUNCH-2000-AB-", "expected": false },
+            { "input": "launch-1970-AB-5", "expected": false },
+            { "input": "LAUNCH2020AB-505", "expected": false },
+            { "input": "LAUNCH-2020-AB-05x", "expected": false },
+            { "input": "LAUNCH-2020AB05", "expected": false },
+            { "input": "LAUNCH-1970-AB--50", "expected": false },
+            { "input": "LAUNCH-2000AB-100", "expected": false },
+            { "input": "NOPE-2000-AB-100", "expected": false },
+            { "input": "LAUNCH-1970-AB-0", "expected": false },
+            { "input": "LAUNCH-2051-ZZ-999", "expected": false }
+        ],
+        "sampleAnswer": "LAUNCH-(19[7-9]\\d|20[0-4]\\d|2050)-[A-Z]{2}-(0*[1-9]\\d{0,2})"
+    },
+    {
+        "id": 16,
+        "title": "GitHub Repositories",
+        "prompt": "Write a regular expression to validate a GitHub repository in the format 'username/repository' with the following constraints: The username must be 2 to 39 characters, consisting only of uppercase or lowercase letters, digits, or hyphens (`-`). It cannot start or end with a hyphen. The repository name must be 2 to 100 characters, consisting only of uppercase or lowercase letters, digits, underscores (`_`), or hyphens (`-`). It cannot start or end with a hyphen or underscore. Ensure that there are no additional characters before or after the required parts.",
+        "valid_examples": [
+            "myuser/myrepo",
+            "User-Name/Repo_Name",
+            "aa/bb",
+            "Z9/H_9",
+            "abc-123/abc_123",
+            "HelloWorld/Hello_World",
+            "XYZ/Abcdefghijklmnopqrstuvwyz1234567890",
+            "Ab-12/Git-Repo_1",
+            "zyx987/m_U",
+            "a1234567890123456789012345678901234567/b1234567890123456789012345678901234567",
+            "UserName/RepoNameWithHyphens-And_Underscores",
+            "abcde12345abcde12345abcde12345abcde1234/repo",
+            "AAAAAA/BBBBBB",
+            "longusername-reallylong-butvalid/Valid_Repo-Name",
+            "USER123/RepoName", 
+            "john-doe/this_repo_is_100_chars_longxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        ],
+        "invalid_examples": [
+            { "example": "myuser", "reason": "No slash" },
+            { "example": "/myrepo", "reason": "Missing username" },
+            { "example": "MyUser-/Repo", "reason": "Username ends with hyphen" },
+            { "example": "myuser/my_repo_", "reason": "Repo ends with underscore" },
+            { "example": "myuser/_myrepo", "reason": "Repo starts with underscore" },
+            { "example": "-myuser/repo", "reason": "Username starts with hyphen" },
+            { "example": "myuser/my?repo", "reason": "Invalid character ?" },
+            { "example": "myUser!/repo", "reason": "Invalid character !" },
+            { "example": "abcde12345abcde12345abcde12345abcde12345/myrepo", "reason": "Username too long" },
+            { "example": "myuser/myrepo_", "reason": "Repo ends with underscore" },
+            { "example": "myuser/--Repo", "reason": "Repo starts with multiple hyphens" },
+            { "example": "myuser/Repo--", "reason": "Repo ends with multiple hyphens" },
+            { "example": "my-user/repo__", "reason": "Repo ends with multiple underscores" },
+            { "example": "my_user/_repo", "reason": "Repo starts with underscore" },
+            { "example": "my-user/repo?", "reason": "Invalid character ?" },
+            { "example": "my-user/repo name", "reason": "Space not allowed" },
+            {
+            "example": "somebody12345/this_repo_is_101_chars_longxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "reason": "Repo too long"
+            },
+            { "example": "myusername/---invalid", "reason": "Repo starts with multiple hyphens" },
+            { "example": "myusername/___invalid", "reason": "Repo starts with underscores" },
+            { "example": "myusername/inv@alid", "reason": "Invalid character @" },
+            { "example": "username/invalid(repos)", "reason": "Invalid character (" },
+            { "example": "UPPERCASE-/InvalidRepoName", "reason": "Username ends with hyphen" },
+            { "example": "Lowercase/InvalidRepoName-", "reason": "Repo ends with hyphen" },
+            { "example": "a/b", "reason": "Username and repo name too small" },
+            { "example": "aa/b", "reason": "Repo name too small" },
+            { "example": "a/bb", "reason": "Username name too small" }
+        ],
+        "publicTests": [
+            { "input": "myuser/myrepo", "expected": true },
+            { "input": "User-Name/Repo_Name", "expected": true },
+            { "input": "aa/bb", "expected": true },
+            { "input": "Z9/H_9", "expected": true },
+            { "input": "abc-123/abc_123", "expected": true },
+            { "input": "HelloWorld/Hello_World", "expected": true },
+            { "input": "XYZ/Abcdefghijklmnopqrstuvwyz1234567890", "expected": true },
+            { "input": "Ab-12/Git-Repo_1", "expected": true },
+            { "input": "zyx987/m_U", "expected": true },
+            { "input": "a1234567890123456789012345678901234567/b1234567890123456789012345678901234567", "expected": true },
+            { "input": "UserName/RepoNameWithHyphens-And_Underscores", "expected": true },
+            { "input": "abcde12345abcde12345abcde12345abcde1234/repo", "expected": true },
+            { "input": "AAAAAA/BBBBBB", "expected": true },
+            { "input": "longusername-reallylong-butvalid/Valid_Repo-Name", "expected": true },
+            { "input": "USER123/RepoName", "expected": true },
+            { "input": "john-doe/this_repo_is_100_chars_longxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "expected": true },
+            { "input": "myuser", "expected": false },
+            { "input": "/myrepo", "expected": false },
+            { "input": "MyUser-/Repo", "expected": false },
+            { "input": "myuser/my_repo_", "expected": false },
+            { "input": "myuser/_myrepo", "expected": false },
+            { "input": "-myuser/repo", "expected": false },
+            { "input": "myuser/my?repo", "expected": false },
+            { "input": "myUser!/repo", "expected": false },
+            { "input": "abcde12345abcde12345abcde12345abcde12345/myrepo", "expected": false },
+            { "input": "myuser/myrepo_", "expected": false },
+            { "input": "myuser/--Repo", "expected": false },
+            { "input": "myuser/Repo--", "expected": false },
+            { "input": "my-user/repo__", "expected": false },
+            { "input": "my_user/_repo", "expected": false },
+            { "input": "my-user/repo?", "expected": false },
+            { "input": "my-user/repo name", "expected": false },
+            {
+            "input": "somebody12345/this_repo_is_101_chars_longxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "expected": false
+            },
+            { "input": "myusername/---invalid", "expected": false },
+            { "input": "myusername/___invalid", "expected": false },
+            { "input": "myusername/inv@alid", "expected": false },
+            { "input": "longusername-reallylong-butvalid/Valid_Repo-Name", "expected": true },
+            { "input": "username/invalid(repos)", "expected": false },
+            { "input": "USER123/RepoName", "expected": true },
+            { "input": "EndHyphen-/repo", "expected": false },
+            { "input": "UPPERCASE-/InvalidRepoName", "expected": false },
+            { "input": "Lowercase/InvalidRepoName-", "expected": false },
+            { "input": "a/b", "expected": false },
+            { "input": "aa/b", "expected": false },
+            { "input": "a/bb", "expected": false }
+        ],
+        "hiddenTests": [
+            { "input": "user/repo", "expected": true },
+            { "input": "uu/rr", "expected": true },
+            { "input": "u/rr", "expected": false },
+            { "input": "uu/r", "expected": false },
+            { "input": "abcDEF123/abcDEF123", "expected": true },
+            { "input": "my-user-name/super-duper_123", "expected": true },
+            { "input": "userName9/validRepo999", "expected": true },
+            { "input": "9username/validrepo", "expected": true },
+            { "input": "username-/repo", "expected": false },
+            { "input": "userName/invalid_repo_", "expected": false },
+            { "input": "UserName/Invalid_RepoName?", "expected": false },
+            { "input": "john/do", "expected": true },
+            { "input": "john/do2-", "expected": false },
+            { "input": "my-hyphened-user-/my-repo", "expected": false },
+            {
+            "input": "a/-----------------------------------------------------------------------------------",
+            "expected": false
+            },
+            {
+            "input": "not-hyphen-lol/--------------------------------------------------------------------------",
+            "expected": false
+            },
+            { "input": "validuser/hyphens_in-_the-middle", "expected": true },
+            { "input": "validuser/_underscored", "expected": false },
+            { "input": "validuser/repo_", "expected": false },
+            { "input": "username/re_po", "expected": true },
+            { "input": "username/rep-o", "expected": true },
+            { "input": "username/___", "expected": false },
+            { "input": "validuser/rr", "expected": true },
+            { "input": "ValidUser-Good/Repo", "expected": true },
+            { "input": "Invalid@username/repo", "expected": false },
+            {
+            "input": "ThisUsernameIsWayTooLongBecauseItExceedsTheMaximumOf39Characters/Repo",
+            "expected": false
+            },
+            {
+            "input": "abc/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "expected": false
+            }
+        ],
+        "sampleAnswer": "[A-Za-z0-9][A-Za-z0-9-]{0,37}[A-Za-z0-9]/[A-Za-z0-9][A-Za-z0-9_-]{0,98}[A-Za-z0-9]"
     }
 ]
