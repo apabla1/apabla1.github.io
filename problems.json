@@ -1151,6 +1151,10 @@
             { 
                 "example": "http://example.com:000",
                 "reason": "Port number zero-padded"
+            },
+            {
+                "example": "http://blog.exampleccom",
+                "reason": "Missing period in domain"
             }
         ],
         "publicTests": [
@@ -1193,7 +1197,8 @@
             { "input": "ftp://example.com//path", "expected": false },
             { "input": "http://example.com:0000", "expected": false },
             { "input": "http://example.com:99999", "expected": false },
-            { "input": "http://example.com:000", "expected": false }
+            { "input": "http://example.com:000", "expected": false },
+            { "input": "http://blog.exampleccom", "expected": false}
         ],
         "hiddenTests": [
             { "input": "https://subdomain.example.net/path#details", "expected": true },
