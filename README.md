@@ -15,5 +15,5 @@ Go to [https://apabla1.github.io/](https://apabla1.github.io/)
 3. Click check answer button to see test cases, or see the example solution
 
 ## Contact
-Questions, Errors, or Feedback: apabla@terpmail.umd.edu
+Questions, Errors, or Feedback: apabla@umd.edu
 (Please try and look for non-exhaustive test cases!)
