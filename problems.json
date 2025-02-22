@@ -1042,8 +1042,9 @@
     {
         "id": 11,
         "title": "URL",
-        "prompt": "Write a regular expression to validate a URL. A valid URL follows these rules:<br /><br />1. The protocol must be one of the following: `http`, `https`, or `ftp`.<br />2. The protocol is followed by `://`.<br />3. The domain name consists of:<br />&nbsp&nbsp&nbsp&nbsp- One or more subdomains separated by periods. Each subdomain must start with an alphanumeric character and may include hyphens.<br />&nbsp&nbsp&nbsp&nbsp- A top-level domain (TLD) that is either `.com`, `.org`, `.net`, `.io`, or `.gov`.<br />4. The URL may optionally include a port number after the domain, starting with a colon `:` and followed by a non-zero-padded number from 0 to 65535.<br />5. The URL may optionally include a path, which starts with `/` and may contain alphanumeric characters, hyphens, underscores, or periods. The path may also include additional `/` to represent directories.<br />6. Query strings (starting with `?`) and fragments (starting with `#`) are optional. Both may contain alphanumeric characters and the symbols `&`, `=`, `_`, and `-`.",
+        "prompt": "Write a regular expression to validate a URL. A valid URL follows these rules:<br /><br />1. The protocol must be one of the following: `http`, `https`, or `ftp`.<br />2. The protocol is followed by `://`.<br />3. The domain name consists of:<br />&nbsp&nbsp&nbsp&nbsp- One or more subdomains separated by periods. Each subdomain must start with an alphanumeric character and may include hyphens.<br />&nbsp&nbsp&nbsp&nbsp- A top-level domain (TLD) that is either `.com`, `.org`, `.net`, `.io`, or `.gov`.<br />4. The URL may optionally include a port number after the domain, starting with a colon `:` and followed by a non-zero-padded number from 0 to 65535.<br />5. The URL may optionally include a path, which starts with `/` and may contain alphanumeric characters, hyphens, underscores, or periods. The path may also include additional `/` to represent directories.<br />6. Query strings (starting with `?`) and fragments (starting with `#`) are optional. Both may contain alphanumeric characters and the symbols `&`, `=`, `_`, and `-`. You may include both, but the query string must go first, and you may only have one of either if included.",
         "valid_examples": [
+            "https://example.net/path/to/page?query=1&sort=asc#frag",
             "http://example.com",
             "https://www.example.com",
             "ftp://sub.domain.io",
@@ -1153,6 +1154,7 @@
             }
         ],
         "publicTests": [
+            { "input": "https://example.net/path/to/page?query=1&sort=asc#frag", "expected": true},
             { "input": "http://example.com", "expected": true },
             { "input": "https://www.example.com", "expected": true },
             { "input": "ftp://sub.domain.io", "expected": true },
