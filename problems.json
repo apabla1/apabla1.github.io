@@ -841,7 +841,11 @@
             "59 23 31 12 6 ~/myScript",
             "15 * * * * ~/myScript",
             "* 12 * * 0 ~/myScript",
-            "5 4 10 11 2 ~/myScript"
+            "5 4 10 11 2 ~/myScript",
+            "0 0 1 1 0 ~/myScript",
+            "10 5 20 12 2 ~/myScript",
+            "59 * * * 0 ~/myScript",
+            "* * * * * ~/myScript"
         ],
         "invalid_examples": [
             {
@@ -893,9 +897,13 @@
             { "input": "0 0 * * * ~/myScript", "expected": true },
             { "input": "59 23 31 12 6 ~/myScript", "expected": true },
             { "input": "15 * * * * ~/myScript", "expected": true },
-            { "input": "30 14 15 6 3 ~/deployScript.sh", "expected": false },
             { "input": "* 12 * * 0 ~/myScript", "expected": true },
             { "input": "5 4 10 11 2 ~/myScript", "expected": true },
+            { "input": "0 0 1 1 0 ~/myScript", "expected": true },
+            { "input": "10 5 20 12 2 ~/myScript", "expected": true },
+            { "input": "59 * * * 0 ~/myScript", "expected": true },
+            { "input": "* * * * * ~/myScript", "expected": true},
+            { "input": "30 14 15 6 3 ~/deployScript.sh", "expected": false },
             { "input": "10 3 15 7 2 ~/execute.sh", "expected": false },
             { "input": "15 * * * * ~/myScript.sh", "expected": false },
             { "input": "60 0 1 1 0 ~/myScript", "expected": false },
