@@ -1695,6 +1695,8 @@
         "title": "Rocket Launch Codes",
         "prompt": "Write a regular expression to validate Rocket Launch Codes. A valid code must follow these rules:<br /><br />1. The code must begin with `LAUNCH-` (uppercase).<br />2. Immediately after, you must have a 4-digit year ranging from 1970 to 2050 (inclusive).<br />3. After that, you must place a dash (`-`).<br />4. After the dash, you must have exactly 2 uppercase letters representing the rocket series (e.g., `AB`).<br />5. Then, you must have another dash (`-`).<br />6. Finally, you must include a flight number from 1 to 999. This flight number can have one to three digits (leading zeros are allowed, so `001` is acceptable).<br /><br />Do not allow any extra characters, spaces, or symbols beyond this exact format.",
         "valid_examples": [
+            "LAUNCH-2050-AB-005",
+            "LAUNCH-2050-AB-055",
             "LAUNCH-1970-AB-1",
             "LAUNCH-2050-ZZ-999",
             "LAUNCH-1999-RQ-10",
@@ -1750,9 +1752,19 @@
             {
                 "example": "LAUNCH-2010-AB-0003",
                 "reason": "4 digits at the end"
+            },
+            {
+                "example": "LAUNCH-2010-AB-000",
+                "reason": "000 not a valid number"
+            },
+            {
+                "example": "LAUNCH-2010-AB-0",
+                "reason": "0 not a valid number"
             }
         ],
         "publicTests": [
+            { "input": "LAUNCH-2050-AB-005", "expected": true },
+            { "input": "LAUNCH-2050-AB-055", "expected": true },
             { "input": "LAUNCH-1970-AB-1", "expected": true },
             { "input": "LAUNCH-2050-ZZ-999", "expected": true },
             { "input": "LAUNCH-1999-RQ-10", "expected": true },
@@ -1773,7 +1785,9 @@
             { "input": "LAUNCH-2010AB50", "expected": false },
             { "input": "LAUNCH-2010-AB-5x", "expected": false },
             { "input": "LAUNCH2010AB50", "expected": false },
-            { "input": "LAUNCH-2010-AB-0003", "expected": false }
+            { "input": "LAUNCH-2010-AB-0003", "expected": false },
+            { "input": "LAUNCH-2010-AB-000", "expected": false },
+            { "input": "LAUNCH-2010-AB-0", "expected": false }
         ],
         "hiddenTests": [
             { "input": "LAUNCH-2015-GG-010", "expected": true },
@@ -1799,10 +1813,10 @@
             { "input": "LAUNCH-1970-AB--50", "expected": false },
             { "input": "LAUNCH-2000AB-100", "expected": false },
             { "input": "NOPE-2000-AB-100", "expected": false },
-            { "input": "LAUNCH-1970-AB-0", "expected": true },
+            { "input": "LAUNCH-1970-AB-00", "expected": false },
             { "input": "LAUNCH-2051-ZZ-999", "expected": false }
         ],
-        "sampleAnswer": "LAUNCH-(19[7-9]\\d|20[0-4]\\d|2050)-[A-Z]{2}-[0-9]{1,3}"
+        "sampleAnswer": "LAUNCH-(19[7-9]\\d|20[0-4]\\d|2050)-[A-Z]{2}-([0-9]{0,2}[1-9]|[1-9][0-9]{0,2}|0[1-9]0)"
     },
     {
         "id": 16,
