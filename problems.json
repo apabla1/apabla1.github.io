@@ -782,6 +782,22 @@
             {
                 "example": "12:59a.m.",
                 "reason": "missing space"
+            },
+            {
+                "example": "12:59 a*m.",
+                "reason": "a.m. wrong"
+            },
+            {
+                "example": "12:59 a.m*",
+                "reason": "a.m. wrong"
+            },
+            {
+                "example": "12:59 p*m.",
+                "reason": "p.m. wrong"
+            },
+            {
+                "example": "12:59 p.m*",
+                "reason": "p.m. wrong"
             }
         ],
         "publicTests": [
@@ -806,7 +822,11 @@
             { "input": "24:01", "expected": false },
             { "input": "11:61 p.m.", "expected": false },
             { "input": "23:60", "expected": false },
-            { "input": "12:59a.m.", "expected": false }
+            { "input": "12:59a.m.", "expected": false },
+            { "input": "12:59 a*m.", "expected": false },
+            { "input": "12:59 a.m*", "expected": false },
+            { "input": "12:59 p*m.", "expected": false },
+            { "input": "12:59 p.m*", "expected": false }
         ],
         "hiddenTests": [
             { "input": "09:09 a.m.", "expected": true },
@@ -828,7 +848,11 @@
             { "input": "11:59", "expected": true },
             { "input": "01:00 AM", "expected": false },
             { "input": "1:00 a.m.", "expected": false },
-            { "input": "00:00 am", "expected": false }
+            { "input": "00:00 am", "expected": false },
+            { "input": "12:59 p.ma", "expected": false },
+            { "input": "12:59 pbm*", "expected": false },
+            { "input": "12:59 a.md", "expected": false },
+            { "input": "12:59 ahm", "expected": false }
         ],
         "sampleAnswer": "(([0-1][0-9]|2[0-3]):[0-5][0-9])|((0[1-9]|1[012]):[0-5][0-9] (a\\.m\\.|p\\.m\\.))"
     }, 
