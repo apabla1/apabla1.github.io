@@ -1021,6 +1021,10 @@
             {
                 "example": "sed s/abc def/g ~/file.txt",
                 "reason": "replacement contains space"
+            },
+            {
+                "example": "des s/123/abc/g ~/Numbers.txt",
+                "reason": "doesn't say sed"
             }
         ],
         "publicTests": [
@@ -1045,7 +1049,8 @@
             { "input": "sed /removeLine/d ~/dir/Sample1.txt", "expected": false },
             { "input": "sed /deletePattern/d ~/file.txt/", "expected": false },
             { "input": "sed s//replacement/g ~/NoRegexp.txt", "expected": false },
-            { "input": "sed s/abc def/g ~/file.txt", "expected": false }
+            { "input": "sed s/abc def/g ~/file.txt", "expected": false },
+            { "input": "des s/123/abc/g ~/Numbers.txt", "expected": false }
         ],
         "hiddenTests": [
             { "input": "sed s/one/two/g ~/Convert.txt", "expected": true },
@@ -1067,7 +1072,10 @@
             { "input": "sed /def/d", "expected": false },
             { "input": "sed /removeLine/d ~/Sample1.tx", "expected": false },
             { "input": "sed s/lower/UPPER/g ~/CaseTest.txt", "expected": true },
-            { "input": "sed s//replacement/g ~/NoRegexp.txt", "expected": false }
+            { "input": "sed s//replacement/g ~/NoRegexp.txt", "expected": false },
+            { "input": "*ed s/123/abc/g ~/Numbers.txt", "expected": false },
+            { "input": "s*d s/123/abc/g ~/Numbers.txt", "expected": false },
+            { "input": "se* s/123/abc/g ~/Numbers.txt", "expected": false }
         ],
         "sampleAnswer": "sed (\\/.+\\/d|s\\/[^\\s\\/]+\\/[a-zA-Z0-9]+(\\/g)?) ~\\/[a-zA-Z][a-zA-Z0-9]*\\.txt"
     },
