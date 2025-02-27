@@ -364,6 +364,10 @@
             {
                 "example": "192.abc.1.1",
                 "reason": "invalid character"
+            },
+            {
+                "example": "255*255.255.255",
+                "reason": "not separated by period"
             }
         ],
         "publicTests": [
@@ -381,7 +385,8 @@
             { "input": "999.888.777.666", "expected": false },
             { "input": "255.s55.255.255", "expected": false },
             { "input": "0001.001.010.255", "expected": false },
-            { "input": "192.abc.1.1", "expected": false }
+            { "input": "192.abc.1.1", "expected": false },
+            { "input": "255*255.255.255", "expected": false }
         ],
         "hiddenTests": [
             { "input": "1.1.1.1", "expected": true },
@@ -393,7 +398,10 @@
             { "input": "192.168.1.1", "expected": true },
             { "input": "10.10.10.10", "expected": true },
             { "input": "255.255.255.255", "expected": true },
-            { "input": "256.0.0.1", "expected": false }
+            { "input": "256.0.0.1", "expected": false },
+            { "input": "2553255.255.255", "expected": false },
+            { "input": "255.255*255.255", "expected": false },
+            { "input": "255.255.255-255", "expected": false }
         ],
         "sampleAnswer": "((25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d?\\d)"
     },
