@@ -1826,8 +1826,7 @@
             { "input": "LAUNCH-2010-AB-5x", "expected": false },
             { "input": "LAUNCH2010AB50", "expected": false },
             { "input": "LAUNCH-2010-AB-0003", "expected": false },
-            { "input": "LAUNCH-2010-AB-000", "expected": false },
-            { "input": "LAUNCH-2010-AB-0", "expected": false }
+            { "input": "LAUNCH-2010-AB-000", "expected": false }
         ],
         "hiddenTests": [
             { "input": "LAUNCH-2015-GG-010", "expected": true },
@@ -1854,7 +1853,15 @@
             { "input": "LAUNCH-2000AB-100", "expected": false },
             { "input": "NOPE-2000-AB-100", "expected": false },
             { "input": "LAUNCH-1970-AB-00", "expected": false },
-            { "input": "LAUNCH-2051-ZZ-999", "expected": false }
+            { "input": "LAUNCH-2051-ZZ-999", "expected": false },
+            { "input": "LAUNCH-2010-AB-0", "expected": false },
+            { "input": "*AUNCH-1970-RR-999", "expected": false },
+            { "input": "L*UNCH-1970-RR-999", "expected": false },
+            { "input": "LA*NCH-1970-RR-999", "expected": false },
+            { "input": "LAU*CH-1970-RR-999", "expected": false },
+            { "input": "LAUN*H-1970-RR-999", "expected": false },
+            { "input": "LAUNC*-1970-RR-999", "expected": false },
+            { "input": "LAUNCHH-1970-RR-999", "expected": false }
         ],
         "sampleAnswer": "LAUNCH-(19[7-9]\\d|20[0-4]\\d|2050)-[A-Z]{2}-([0-9]{0,2}[1-9]|[1-9][0-9]{0,2}|0[1-9]0)"
     },
