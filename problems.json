@@ -12,7 +12,10 @@
             "330@umd.edu",
             "__a@gmail.com",
             "a_b@gmail.com",
-            "USER@DOMAIN.com"
+            "USER@DOMAIN.com",
+            "a@gmail.com",
+            "gmail@x.com",
+            "a@x.com"
         ],
         "invalid_examples": [
             {
@@ -86,6 +89,18 @@
             {
                 "example": "USERNAME@DOMAIN.COM",
                 "reason": "uppercase letters in TLD"
+            },
+            {
+                "example": "_@gmail.com",
+                "reason": "underscore before @"
+            },
+            {
+                "example": "a@..com",
+                "reason": "dot before .com"
+            },
+            {
+                "example": ".@x.com",
+                "reason": "dot before @"
             }
         ],
         "publicTests": [
@@ -97,6 +112,9 @@
             { "input": "330@umd.edu", "expected": true },
             { "input": "__a@gmail.com", "expected": true },
             { "input": "a_b@gmail.com", "expected": true },
+            { "input": "a@gmail.com", "expected": true },
+            { "input": "gmail@x.com", "expected": true },
+            { "input": "a@x.com", "expected": true },
             { "input": "USER@DOMAIN.com", "expected": true },
             { "input": "user@domainccom", "expected": false },
             { "input": "user@domaincco", "expected": false },
@@ -115,7 +133,10 @@
             { "input": "user@domain..com", "expected": false },
             { "input": "abc_@domain.com", "expected": false },
             { "input": "abc.@domain.com", "expected": false },
-            { "input": "USER@DOMAIN.COM", "expected": false }
+            { "input": "USER@DOMAIN.COM", "expected": false },
+            { "input": "_@gmail.com", "expected": false },
+            { "input": "a@..com", "expected": false },
+            { "input": ".@x.com", "expected": false }
         ],
         "hiddenTests": [
             { "input": "id@terpmail#umd#edu", "expected": false },
@@ -132,9 +153,10 @@
             { "input": "user@domain.com", "expected": true },
             { "input": "user@domain.co", "expected": true },
             { "input": "user@domain.edu", "expected": true },
-            { "input": "user@domain.com", "expected": true }
+            { "input": "user@domain.com", "expected": true },
+            { "input": "a_@x.com", "expected": false }
         ],
-        "sampleAnswer": "([a-zA-Z0-9\\._])+[a-zA-Z0-9]@([a-zA-Z0-9\\.])+[a-zA-Z0-9]\\.(com|co|edu)"
+        "sampleAnswer": "([a-zA-Z0-9\\._])*[a-zA-Z0-9]@([a-zA-Z0-9\\.])*[a-zA-Z0-9]\\.(com|co|edu)"
     },
     {
         "id": 2,
