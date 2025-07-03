@@ -6,7 +6,7 @@ The user will write a regular expression given a string set description.
 
 ## Improvements
 - Highlighting matching parenthesis whilst typing the regular expression
-- Working to seed problem constraints
+- ***Regex -> NFA; NFA -> DFA; DFA minimization** algorithm to detect language equivalence
 
 ## Usage
 Go to [https://apabla1.github.io/](https://apabla1.github.io/)
