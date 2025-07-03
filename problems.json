@@ -1661,7 +1661,7 @@
             },
             {
                 "example": "----111122223333",
-                "reason": "only separators, no digits"
+                "reason": "misplaced separators and digits"
             },
             {
                 "example": "12 34567812345678",
